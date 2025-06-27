@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Map from "./component/Map";
+import { Dashboard } from "./component/DashBoard";
 // import Map from "./component/Map";
 
 export default function Home() {
@@ -7,6 +8,8 @@ export default function Home() {
   
     <div>
       {/* <Map/> */}
+
+      <Dashboard/>
   
 
       

@@ -4,15 +4,16 @@ import Warehouse from "../assets/warehouse2.png"
 import Icon from "../assets/cube.png"
 import { Header } from '../component/Header'
 import { Middle } from '../component/Middle'
+import { ConsignMentInfo } from '../component/ConsignmentInfo'
+import { Vehicles } from '../component/Vehicles'
 const page = () => {
  
 
 
   return (
-    <div className=' bg-gray-800 h-full'>
-   
-       <Header/>
-       <Middle/>
+    <div className='h-full'>
+
+      <Vehicles/>
     </div>
   )
 }

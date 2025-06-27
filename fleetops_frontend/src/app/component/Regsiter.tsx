@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { FcGoogle } from "react-icons/fc"
 export const Regsiter = () => {
     return (
         <div className='flex flex-col h-full w-full mt-6'>
@@ -54,6 +54,17 @@ export const Regsiter = () => {
                     </div>
 
                 </form>
+
+                <div className='mt-6'>
+
+              
+
+              <button className='p-3 border-2 px-10 cursor-pointer flex flex-row gap-2 items-center font-bold text-lg
+              '>
+                
+                
+                <FcGoogle className='text-3xl' />Google</button>
+                  </div>
             </section>
         </div>
     )

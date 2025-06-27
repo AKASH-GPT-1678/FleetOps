@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Regsiter } from '../component/Regsiter'
+import { Login } from '../component/Login'
 
 const page = () => {
   return (
@@ -11,7 +12,8 @@ const page = () => {
           
           </div>
           <div className='w-1/2  flex-col p-4 mt-20 '>
-          <Regsiter/>
+          {/* <Regsiter/> */}
+          <Login/>
           
           </div>
         </div>

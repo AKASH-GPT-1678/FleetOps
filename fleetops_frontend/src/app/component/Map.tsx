@@ -39,7 +39,7 @@ export default function Map() {
     <div
       id="map" 
       ref={mapRef}
-      style={{ width: '100%', height: '500px' }}
+      style={{ width: '100%', height: '100%' }}
     />
   );
 }
