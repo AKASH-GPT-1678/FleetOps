@@ -1,10 +1,19 @@
+import axios from "axios";
 interface MapProps {
   first: string;
   second: string;
 }
 
+const lat = 24.507740314377397;
+const lng = 72.01867337513242; 
+//24.507740314377397, 72.01867337513242
 async function initMap(): Promise<void> {
-  // Load marker library
+ 
+ 
+  const response = await axios.get('http://localhost:5000/api/location');
+  //https://phonepe-clone.onrender.com/api/location
+  console.log(response.data); // The actual data
+
   //@ts-ignore
   const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
 
@@ -16,32 +25,21 @@ async function initMap(): Promise<void> {
     mapId: "8acf14138eca2cd1325a646d"
   });
 
-  // Custom image marker
-  // const beachFlagImg = document.createElement('img');
-  // beachFlagImg.src = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-  // beachFlagImg.style.width = '40px';
-  // beachFlagImg.style.height = '40px';
- 
 
   //@ts-ignore
-  // new google.maps.Marker({
-  //   map,
-  //   position: { lat: 22.7196, lng: 75.8577 },
-  //   title : "Jaisalmer",
-  // })
-
   const markerMap = new google.maps.Marker({
-    position :{ lat: 22.7196, lng: 75.8577 },
+    position : { lat: 22.71957, lng: 75.85773 },
     map:map,
     title : "Jaisalmer",
+    
   });
 
 const beachFlagImg = document.createElement('img');
-beachFlagImg.src = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+beachFlagImg.src = 'https://res.cloudinary.com/dffepahvl/image/upload/v1750972429/zy9za9w2aa1zqmpxm4cw.png';
 
 const beachFlagMarkerView = new AdvancedMarkerElement({
     map : map,
-    position: { lat: 28.6139, lng: 77.2090 },
+    position: response.data,
     content: beachFlagImg,
     title: 'A marker using a custom PNG Image',
 });

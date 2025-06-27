@@ -10,6 +10,8 @@ interface MapProps {
 }
 
 export default function Map() {
+  
+ 
   const mapRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
