@@ -1,10 +1,12 @@
+"use client";
 import React from 'react'
-import { FcGoogle } from "react-icons/fc"
+import { FcGoogle } from "react-icons/fc";
+import { useForm } from 'react-hook-form';
 export const Regsiter = () => {
     return (
         <div className='flex flex-col h-full w-full mt-6'>
             <h1 className='text-3xl font-extrabold mb-6'>Create an Account</h1>
-            <p>Already have an account ? <a href="/testing"> Log In</a></p>
+            <p>Already have an account ? <a href="/login"> Log In</a></p>
 
 
 

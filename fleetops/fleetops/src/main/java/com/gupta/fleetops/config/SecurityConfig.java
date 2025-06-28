@@ -42,10 +42,10 @@ public class SecurityConfig {
      httpSecurity
              .csrf(csrf -> csrf.disable())
              .authorizeHttpRequests(auth -> auth
-                     .requestMatchers("/auth/login","/auth/upload", "/","/kafka/**","/auth/adduser","/auth/login","/blogs/create","/seller/create","/auth/register", "/auth/welcome").permitAll()
+                     .requestMatchers("/auth/login", "/api/**","/auth/upload", "/","/kafka/**","/auth/adduser","/auth/login","/blogs/create","/seller/create","/auth/register", "/auth/welcome").permitAll()
 
                      // Role-based endpoints
-                     .requestMatchers("/auth/user/**").hasAuthority("ROLE_USER")
+                     .requestMatchers("/auth/user/**").hasAuthority("ROLE_DRIVER")
                      .requestMatchers("/auth/admin/**").hasAuthority("ROLE_ADMIN")
 
 

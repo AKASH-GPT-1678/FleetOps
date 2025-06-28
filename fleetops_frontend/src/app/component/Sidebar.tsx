@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { LiaBackwardSolid } from "react-icons/lia";
 export const Sidebar = () => {
     return (
-        <div className='w-[300px] h-screen border-2'>
+        <div className='w-[250px] h-screen border-2'>
             <div className='flex flex-row gap-4 p-3 items-center justify-between'>
                 <div className='flex flex-row gap-2 p-3 items-center'>
                     <Image src={Icon} alt="logo" className='h-[50px] w-[50px] cursor-pointer' />
@@ -26,27 +26,27 @@ export const Sidebar = () => {
 
                     <div></div>
 
-                    <div className='space-y-1 p-3'>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Dashboard</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Tracker</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Inbox</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Reports</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Invoice</p>
-                    </div>
+                      <div className='space-y-1 p-3'>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Dashboard</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Tracker</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Inbox</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Reports</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Invoice</p>
+</div>
 
-                    <div className='mt-6 space-y-1 p-2'>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Drivers</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Vehicles</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Support</p>
+<div className='mt-6 space-y-1 p-2'>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Drivers</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Vehicles</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Support</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Terms of Service</p>
+  <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Privacy Policy</p>
+</div>
 
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Terms of Service</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500'>Privacy Policy</p>
-                    </div>
+<div className='space-y-1 mt-30 p-2'>
+  <p className='p-2.5 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Settings</p>
+  <p className='p-2.5 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Log Out</p>
+</div>
 
-                    <div className='space-y-1 mt-30 p-2'>
-                        <p className='p-2.5 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-semibold'>Settings</p>
-                        <p className='p-2.5 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-semibold'>Log Out</p>
-                    </div>
                 </div>
 
 

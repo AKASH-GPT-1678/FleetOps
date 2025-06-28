@@ -8,6 +8,10 @@ import Map from "./Map";
 import { ConsignMentInfo } from "./ConsignmentInfo";
 import { Sidebar } from "./Sidebar";
 import { Vehicles } from "./Vehicles";
+import { Drivers } from "./Drivers";
+import { ChatPage } from "./ChatPage";
+import { Dashboard2 } from "./Dashboard2";
+import { Company } from "./Company";
 export function Dashboard() {
 
     useEffect(() => {
@@ -27,8 +31,10 @@ export function Dashboard() {
 
        
             
-            <div className="w-full">
-                     <Vehicles/>
+            <div className="w-full flex flex-row">
+                     {/* <Vehicles/> */}
+                   <Dashboard2/>
+                   <Company/>
 
             </div>
         </div>

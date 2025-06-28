@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Regsiter } from '../component/Regsiter'
 import { Login } from '../component/Login'
 
-const page = () => {
+const Loginn = () => {
   return (
      <div className='h-screen flex items-center justify-center'>
         <div className='xl:h-[800px] xl:w-[800px] lg:w-[650px] lg:h-[650px] w-[400px] h-[400px]  flex flex-row p-2 rounded-2xl shadow-2xl shadow-teal-900 ----'>
@@ -22,6 +22,6 @@ const page = () => {
   )
 }
 
-export default page
+export default Loginn
 
 //bg-[url("https://res.cloudinary.com/dffepahvl/image/upload/v1751009225/r0lxzjpiemrkrwrcakbq.png")
