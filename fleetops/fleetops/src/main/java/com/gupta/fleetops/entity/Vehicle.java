@@ -20,8 +20,8 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String vehicleNumber;       // Unique identifier (e.g. MH12AB1234)
-    private String type;                // E.g. "Car", "Truck", "Big Truck"
+    private String vehicleNumber;
+    private String type;
     private String model;               // E.g. "Tata Ace", "Mahindra Bolero"
     private String manufacturer;        // E.g. "Tata Motors", "Ashok Leyland"
     private int capacityInKg;           // How much weight it can carry
@@ -33,6 +33,14 @@ public class Vehicle {
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
+
+
+    @OneToOne(mappedBy = "vehicle", cascade = CascadeType.ALL)
+    private Delivery delivery;
+
+
+
+
 
 
 

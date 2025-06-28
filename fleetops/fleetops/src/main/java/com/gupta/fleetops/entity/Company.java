@@ -40,6 +40,12 @@ public class Company {
 
     @OneToMany(mappedBy = "company",  cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Vehicle> vehicles = new ArrayList<>();
+    @OneToMany(mappedBy = "company",  cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<Driver> drivers = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL , orphanRemoval = true)
+    private List<Delivery> deliveries = new ArrayList<>();
 
 
 }

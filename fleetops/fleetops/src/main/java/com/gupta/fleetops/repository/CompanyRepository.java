@@ -10,6 +10,8 @@ import java.util.UUID;
 
 @RestController
 public interface CompanyRepository extends JpaRepository<Company, UUID> {
+    Optional<Company> findByIdAndUserId(UUID companyId, UUID userId);
+
 
 
 
