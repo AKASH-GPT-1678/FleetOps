@@ -16,7 +16,7 @@ public class DeliveryRequest {
 
     private UUID companyId;
     private UUID driverId;
-    private UUID vehicleId;
+    private Long vehicleId;
     private String origin;
     private String destination;
     private Timestamp expectedTime;

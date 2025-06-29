@@ -20,6 +20,7 @@ public class DeliveryController {
 
     @PostMapping("/createdelivery")
     public ResponseEntity<DeliveryResponse> createDelivery(@RequestBody DeliveryRequest deliveryRequest){
+        System.out.println("request Arrived");
         DeliveryResponse deliveryResponse = deliveryService.createDelivery(deliveryRequest);
 
         return ResponseEntity.ok().body(deliveryResponse);

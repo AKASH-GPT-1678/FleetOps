@@ -10,11 +10,8 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleResponseDTO {
-        private Long id;
-        private String message;
-        private String vehicleNumber;
-        private String companyName;
-
-
+public class KafkaRequest {
+    private UUID deliveryId;
+    private String lat;
+    private String lng;
 }

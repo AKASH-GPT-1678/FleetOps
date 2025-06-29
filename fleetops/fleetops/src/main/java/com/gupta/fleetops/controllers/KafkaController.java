@@ -1,8 +1,12 @@
 package com.gupta.fleetops.controllers;
 
 
+import com.gupta.fleetops.io.KafkaMessage;
+import com.gupta.fleetops.io.KafkaRequest;
 import com.gupta.fleetops.service.KafkaProducerService;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
 
 
 @CrossOrigin("*")
@@ -16,9 +20,15 @@ public class KafkaController {
         this.kafkaProducerService = kafkaProducerService;
     }
 
-    @GetMapping("/send")
-    public String sendMessage(@RequestParam String message) {
-        kafkaProducerService.sendMessage(message);
-        return "Message sent successfully";
+    @PostMapping("/send")
+    public KafkaMessage sendMessage(@RequestBody KafkaRequest kafkaMessage) {
+        KafkaMessage newMessage = new KafkaMessage();
+        newMessage.setDeliveryId(kafkaMessage.getDeliveryId());
+        newMessage.setLat(kafkaMessage.getLat());
+        newMessage.setLng(kafkaMessage.getLng());
+        newMessage.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        kafkaProducerService.sendLocation(newMessage);
+
+        return newMessage;
     }
 }
