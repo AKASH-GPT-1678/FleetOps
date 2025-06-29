@@ -26,6 +26,9 @@ public class DeliveryLocation implements Serializable {
     @JsonProperty("timestamp")
     private String timestamp;
 
+    @JsonProperty("shouldSave")
+    private boolean shouldSave;
+
     // Default constructor - JARURI HAI
     public DeliveryLocation() {}
 
@@ -68,5 +71,12 @@ public class DeliveryLocation implements Serializable {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public boolean getShouldSave() {
+        return shouldSave;
+    }
+    public void setShouldSave(boolean shouldSave) {
+        this.shouldSave = shouldSave;
     }
 }

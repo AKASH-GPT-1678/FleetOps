@@ -14,4 +14,6 @@ public interface DeliveryLocationRepository extends CrudRepository<DeliveryLocat
 
     List<DeliveryLocation> findAll();
     Optional<DeliveryLocation> findByDeliveryId(String deliveryId);
+    List<DeliveryLocation> findAllByDeliveryId(String deliveryId);
+
 }

@@ -27,6 +27,7 @@ public class KafkaController {
         newMessage.setLat(kafkaMessage.getLat());
         newMessage.setLng(kafkaMessage.getLng());
         newMessage.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        newMessage.setShouldSave(kafkaMessage.isShouldSave());
         kafkaProducerService.sendLocation(newMessage);
 
         return newMessage;

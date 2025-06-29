@@ -14,4 +14,5 @@ public class KafkaRequest {
     private UUID deliveryId;
     private String lat;
     private String lng;
+    private boolean shouldSave;
 }
