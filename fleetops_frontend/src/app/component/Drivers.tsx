@@ -10,6 +10,8 @@ export const DriversInfo = () => {
   return (
     <div>
       <div className='flex flex-col gap-2 max-w-[400px] xl:max-w-[600px]'>
+
+     
         <div className='flex flex-row justify-between xl:max-w-[600px] max-w-[400px] mt-3'>
           <p className=''>Company/Name</p>
           <p className=''>Status</p>
@@ -32,9 +34,9 @@ export const DriversInfo = () => {
           )}
         </div>
 
-        <div className=''>
+        <div className='border-2 border-black '>
           {Array.from({length : 10}).map((_ , index) => (
-            <div key={index} className='p-2'>
+            <div key={index} className='p-3 hover:bg-gray-100 cursor-pointer'>
               <div className='flex flex-row justify-between'>
                 <p>Rajesh Maurya</p>
                 <p>......</p>
@@ -46,9 +48,10 @@ export const DriversInfo = () => {
           ))}
 
         </div>
+        </div>
 
 
-      </div>
+ 
 
 
     </div>

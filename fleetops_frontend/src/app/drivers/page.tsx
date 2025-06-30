@@ -4,6 +4,7 @@ import { IoFilterSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 import Avatar from "../assets/avatar.png"
 import { DriversInfo } from '../component/Drivers';
+import { DriverProfile } from '../component/DriverProfile';
 const Drivers = () => {
     return (
         <div className='flex flex-col p-6 w-full'>
@@ -34,10 +35,15 @@ const Drivers = () => {
 
 
             </div>
-            <div>
+           <div className='flex flex-row gap-4 w-full'>
+            <div className='w-full max-w-[600px]'>
                 <DriversInfo/>
             </div>
-
+            <div className='w-full'>
+                <DriverProfile/>
+            </div>
+            </div>
+           
 
 
         </div>

@@ -5,7 +5,7 @@ import Icon from "../assets/cube.png"
 import { Header } from '../component/Header'
 import { Middle } from '../component/Middle'
 import { ConsignMentInfo } from '../component/ConsignmentInfo'
-import { Vehicles } from '../component/Vehicles'
+
 const page = () => {
  
 
@@ -13,7 +13,7 @@ const page = () => {
   return (
     <div className='h-full'>
 
-      <Vehicles/>
+   
     </div>
   )
 }

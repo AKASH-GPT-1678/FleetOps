@@ -7,7 +7,7 @@ import Avatar from "../assets/avatar.png";
 import Map from "./Map";
 import { ConsignMentInfo } from "./ConsignmentInfo";
 import { Sidebar } from "./Sidebar";
-import { Vehicles } from "./Vehicles";
+
 
 import { ChatPage } from "./ChatPage";
 import { Dashboard2 } from "./Dashboard2";
@@ -19,10 +19,6 @@ export function Dashboard() {
     })
     return (
         <div className="p-4 flex flex-row">
-            {/* <div>
-                            <Sidebar />
-
-            </div> */}
 
 
 
