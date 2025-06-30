@@ -7,11 +7,11 @@ export const Company = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
 
-            className='p-3 w-[400px] h-[400px] rounded-xl bg-white shadow-xl flex flex-col '
+            className=' w-[300px] h-fit xl:w-[350px] rounded-xl p-5 bg-white shadow-xl flex flex-col '
 
 
         >
-            <h1 className='font-extrabold text-3xl '>Durgesh Enterprises</h1>
+            <h1 className='font-extrabold text-2xl '>Durgesh Enterprises</h1>
 
             <ul className='text-xl p-3 font-bold text-gray-400'>
                 <li className='p-2 hover:border-l-8 hover:border-purple-500 cursor-pointer'>Vehicles Owned: 4</li>

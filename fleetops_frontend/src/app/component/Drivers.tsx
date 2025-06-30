@@ -1,36 +1,54 @@
+"use client";
 import React from 'react'
 import { FaRegHeart } from "react-icons/fa";
 import Image from "next/image";
 import Driver2 from "../assets/driver2.png";
-export const Drivers = () => {
+import { IoIosArrowDropdown } from "react-icons/io";
+import { IoIosArrowDropup } from "react-icons/io";
+export const DriversInfo = () => {
+  const [viewMore, setviewMore] = React.useState(false);
   return (
     <div>
-                      <div className='p-3 w-[300px] rounded-xl bg-white shadow-xl flex flex-col'>
-                <div
-                className='flex flex-row justify-between'
-                
-                >
-                    <h1 className='font-extrabold text-2xl'>Shafique</h1>
-                    <FaRegHeart size={30} className='cursor-pointer' />
-                </div>
+      <div className='flex flex-col gap-2 max-w-[400px] xl:max-w-[600px]'>
+        <div className='flex flex-row justify-between xl:max-w-[600px] max-w-[400px] mt-3'>
+          <p className=''>Company/Name</p>
+          <p className=''>Status</p>
 
-                <p className='text-lg font-bold text-gray-400'>Category</p>
+        </div>
+        <div className='bg-gray-200 h-[50px] p-2 max-w-[400px] xl:max-w-[600px]' onClick={() => setviewMore(!viewMore)}>
 
-                <div>
-                  <Image  src={Driver2} alt='trucks' className='p-2'/>
-                </div>
-                <div className='flex flex-row h-[40px] border-2 mt-2
-                '>
 
-                </div>
-                <div className='flex flex-row justify-between mt-2 items-center'>
-                    <p className='font-bold text-2xl'>1000</p>
-                    <button className='p-2 border-2 px-10'>Book</button>
 
-                </div>
+          {viewMore ? (
+            <div className='flex flex-row items-center justify-center gap-2.5'>
+              <IoIosArrowDropup size={24} className='' />
+              <p className='font-black cursor-pointer'>View Less</p>
+            </div>
+          ) : (
+            <div className='flex flex-row items-center justify-center gap-2.5'>
+              <IoIosArrowDropdown size={24} />
+              <p className='font-black cursor-pointer'>View More</p>
+            </div>
+          )}
+        </div>
 
+        <div className=''>
+          {Array.from({length : 10}).map((_ , index) => (
+            <div key={index} className='p-2'>
+              <div className='flex flex-row justify-between'>
+                <p>Rajesh Maurya</p>
+                <p>......</p>
+                <p>Occupied</p>
 
               </div>
+
+            </div>
+          ))}
+
+        </div>
+
+
+      </div>
 
 
     </div>
