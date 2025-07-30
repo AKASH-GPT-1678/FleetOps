@@ -10,6 +10,7 @@ import com.gupta.fleetops.repository.UserRepository;
 import com.gupta.fleetops.service.CompanyService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,10 +21,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public CompanyServiceImpl(UserRepository userRepository, CompanyRepository companyRepository){
+    public CompanyServiceImpl(UserRepository userRepository, CompanyRepository companyRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -40,6 +43,11 @@ public class CompanyServiceImpl implements CompanyService {
 
         Company newCompany = new Company();
         newCompany.setName(companyRequest.getName());
+        newCompany.setAddress(companyRequest.getAddress());
+        newCompany.setAdminEmail(authentication.getName());
+        String encodedPassword = passwordEncoder.encode(companyRequest.getAdminPassword());
+        newCompany.setAdminPassword(encodedPassword);
+        newCompany.setType(companyRequest.getType());
         newCompany.setCreatedAt(LocalDate.now());
         newCompany.setUser(user);
 

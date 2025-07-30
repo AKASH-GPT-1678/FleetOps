@@ -16,8 +16,8 @@ export const RegisterSchema = z.object({
         .min(8, { message: "Password must be at least 8 characters long" }),
 
     role: z
-        .enum(["DRIVER", "MANAGER", "Customer"])
-        .default("MANAGER")
+        .enum(["ROLE_MANAGER" , "ROLE_DRIVER"])
+        .default("ROLE_MANAGER"),
         
 });
 

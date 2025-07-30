@@ -53,8 +53,8 @@ public class UserInfoService implements UserDetailsService {
        newUser.setEmail(userInfo.getEmail());
 
        newUser.setUsername(userInfo.getUsername());
+       newUser.setEmail(userInfo.getEmail());
        newUser.setRoles(String.valueOf(List.of(userInfo.getRoles())));
-
        String encodedPassword = passwordEncoder.encode(userInfo.getPassword());
        newUser.setPassword(encodedPassword);
 

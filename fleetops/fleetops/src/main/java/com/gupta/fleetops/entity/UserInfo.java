@@ -30,8 +30,6 @@ public class UserInfo {
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Company> companies = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
-//    private List<Delivery> deliveries = new ArrayList<>();
 
 
 }

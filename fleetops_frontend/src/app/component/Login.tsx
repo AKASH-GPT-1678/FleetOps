@@ -1,11 +1,14 @@
 "use client";
 import React from 'react';
-import { FcGoogle } from "react-icons/fc";
-import { signIn } from 'next-auth/react';
+import useTokenStore from './zustand';
 import { LoginSchema, LoginSchemaType } from './loginzod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 export const Login = () => {
+    const router = useRouter();
+        const [someError, setSomeError] = React.useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginSchemaType>({
 
         resolver: zodResolver(LoginSchema),
@@ -15,13 +18,42 @@ export const Login = () => {
         }
     });
 
-    const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
-        console.log(data);
-    }
+    const setToken = useTokenStore((state) => state.setToken);
+    const token = useTokenStore((state) => state.token);
+
+    const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
+ 
+        if (!data.email || !data.password) return;
+
+        const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
+        try {
+            const response = await axios.post(`${endpoint}/auth/login`, data);
+            console.log(data);
+            console.log(response.data);
+            setSomeError(false);
+            setToken(response.data.token);
+            if (response.data.status == true) {
+                router.push("/");
+                
+            }
+            else{
+                setSomeError(true);
+            }
+  
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            setSomeError(true);
+
+        }
+
+    };
     return (
         <div className='flex flex-col h-full w-full mt-6'>
+
             <h1 className='text-3xl font-extrabold mb-6'>Welcome Back</h1>
             <p>Don't have an account? <a href="/register">Register</a></p>
+
 
             <section className='mt-8'>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,24 +70,16 @@ export const Login = () => {
                             {...register('password')}
                             className='border border-gray-600 p-2 py-3 w-full'
                         />
+                                     {someError && <p className='text-red-600 text-sm mt-4 mb-3'>
+                            Something Went Wrong in Registration
+                        </p>}
 
                         <button className='bg-teal-900 text-white p-2 w-full mt-4' type='submit'>
                             Log In
                         </button>
                     </div>
                 </form>
-
-                <div className='mt-6'>
-                    <button className='p-3 border-2 px-10 cursor-pointer flex flex-row gap-2 items-center font-bold text-lg'
-                        onClick={() => signIn()}
-
-
-
-                    >
-                        <FcGoogle className='text-3xl' />
-                        Google
-                    </button>
-                </div>
+                {/*  */}
             </section>
         </div>
     );

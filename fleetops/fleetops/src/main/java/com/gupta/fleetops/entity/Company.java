@@ -3,6 +3,7 @@ package com.gupta.fleetops.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,10 @@ public class Company {
     private UUID id;
 
     private String name;
+    public String address;
+    public String type;
+    public String adminEmail;
+    public String adminPassword;
     private int vehiclesOwned;
     private int driversOwned;
     private int totalDeliveries;
@@ -32,7 +37,7 @@ public class Company {
     private String averageDeliveryTime;
     private String customerSatisfaction;
     private LocalDate createdAt;
-
+    private boolean isPremium = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

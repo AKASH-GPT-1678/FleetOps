@@ -32,6 +32,9 @@ public class VehicleRequest {
     @NotBlank(message = "Manufacturer is required")
     private String manufacturer;
 
+    @NotBlank(message = "Admin Password is Must")
+    private String adminPassword;
+
     @Min(value = 100, message = "Capacity must be at least 100 kg")
     private int capacityInKg;
 

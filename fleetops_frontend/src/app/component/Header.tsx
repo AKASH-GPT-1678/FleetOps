@@ -1,8 +1,10 @@
 "use client";
 import React from 'react'
 import Image from 'next/image'
-import Icon from "../assets/cube.png"
+import Icon from "../assets/cube.png";
+import { useRouter } from 'next/navigation';
 export const Header = () => {
+    const router = useRouter();
     return (
         <div className='flex flex-row justify-between bg-gray-800 align-middle'>
             <div className='flex flex-row gap-4 p-6 '>
@@ -25,7 +27,7 @@ export const Header = () => {
 
                 </button>
                 <button className='cursor-pointer'>
-                    <p className="text-white border-2 border-white px-6 py-2">Contact Us</p>
+                    <p className="text-white border-2 border-white px-6 py-2" onClick={() => router.push("/registercompany")}>New Company</p>
 
                 </button>
 

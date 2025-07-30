@@ -40,13 +40,17 @@ public class SecurityConfig {
     @Bean
  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)  throws  Exception{
      httpSecurity
+             .cors()
+             .and()
              .csrf(csrf -> csrf.disable())
+
              .authorizeHttpRequests(auth -> auth
-                     .requestMatchers("/auth/login", "/api/**","/auth/upload", "/","/kafka/**","/auth/adduser","/auth/login","/blogs/create","/seller/create","/auth/register", "/auth/welcome").permitAll()
+                     .requestMatchers("/kafka/**", "/auth/**").permitAll()
 
                      // Role-based endpoints
                      .requestMatchers("/auth/user/**").hasAuthority("ROLE_DRIVER")
                      .requestMatchers("/auth/admin/**").hasAuthority("ROLE_ADMIN")
+
 
 
                      .anyRequest().authenticated()
