@@ -45,8 +45,8 @@ public class SecurityConfig {
              .csrf(csrf -> csrf.disable())
 
              .authorizeHttpRequests(auth -> auth
-                     .requestMatchers("/kafka/**", "/auth/**"  ).permitAll()
-                     .requestMatchers("/vehicle/**").authenticated()
+                     .requestMatchers("/kafka/**", "/auth/**" , "/origin/**" ,"/kafka/**").permitAll()
+                     .requestMatchers("/vehicle/**" , "origin/add", "/kafka/**").authenticated()
 
                      // Role-based endpoints
                      .requestMatchers("/auth/user/**").hasAuthority("ROLE_DRIVER")

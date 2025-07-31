@@ -31,6 +31,7 @@ public class Vehicle {
     private String image;
     private String description;
     private String pricePerDay;
+    private boolean originVerified = false;
     private List<String> features;
 
     private LocalDate registrationDate;

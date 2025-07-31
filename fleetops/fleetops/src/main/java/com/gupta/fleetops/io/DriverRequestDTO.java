@@ -34,4 +34,5 @@ public class DriverRequestDTO {
 
     @NotNull(message = "Company ID is required")
     private String adminPassword;
+    
 }

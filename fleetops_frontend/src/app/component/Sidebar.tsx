@@ -39,7 +39,7 @@ export const Sidebar = () => {
                     </div>
 
                     <div className='mt-6 space-y-1 p-2'>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Drivers</p>
+                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl' onClick={() => router.push("/drivers")}>Drivers</p>
                         <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl' onClick={() => router.push("/vehicles")}>Vehicles</p>
                         <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Support</p>
                         <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Terms of Service</p>

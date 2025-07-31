@@ -66,8 +66,6 @@ public class DeliveryServiceImpl implements DeliveryService {
         delivery.setCostPerLitre(deliveryRequest.getCostPerLitre());
         delivery.setLatitude(deliveryRequest.getLatitude());
         delivery.setLongitude(deliveryRequest.getLongitude());
-
-// Set relationships
         delivery.setDriver(driver);
         delivery.setVehicle(vehicle);
         delivery.setCompany(existingCompany);

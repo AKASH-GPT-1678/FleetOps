@@ -41,9 +41,8 @@ export default function Home() {
     }
   };
 
-  React.useEffect(() => {
    
-  }, []);
+
   return (
 
     <div>

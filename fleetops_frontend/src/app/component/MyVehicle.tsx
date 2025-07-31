@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Truck1 from "../assets/truck1.png";
+import { useRouter } from "next/navigation";
 
 export type Vehicle = {
   id: string;
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export default function MyVehiclePage({ vehicle }: Props) {
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden flex flex-col lg:flex-row">
@@ -43,10 +45,10 @@ export default function MyVehiclePage({ vehicle }: Props) {
           </div>
         )} */}
 
-        <div className="lg:w-1/2 p-6 space-y-4">
+        <div className="lg:w-full p-6 space-y-4 ">
           {/* <h1 className="text-3xl font-bold">  {vehicle.model ?? "N/A"} ({vehicle.type ?? "N/A"})</h1> */}
-          <p className="text-xl text-green-600 font-semibold">₹{vehicle.pricePerDay}/day</p>
-          <p className="text-gray-700">{vehicle.description}</p>
+          <p className="text-xl text-green-600 font-semibold w">₹{vehicle.pricePerDay}/day</p>
+          <p className="text-gray-700 w-2/3">{vehicle.description}</p>
 
           {/* Features */}
           <div>
@@ -74,10 +76,19 @@ export default function MyVehiclePage({ vehicle }: Props) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4 mt-6">
-            <button className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer">Edit Details</button>
-            <button className="px-6 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 cursor-pointer">Book Now</button>
+          <div className="flex flex-row gap-2">
+            <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded cursor-pointer">
+              Edit Details
+            </button>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded cursor-pointer">
+              Book Now
+            </button>
+            <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded cursor-pointer" onClick={() => router.push("/verifytracking")}>
+              Add Tracking
+            </button>
+
           </div>
+
         </div>
       </div>
     </div>
