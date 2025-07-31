@@ -1,6 +1,5 @@
 package com.gupta.fleetops.io;
 
-
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -16,8 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class VehicleRequest {
 
-
-    @NotBlank(message = "Company Id cannot br rmpty")
+    @NotNull(message = "Company Id cannot be empty")
     private UUID companyId;
 
     @NotBlank(message = "Vehicle number is required")
@@ -29,10 +28,10 @@ public class VehicleRequest {
     @NotBlank(message = "Model is required")
     private String model;
 
-    @NotBlank(message = "Manufacturer is required")
-    private String manufacturer;
+    @NotBlank(message = "Description is required")
+    private String description;
 
-    @NotBlank(message = "Admin Password is Must")
+    @NotBlank(message = "Admin Password is required")
     private String adminPassword;
 
     @Min(value = 100, message = "Capacity must be at least 100 kg")
@@ -46,4 +45,10 @@ public class VehicleRequest {
 
     @NotNull(message = "Registration date is required")
     private LocalDate registrationDate;
+
+    @NotBlank(message = "Price per day is required")
+    private String pricePerDay;
+
+    @NotNull(message = "Features list is required")
+    private List<String> features;
 }

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -23,11 +24,14 @@ public class Vehicle {
 
     private String vehicleNumber;
     private String type;
-    private String model;               // E.g. "Tata Ace", "Mahindra Bolero"
-    private String manufacturer;        // E.g. "Tata Motors", "Ashok Leyland"
+    private String model;               // E.g. "Tata Ace", "Mahindra Bolero";        // E.g. "Tata Motors", "Ashok Leyland"
     private int capacityInKg;           // How much weight it can carry
     private String fuelType;            // E.g. Diesel, Petrol, Electric
     private String status;
+    private String image;
+    private String description;
+    private String pricePerDay;
+    private List<String> features;
 
     private LocalDate registrationDate;
 

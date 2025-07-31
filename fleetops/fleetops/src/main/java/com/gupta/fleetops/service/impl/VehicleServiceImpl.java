@@ -52,11 +52,14 @@ public class VehicleServiceImpl implements VehicleService {
 
         newVehicle.setVehicleNumber(vehicleRequest.getVehicleNumber());
         newVehicle.setModel(vehicleRequest.getModel());
-        newVehicle.setManufacturer(vehicleRequest.getManufacturer());
+        newVehicle.setFeatures(vehicleRequest.getFeatures());
+        newVehicle.setPricePerDay(vehicleRequest.getPricePerDay());
+
         newVehicle.setFuelType(vehicleRequest.getFuelType());
         newVehicle.setCapacityInKg(vehicleRequest.getCapacityInKg());
         newVehicle.setStatus(vehicleRequest.getStatus());
         newVehicle.setRegistrationDate(vehicleRequest.getRegistrationDate());
+        newVehicle.setDescription(vehicleRequest.getDescription());
         newVehicle.setCompany(company);
         Vehicle savedVehicle = vehicleRepository.save(newVehicle);
         VehicleResponseDTO responseDTO = new VehicleResponseDTO();
@@ -95,11 +98,14 @@ public class VehicleServiceImpl implements VehicleService {
                             vehicle.getVehicleNumber(),
                             vehicle.getType(),
                             vehicle.getModel(),
-                            vehicle.getManufacturer(),
                             vehicle.getCapacityInKg(),
                             vehicle.getFuelType(),
                             vehicle.getStatus(),
-                            vehicle.getRegistrationDate()
+                            vehicle.getRegistrationDate(),
+                            vehicle.getPricePerDay(),
+                            vehicle.getDescription(),
+                            vehicle.getFeatures()
+
                     ))
                     .collect(Collectors.toList());
 
