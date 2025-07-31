@@ -17,6 +17,8 @@ public class CorsGlobalConfig {
                         .allowedOriginPatterns("*")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
+                         .exposedHeaders("Authorization")
+
                         .allowCredentials(true); // Important if you're using cookies or Authorization header
             }
         };

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useUserStore } from "./zustand";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 
@@ -15,13 +16,18 @@ const schema = z.object({
         errorMap: () => ({ message: "Type is required" }),
     }),
     dateOfJoining: z.string().optional(), // date as ISO string
-    companyId: z.string().uuid("Invalid UUID format for company ID"),
+    adminPassword: z.string()
 });
 
 type FormData = z.infer<typeof schema>;
 
 export default function DriverRegistrationForm() {
     const [submitError, setSubmitError] = useState(false);
+
+    const comapanyId = useUserStore((state) => state.activeCompany);
+    const token = useUserStore((state) => state.token);
+
+
 
     const {
         register,
@@ -36,10 +42,21 @@ export default function DriverRegistrationForm() {
     const onSubmit = async (data: FormData) => {
         console.log("Driver Data:", data);
         try {
-            const response = await axios.post(`${endpoint}/drivers/register`, data, {
+            const driver = {
+                name: data.name,
+                phoneNumber: data.phoneNumber,
+                licenseNumber: data.licenseNumber,
+                type: data.type,
+                dateOfJoining: data.dateOfJoining,
+                companyId: comapanyId,
+                adminPassword : data.adminPassword
+
+            }
+            const response = await axios.post(`${endpoint}/driver/register`, driver, {
+
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+                    "Authorization": `Bearer ${token}`,
                 },
             });
             console.log("Success:", response.data);
@@ -52,6 +69,7 @@ export default function DriverRegistrationForm() {
     return (
         <div className="max-w-[500px] mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
             <h2 className="text-2xl font-bold mb-6 text-center">Register Driver</h2>
+            <p>{comapanyId}</p>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                 <div>
@@ -112,13 +130,13 @@ export default function DriverRegistrationForm() {
 
                 {/* Company ID */}
                 <div>
-                    <label className="block mb-1 font-medium">Company ID</label>
+                    <label className="block mb-1 font-medium">Admin Password</label>
                     <input
-                        {...register("companyId")}
+                        {...register("adminPassword")}
                         className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="UUID of the company"
+                        placeholder="Admin Password"
                     />
-                    {errors.companyId && <p className="text-red-500 text-sm">{errors.companyId.message}</p>}
+                    {errors.adminPassword && <p className="text-red-500 text-sm">{errors.adminPassword.message}</p>}
                 </div>
 
                 {/* Submit Button */}

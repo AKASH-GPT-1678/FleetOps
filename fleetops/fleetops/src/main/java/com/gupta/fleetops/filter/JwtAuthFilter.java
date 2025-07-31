@@ -1,6 +1,6 @@
 package com.gupta.fleetops.filter;
 
-import com.gupta.fleetops.entity.UserInfo;
+import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.service.JwtService;
 import com.gupta.fleetops.service.UserInfoService;
 import jakarta.servlet.FilterChain;

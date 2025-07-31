@@ -1,6 +1,6 @@
 package com.gupta.fleetops;
 
-import com.gupta.fleetops.entity.UserInfo;
+import com.gupta.fleetops.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,7 @@ public class UserInforDetails implements UserDetails{
     private List<GrantedAuthority> authorities;
 
 
-    public UserInforDetails(UserInfo userInfo) {
+    public UserInforDetails(User userInfo) {
         this.userName = userInfo.getEmail(); // Use email as username
         this.password = userInfo.getPassword();
         this.authorities = List.of(userInfo.getRoles().split(","))

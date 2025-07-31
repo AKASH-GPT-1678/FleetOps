@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import useTokenStore from './zustand';
+import { useUserStore } from './zustand';
 import { LoginSchema, LoginSchemaType } from './loginzod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,8 +18,8 @@ export const Login = () => {
         }
     });
 
-    const setToken = useTokenStore((state) => state.setToken);
-    const token = useTokenStore((state) => state.token);
+    const setToken = useUserStore((state) => state.setToken);
+    const token = useUserStore((state) => state.token);
 
     const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
  

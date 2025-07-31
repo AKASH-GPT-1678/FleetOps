@@ -2,7 +2,7 @@ package com.gupta.fleetops.service;
 
 
 import com.gupta.fleetops.UserInforDetails;
-import com.gupta.fleetops.entity.UserInfo;
+import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.io.AuthRequest;
 import com.gupta.fleetops.io.AuthResponse;
 import com.gupta.fleetops.repository.UserRepository;
@@ -39,7 +39,7 @@ public class UserInfoService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserInfo user = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
         return new UserInforDetails(user);
@@ -48,8 +48,8 @@ public class UserInfoService implements UserDetailsService {
 
     }
 
-    public UserInfo createUser(UserInfo userInfo){
-       UserInfo newUser = new UserInfo();
+    public User createUser(User userInfo){
+       User newUser = new User();
        newUser.setEmail(userInfo.getEmail());
 
        newUser.setUsername(userInfo.getUsername());

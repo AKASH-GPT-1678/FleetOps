@@ -5,6 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import Avatar from "../assets/avatar.png"
 import { DriversInfo } from '../component/Drivers';
 import { DriverProfile } from '../component/DriverProfile';
+import DriverRegistrationForm from '../component/DriverForm';
 const Drivers = () => {
     return (
         <div className='flex flex-col p-6 w-full'>
@@ -41,6 +42,7 @@ const Drivers = () => {
             </div>
             <div className='w-full'>
                 <DriverProfile/>
+                <DriverRegistrationForm/>
             </div>
             </div>
            

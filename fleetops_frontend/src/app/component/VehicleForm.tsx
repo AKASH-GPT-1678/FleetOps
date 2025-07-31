@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useUserStore } from "./zustand";
 
 // Zod validation schema
 const schema = z.object({
-    companyId: z.string().uuid("Invalid company ID"),
+    companyId: z.string().uuid("Invalid company ID").optional(),
     vehicleNumber: z.string().min(1, "Vehicle number is required"),
     type: z.string().min(1, "Type is required"),
     model: z.string().min(1, "Model is required"),
@@ -22,6 +23,9 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function VehicleRegistrationForm() {
+    const comapanyId = useUserStore((state) => state.activeCompany);
+    const token = useUserStore((state) => state.token);
+
     const [submitError, setSubmitError] = useState(false);
 
     const {
@@ -36,12 +40,17 @@ export default function VehicleRegistrationForm() {
     const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
 
     const onSubmit = async (data: FormData) => {
+        console.log("Vehicle Data:", data);
         try {
-            const response = await axios.post(`${endpoint}/vehicles/register`, {
+            const response = await axios.post(`${endpoint}/vehicle/register`, {
                 ...data,
-                capacityInKg: Number(data.capacityInKg), // Just in case it's typed from text input
+                companyId: comapanyId,
+                capacityInKg: Number(data.capacityInKg),
             }, {
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
             });
             console.log("Vehicle Registered:", response.data);
         } catch (error) {
@@ -55,22 +64,13 @@ export default function VehicleRegistrationForm() {
             <h2 className="text-2xl font-bold mb-6 text-center">Register Vehicle</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-                {/* Company ID */}
-                <div>
-                    <label className="block mb-1 font-medium">Company ID (UUID)</label>
-                    <input
-                        {...register("companyId")}
-                        className="w-full border p-2 rounded"
-                        placeholder="Enter company UUID"
-                    />
-                    {errors.companyId && <p className="text-red-500 text-sm">{errors.companyId.message}</p>}
-                </div>
 
                 {/* Vehicle Number */}
                 <div>
                     <label className="block mb-1 font-medium">Vehicle Number</label>
                     <input
                         {...register("vehicleNumber")}
+
                         className="w-full border p-2 rounded"
                         placeholder="Enter vehicle number"
                     />

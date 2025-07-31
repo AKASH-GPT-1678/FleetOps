@@ -4,8 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import useTokenStore from "./zustand";
-
+import { useUserStore } from "./zustand";
 // Zod schema for validation
 const schema = z.object({
     name: z.string().min(1, "Company name is required"),
@@ -19,8 +18,9 @@ type FormData = z.infer<typeof schema>;
 
 export default function CompanyRegistrationForm() {
     const [submitError, setSubmitError] = useState(false);
-    const setToken = useTokenStore((state) => state.setToken);
-    const token = useTokenStore((state) => state.token);
+    const [companyName, setCompanyName] = useState("");
+    const setToken = useUserStore((state) => state.setToken);
+    const token = useUserStore((state) => state.token);
 
 
     const {
@@ -44,6 +44,9 @@ export default function CompanyRegistrationForm() {
                 },
             });
             console.log("Response:", response.data);
+            if (response.data.status == true) {
+                setCompanyName(data.name);
+            }
         } catch (err) {
             console.error(err);
             setSubmitError(true);

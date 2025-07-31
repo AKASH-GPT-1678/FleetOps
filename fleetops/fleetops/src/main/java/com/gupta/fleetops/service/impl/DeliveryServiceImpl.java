@@ -36,14 +36,14 @@ public class DeliveryServiceImpl implements DeliveryService {
     public DeliveryResponse createDelivery(DeliveryRequest deliveryRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        UserInfo user = userRepository.findByEmail(authentication.getName())
+        User user = userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
 
 
 
         ;
         Company existingCompany = companyRepository
-                .findByIdAndUserId(deliveryRequest.getCompanyId(), user.getId())
+                .findById(deliveryRequest.getCompanyId())
                 .orElseThrow(() -> new NoSuchElementException(
                         "No company found with ID: " + deliveryRequest.getCompanyId() +
                                 " for user ID: " + user.getUsername()

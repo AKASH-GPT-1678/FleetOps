@@ -2,6 +2,8 @@ package com.gupta.fleetops.controllers;
 
 
 import com.gupta.fleetops.entity.DeliveryLocation;
+import com.gupta.fleetops.entity.Vehicle;
+import com.gupta.fleetops.io.VehicleDetailsResponse;
 import com.gupta.fleetops.io.VehicleRequest;
 import com.gupta.fleetops.io.VehicleResponseDTO;
 import com.gupta.fleetops.service.CompanyService;
@@ -10,10 +12,12 @@ import com.gupta.fleetops.service.VehicleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
 
-@CrossOrigin("*")
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/vehicle")
 public class VehicleController {
 
     private final VehicleService vehicleService;
@@ -26,7 +30,7 @@ public class VehicleController {
 
 
 
-    @PostMapping("/vehicle")
+    @PostMapping("/register")
     public ResponseEntity<VehicleResponseDTO> addVehicle(@RequestBody VehicleRequest vehicleRequest){
 
         VehicleResponseDTO response = vehicleService.addVehicleToCompany(vehicleRequest);
@@ -40,6 +44,15 @@ public class VehicleController {
 
 
     }
+    @GetMapping("/vehicles")
+    public ResponseEntity<List<VehicleDetailsResponse>> getAllVehicles(@RequestParam String companyId) {
+        System.out.println("Requets arrived");
+        List<VehicleDetailsResponse> vehicles = vehicleService.getVehiclesByCompanyId(UUID.fromString(companyId)
+        );
+        return ResponseEntity.ok(vehicles);
+    }
+
+
 
 
 }

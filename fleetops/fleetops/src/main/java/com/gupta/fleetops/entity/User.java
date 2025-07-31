@@ -1,6 +1,5 @@
 package com.gupta.fleetops.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
-public class UserInfo {
-
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -27,10 +26,11 @@ public class UserInfo {
     private String password;
     private String roles;
 
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , orphanRemoval = true)
+    @ManyToMany
+    @JoinTable(
+            name = "user_company",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "company_id")
+    )
     private List<Company> companies = new ArrayList<>();
-
-
-
 }
-

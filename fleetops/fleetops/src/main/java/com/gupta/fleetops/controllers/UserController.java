@@ -1,7 +1,7 @@
 package com.gupta.fleetops.controllers;
 
 
-import com.gupta.fleetops.entity.UserInfo;
+import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.io.AuthRequest;
 import com.gupta.fleetops.io.AuthResponse;
 import com.gupta.fleetops.service.JwtService;
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/adduser")
-    public UserInfo addNewUser(@RequestBody UserInfo userInfo) {
+    public User addNewUser(@RequestBody User userInfo) {
         return userInfoService.createUser(userInfo);
     }
 

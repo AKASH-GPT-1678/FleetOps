@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -25,10 +26,11 @@ public class Company {
     private UUID id;
 
     private String name;
-    public String address;
-    public String type;
-    public String adminEmail;
-    public String adminPassword;
+    private String address;
+    private String type;
+    private String adminEmail;
+    private String adminPassword;
+
     private int vehiclesOwned;
     private int driversOwned;
     private int totalDeliveries;
@@ -39,18 +41,12 @@ public class Company {
     private LocalDate createdAt;
     private boolean isPremium = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserInfo user;
-
-    @OneToMany(mappedBy = "company",  cascade = CascadeType.ALL , orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicles = new ArrayList<>();
-    @OneToMany(mappedBy = "company",  cascade = CascadeType.ALL , orphanRemoval = true)
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Driver> drivers = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL , orphanRemoval = true)
-    private List<Delivery> deliveries = new ArrayList<>();
-
-
+    @ManyToMany(mappedBy = "companies")
+    private List<User> users = new ArrayList<>();
 }

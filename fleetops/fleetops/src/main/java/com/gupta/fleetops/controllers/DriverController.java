@@ -10,9 +10,9 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin("*")
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/driver")
 public class DriverController {
 
 
@@ -24,8 +24,9 @@ public class DriverController {
     }
 
 
-    @PostMapping("/driver")
+    @PostMapping("/register")
     public ResponseEntity<DriverResponse> createDriver(@Valid @RequestBody DriverRequestDTO driverRequestDTO) {
+        System.out.println(driverRequestDTO);
         DriverResponse createdDriver = driverService.createDriver(driverRequestDTO);
         return ResponseEntity.ok(createdDriver);
 

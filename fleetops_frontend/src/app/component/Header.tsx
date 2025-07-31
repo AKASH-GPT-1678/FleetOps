@@ -15,7 +15,7 @@ export const Header = () => {
 
                 <h1 className='text-xl text-white  cursor-pointer'>Home</h1>
                 <h1 className='text-xl text-white  cursor-pointer'>Services</h1>
-                <h1 className='text-xl text-white  cursor-pointer'>Features</h1>
+                <h1 className='text-xl text-white  cursor-pointer'>Companies</h1>
                 <h1 className='text-xl text-white  cursor-pointer'>About</h1>
 
             </div>
