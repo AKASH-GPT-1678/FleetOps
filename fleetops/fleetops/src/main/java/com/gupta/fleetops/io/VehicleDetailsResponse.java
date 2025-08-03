@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleDetailsResponse {
-    private Long id;
+    private UUID id;
     private String vehicleNumber;
     private String type;
     private String model;

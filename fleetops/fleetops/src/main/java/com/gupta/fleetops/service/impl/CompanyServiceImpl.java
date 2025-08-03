@@ -3,6 +3,7 @@ package com.gupta.fleetops.service.impl;
 
 import com.gupta.fleetops.entity.Company;
 import com.gupta.fleetops.entity.User;
+import com.gupta.fleetops.exceptions.NotPremiumUserException;
 import com.gupta.fleetops.io.CompanyRequest;
 import com.gupta.fleetops.io.CompanyResponse;
 import com.gupta.fleetops.repository.CompanyRepository;
@@ -40,6 +41,14 @@ public class CompanyServiceImpl implements CompanyService {
 
         User user = userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
+
+
+
+        List<Company> existingCompanies = user.getCompanies();
+
+        if (existingCompanies != null && existingCompanies.size() > 0 && user.isPremium() == false) {
+            throw new NotPremiumUserException("Buy Premium to Create More than One Company" , false);
+        }
 
         Company newCompany = new Company();
         newCompany.setName(companyRequest.getName());

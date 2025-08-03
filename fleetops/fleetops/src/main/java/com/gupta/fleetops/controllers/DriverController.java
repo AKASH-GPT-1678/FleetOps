@@ -10,6 +10,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/driver")
@@ -29,6 +31,15 @@ public class DriverController {
         System.out.println(driverRequestDTO);
         DriverResponse createdDriver = driverService.createDriver(driverRequestDTO);
         return ResponseEntity.ok(createdDriver);
+
+    }
+
+    @GetMapping("myDrivers")
+    public ResponseEntity<List<DriverResponse>> getMyDrivers(){
+
+        List<DriverResponse> drivers = driverService.getMyDrivers();
+        return ResponseEntity.ok(drivers);
+
 
     }
 

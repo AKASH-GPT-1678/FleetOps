@@ -18,8 +18,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 
@@ -82,6 +85,42 @@ public class DriverServiceImpl implements DriverService {
                 savedDriver.getDateOfJoining(),
                 savedDriver.getCompany().getId()
         );
+    }
+
+    @Override
+    public List<DriverResponse> getMyDrivers() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+        Optional<User> user = userRepository.findByEmail(userEmail);
+
+        Company company = user.get().getCompanies().get(0);
+
+        if(company == null){
+            throw new NoSuchElementException("No such Company found");
+        }
+
+        List<Driver> drivers = company.getDrivers();
+        if(drivers.isEmpty()){
+            ArrayList<DriverResponse> emptyList = new ArrayList<>();
+            return emptyList;
+        }
+        List<DriverResponse> driverResponses = drivers.stream()
+                .map(driver -> new DriverResponse(
+                        driver.getId(),
+                        driver.getName(),
+                        driver.getPhoneNumber(),
+                        driver.getLicenseNumber(),
+                        driver.getType(),
+                        driver.getDateOfJoining(),
+                        driver.getCompany() != null ? driver.getCompany().getId() : null
+                ))
+                .collect(Collectors.toList());
+
+
+
+        return driverResponses;
     }
 
 }

@@ -16,13 +16,13 @@ public class DeliveryRequest {
 
     private UUID companyId;
     private UUID driverId;
-    private Long vehicleId;
+    private UUID vehicleId;
     private String origin;
     private String destination;
     private Timestamp expectedTime;
     private int fuel;
     private int costPerLitre;
-    private List<Long> latitude;
-    private List<Long> longitude;
+    private List<Long> originCords;
+    private List<Long> destinationCords;
 
 }

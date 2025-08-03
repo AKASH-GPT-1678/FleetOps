@@ -26,6 +26,8 @@ public class User {
     private String password;
     private String roles;
 
+    private boolean isPremium = false;
+
     @ManyToMany
     @JoinTable(
             name = "user_company",

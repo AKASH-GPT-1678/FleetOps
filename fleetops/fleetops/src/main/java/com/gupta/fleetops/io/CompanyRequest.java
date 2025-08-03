@@ -23,9 +23,6 @@ public class CompanyRequest {
     @NotBlank(message = "Type is required")
     private String type;
 
-    @NotBlank(message = "Admin email is required")
-    @Email(message = "Invalid email format")
-    private String adminEmail;
 
     @NotBlank(message = "Admin password is required")
     @Size(min = 6, message = "Password must be at least 6 characters long")

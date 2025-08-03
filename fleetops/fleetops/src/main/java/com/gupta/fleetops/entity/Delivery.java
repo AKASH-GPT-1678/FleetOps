@@ -28,10 +28,10 @@ public class Delivery {
     private int costPerLitre;
 
     @ElementCollection
-    private List<Long> latitude;
+    private List<Long> originCords;
 
     @ElementCollection
-    private List<Long> longitude;
+    private List<Long> destinationCords;
 
     // One delivery → One vehicle
     @OneToOne
@@ -39,7 +39,7 @@ public class Delivery {
     private Vehicle vehicle;
 
     // Many deliveries → One driver
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "driver_id")
     private Driver driver;
 

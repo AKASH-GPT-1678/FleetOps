@@ -1,15 +1,21 @@
 package com.gupta.fleetops.service.impl;
 
 import com.gupta.fleetops.entity.*;
+import com.gupta.fleetops.io.DeliveryDetailDTO;
 import com.gupta.fleetops.io.DeliveryRequest;
 import com.gupta.fleetops.io.DeliveryResponse;
+import com.gupta.fleetops.io.DeliverySummaryDTO;
 import com.gupta.fleetops.repository.*;
 import com.gupta.fleetops.service.DeliveryService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 public class DeliveryServiceImpl implements DeliveryService {
 
@@ -27,6 +33,8 @@ public class DeliveryServiceImpl implements DeliveryService {
         this.deliveryRepository = deliveryRepository;
 
     }
+
+
 
 
 
@@ -64,13 +72,13 @@ public class DeliveryServiceImpl implements DeliveryService {
         delivery.setExpectedTime(deliveryRequest.getExpectedTime());
         delivery.setFuel(deliveryRequest.getFuel());
         delivery.setCostPerLitre(deliveryRequest.getCostPerLitre());
-        delivery.setLatitude(deliveryRequest.getLatitude());
-        delivery.setLongitude(deliveryRequest.getLongitude());
+        delivery.setOriginCords(deliveryRequest.getOriginCords());
+        delivery.setDestinationCords(deliveryRequest.getDestinationCords());
         delivery.setDriver(driver);
         delivery.setVehicle(vehicle);
         delivery.setCompany(existingCompany);
 
-// Save to DB
+
         Delivery savedDelivery = deliveryRepository.save(delivery);
 
 
@@ -87,5 +95,66 @@ public class DeliveryServiceImpl implements DeliveryService {
 
 
 
+    }
+
+    @Override
+    public List<DeliverySummaryDTO> getMyDeliveries(UUID companyId) {
+        List<Delivery> deliveries = deliveryRepository.findByCompany_Id(companyId);
+
+        return deliveries.stream().map(d -> {
+            DeliverySummaryDTO dto = new DeliverySummaryDTO();
+            dto.setDeliveryId(d.getId());
+            dto.setOrigin(d.getOrigin());
+            dto.setDestination(d.getDestination());
+
+            if (d.getDriver() != null) {
+                dto.setDriverId(d.getDriver().getId());
+                dto.setDriverName(d.getDriver().getName());
+            }
+
+            if (d.getVehicle() != null) {
+                dto.setVehicleId(d.getVehicle().getId());
+                dto.setVehicleNumber(d.getVehicle().getVehicleNumber());
+            }
+
+            if (d.getCompany() != null) {
+                dto.setCompanyId(d.getCompany().getId());
+            }
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public DeliveryDetailDTO getDeliveryById(UUID id) {
+
+        Delivery d = deliveryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Delivery not found"));
+
+        DeliveryDetailDTO dto = new DeliveryDetailDTO();
+        dto.setId(d.getId());
+        dto.setOrigin(d.getOrigin());
+        dto.setDestination(d.getDestination());
+        dto.setExpectedTime(d.getExpectedTime());
+        dto.setFuel(d.getFuel());
+        dto.setCostPerLitre(d.getCostPerLitre());
+        dto.setOriginCords(d.getOriginCords());
+        dto.setDestinationCords(d.getDestinationCords());
+
+        if (d.getDriver() != null) {
+            dto.setDriverId(d.getDriver().getId());
+            dto.setDriverName(d.getDriver().getName());
+        }
+
+        if (d.getVehicle() != null) {
+            dto.setVehicleId(d.getVehicle().getId());
+            dto.setVehicleNumber(d.getVehicle().getVehicleNumber());
+        }
+
+        if (d.getCompany() != null) {
+            dto.setCompanyId(d.getCompany().getId());
+        }
+
+        return dto;
     }
 }
