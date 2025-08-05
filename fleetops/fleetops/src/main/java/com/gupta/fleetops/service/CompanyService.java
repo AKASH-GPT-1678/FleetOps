@@ -11,7 +11,7 @@ public interface CompanyService {
 
     CompanyResponse createCompany(CompanyRequest companyRequest);
 
-    List<CompanyResponse> getAllCompaniesByUser();
+    CompanyResponse getAllCompaniesByUser();
 
 
 

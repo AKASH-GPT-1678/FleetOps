@@ -24,16 +24,22 @@ public class Driver {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String phoneNumber;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String licenseNumber;
 
     @Column(nullable = false)
     private String type;
 
     private LocalDate dateOfJoining;
+
+
+    private String aadharNumber;
+    private String panNumber;
+
+    private String photo;
 
 
 

@@ -47,6 +47,7 @@ public class Company {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Driver> drivers = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "companies")
-    private List<User> users = new ArrayList<>();
+    @OneToOne(mappedBy = "company")
+    private User user;
+
 }

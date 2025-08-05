@@ -74,9 +74,9 @@ const CompanyDashBoard = () => {
                     <h1>Menu</h1>
 
                     <div className="flex flex-col gap-4">
-                        {tabs.map((tab) => (
+                        {tabs.map((tab, index) => (
                             <div
-                                key={tab.key}
+                                key={index}
                                 onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
                                 className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center 
                                 cursor-pointer

@@ -18,33 +18,6 @@ export default function Home() {
   const setActiveCompany = useUserStore((state) => state.setActiveCompany);
   const setIsAuthenticated = useUserStore((state) => state.setIsAuthenticated);
 
-  async function getCompanies() {
-
-    try {
-
-
-
-      const companies = await axios.get("http://localhost:8080/company/companies", {
-        headers: {
-
-          "Authorization": `Bearer${token}`,
-
-        },
-        withCredentials: true
-
-
-      });
-      console.log(companies.data);
-      console.log(companies.data)
-      console.log(companies.data[0].companyId);
-      setActiveCompany(companies.data[0].companyId)
-
-    } catch (error) {
-      console.log(error);
-
-    }
-  };
-
 
 
 
@@ -87,8 +60,8 @@ export default function Home() {
         });
         console.log(companies.data);
         console.log(companies.data)
-        console.log(companies.data[0].companyId);
-        setActiveCompany(companies.data[0].companyId)
+
+        setActiveCompany(companies.data.companyId)
 
       } catch (error) {
         console.log(error);

@@ -28,6 +28,9 @@ export interface DriverResponse {
     type: string;
     dateOfJoining: string; // ISO date string
     companyId: string;
+    aadharNumber: string;
+    panNumber: string;
+
 }
 
 const Drivers = () => {
@@ -39,50 +42,50 @@ const Drivers = () => {
     const token = useUserStore((state) => state.token);
     const [viewMore, setviewMore] = React.useState(false);
 
-      const tabs = [
-           {
-               label: "Dashboard",
-               key: "",
-               icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
-           },
-           {
-               label: "Drivers",
-               key: "drivers",
-               icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
-           },
-           {
-               label: "Delivery",
-               key: "delivery",
-               icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
-           },
-   
-   
-           {
-               label: "Report",
-               key: "report",
-               icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-           },
-           {
-               label: "Tracking",
-               key: "tracking",
-               icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
-           },
-           {
-               label: "Vehicle",
-               key: "vehicle",
-               icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
-           },
-           {
-               label: "Report",
-               key: "report",
-               icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-           },
-           {
-               label: "Settings",
-               key: "settings",
-               icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
-           },
-       ];
+    const tabs = [
+        {
+            label: "Dashboard",
+            key: "",
+            icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Drivers",
+            key: "drivers",
+            icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Delivery",
+            key: "delivery",
+            icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
+        },
+
+
+        {
+            label: "Report",
+            key: "report",
+            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Tracking",
+            key: "tracking",
+            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
+        },
+        {
+            label: "Vehicle",
+            key: "vehicle",
+            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
+        },
+        {
+            label: "Report",
+            key: "report",
+            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Settings",
+            key: "settings",
+            icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
+        },
+    ];
 
     const handleActivity = (key: string, route: string) => {
         setActive(key);
@@ -141,7 +144,10 @@ const Drivers = () => {
 
     const getMyDrivers = async () => {
 
-    }
+    };
+    const driver = drivers.filter((driver) => {
+        return driver.id == activeDriver;
+    });
 
 
     return (
@@ -155,9 +161,9 @@ const Drivers = () => {
                     <h1>Menu</h1>
 
                     <div className="flex flex-col gap-4">
-                        {tabs.map((tab) => (
+                        {tabs.map((tab, index) => (
                             <div
-                                key={tab.key}
+                                key={index}
                                 onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
                                 className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center cursor-pointer ${active === tab.key ? "bg-blue-100" : "bg-white"
                                     }`}
@@ -195,6 +201,9 @@ const Drivers = () => {
 
 
                 </div>
+                {
+                    JSON.stringify(driver)
+                }
                 <div className='flex flex-row w-full'>
                     <div className='w-full'>
 
@@ -255,11 +264,16 @@ const Drivers = () => {
                         <p>{activeDriver}</p>
 
                     </div>
-
-                    <div className='w-full'>
-                        <DriverProfile />
+                  {
+                    drivers.length > 0 &&  (
+                          <div className='w-full'>
+                        <DriverProfile driver={drivers[0]} />
 
                     </div>
+
+                    )
+                  }
+                  
                 </div>
 
                 <div className='absolute top-32 left-1/4 z-50 bg-white border-2 p-4 rounded shadow-xl' ref={registrationRef}>

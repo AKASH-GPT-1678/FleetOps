@@ -90,7 +90,7 @@ public class VehicleServiceImpl implements VehicleService {
             throw new NoSuchElementException("No such Company found");
         }
 
-        if (user.isPresent() && company.get().getUsers().contains(user.get()) ) {
+        if (user.isPresent() && company.isPresent() ) {
             List<Vehicle> vehicles = company.get().getVehicles();
             return vehicles.stream()
                     .map(vehicle -> new VehicleDetailsResponse(

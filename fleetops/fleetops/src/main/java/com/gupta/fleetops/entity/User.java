@@ -28,11 +28,8 @@ public class User {
 
     private boolean isPremium = false;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_company",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id")
-    )
-    private List<Company> companies = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "company_id")  // This will create a foreign key in the User table
+    private Company company;
+
 }

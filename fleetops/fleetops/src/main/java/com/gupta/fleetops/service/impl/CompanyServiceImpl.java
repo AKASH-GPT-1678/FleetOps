@@ -9,6 +9,7 @@ import com.gupta.fleetops.io.CompanyResponse;
 import com.gupta.fleetops.repository.CompanyRepository;
 import com.gupta.fleetops.repository.UserRepository;
 import com.gupta.fleetops.service.CompanyService;
+import jakarta.transaction.Transactional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,44 +37,41 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
+    @Transactional
     public CompanyResponse createCompany(CompanyRequest companyRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        // Fetch authenticated user
         User user = userRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
 
-
-
-        List<Company> existingCompanies = user.getCompanies();
-
-        if (existingCompanies != null && existingCompanies.size() > 0 && user.isPremium() == false) {
-            throw new NotPremiumUserException("Buy Premium to Create More than One Company" , false);
+        // Check if user already has a company and is not premium
+        if (user.getCompany() != null && !user.isPremium()) {
+            throw new NotPremiumUserException("Buy Premium to Create More than One Company", false);
         }
+
 
         Company newCompany = new Company();
         newCompany.setName(companyRequest.getName());
         newCompany.setAddress(companyRequest.getAddress());
+        newCompany.setType(companyRequest.getType());
         newCompany.setAdminEmail(authentication.getName());
 
         String encodedPassword = passwordEncoder.encode(companyRequest.getAdminPassword());
         newCompany.setAdminPassword(encodedPassword);
-        newCompany.setType(companyRequest.getType());
         newCompany.setCreatedAt(LocalDate.now());
+        newCompany.setPremium(false); // or true if premium applies
 
-        // Step 1: Link user to company
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        newCompany.setUsers(users);
+        // Step 1: Link both sides of the relationship
+        newCompany.setUser(user); // company owns user reference
+        user.setCompany(newCompany); // user owns company reference
 
-
-        user.getCompanies().add(newCompany);
-
-
+        // Step 2: Save the company first (optional, you can swap the order)
         companyRepository.save(newCompany);
+
 
         userRepository.save(user);
 
-        // Build and return response
         CompanyResponse companyResponse = new CompanyResponse();
         companyResponse.setName(newCompany.getName());
         companyResponse.setStatus(true);
@@ -81,8 +79,9 @@ public class CompanyServiceImpl implements CompanyService {
         return companyResponse;
     }
 
+
     @Override
-    public List<CompanyResponse> getAllCompaniesByUser() {
+    public CompanyResponse getAllCompaniesByUser() {
         // 1. Get logged-in user email
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -90,14 +89,17 @@ public class CompanyServiceImpl implements CompanyService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("User not found"));
 
-        // 3. Map user's companies to CompanyResponse list
-        return user.getCompanies().stream()
-                .map(company -> new CompanyResponse(
-                        company.getName(),
-                        company.isPremium(),
-                        company.getId()
-                ))
-                .collect(Collectors.toList());
+        Company company = user.getCompany();
+        CompanyResponse companyResponse = new CompanyResponse();
+        if(company == null){
+            throw new NoSuchElementException("No such Company found");
+        }
+
+        companyResponse.setName(company.getName());
+        companyResponse.setStatus(true);
+        companyResponse.setCompanyId(company.getId());
+
+        return companyResponse;
     }
 
 

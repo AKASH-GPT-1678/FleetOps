@@ -3,8 +3,11 @@ import React from 'react'
 import Image from 'next/image'
 import Icon from "../assets/cube.png";
 import { useRouter } from 'next/navigation';
+import { useUserStore } from './zustand';
+import { Button } from '@/components/ui/button';
 export const Header = () => {
     const router = useRouter();
+    const activeCompany = useUserStore((state) => state.activeCompany);
     return (
         <div className='flex flex-row justify-between bg-gray-800 align-middle'>
             {/* <div className='flex flex-row gap-4 p-6 '>
@@ -42,7 +45,7 @@ export const Header = () => {
 
                 </button>
                 <button className='cursor-pointer'>
-                    <p className="text-white border-2 border-white px-6 py-2" onClick={() => router.push("/registercompany")}>New Company</p>
+                   {activeCompany != '' ? <Button onClick={()=>router.push("/companydashboard")}>Dashboard</Button> : <Button onClick={() => router.push("/newcompany")}>New Company</Button>}
 
                 </button>
 

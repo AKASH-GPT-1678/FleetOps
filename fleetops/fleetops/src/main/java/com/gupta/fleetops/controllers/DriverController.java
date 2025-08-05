@@ -2,12 +2,14 @@ package com.gupta.fleetops.controllers;
 
 
 import com.gupta.fleetops.entity.Driver;
+import com.gupta.fleetops.io.DriverKycRequestDTO;
 import com.gupta.fleetops.io.DriverRequestDTO;
 import com.gupta.fleetops.io.DriverResponse;
-import com.gupta.fleetops.service.CompanyService;
 import com.gupta.fleetops.service.DriverService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +41,16 @@ public class DriverController {
 
         List<DriverResponse> drivers = driverService.getMyDrivers();
         return ResponseEntity.ok(drivers);
+
+
+    }
+
+    @PostMapping("/driverkyc")
+    public ResponseEntity<String> driverKYC(@RequestBody DriverKycRequestDTO driverKycRequestDTO){
+
+
+        String driverKycRequestDTO1 = driverService.driverKYC(driverKycRequestDTO);
+        return ResponseEntity.ok(driverKycRequestDTO1);
 
 
     }

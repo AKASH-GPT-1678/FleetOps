@@ -19,4 +19,7 @@ public class DriverResponse {
     private String type;
     private LocalDate dateOfJoining;
     private UUID companyId;
+    private boolean status;
+    private String aadharNumber;
+    private String panNumber;
 }

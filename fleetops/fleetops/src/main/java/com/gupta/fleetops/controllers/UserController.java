@@ -8,7 +8,6 @@ import com.gupta.fleetops.io.TokenResponseDTO;
 import com.gupta.fleetops.repository.UserRepository;
 import com.gupta.fleetops.service.JwtService;
 import com.gupta.fleetops.service.UserInfoService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -24,9 +23,7 @@ public class UserController {
 
     private final UserInfoService userInfoService;
 
-    private JwtService jwtService;
 
-    private AuthenticationManager authenticationManager;
 
     private UserRepository userRepository;
 

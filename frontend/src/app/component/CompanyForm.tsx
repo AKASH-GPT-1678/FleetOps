@@ -46,6 +46,7 @@ export default function CompanyRegistrationForm() {
             console.log("Response:", response.data);
             if (response.data.status == true) {
                 setCompanyName(data.name);
+                window.location.href = "/"
             }
         } catch (err : any) {
             console.error(err);

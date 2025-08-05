@@ -31,10 +31,11 @@ public class CompanyController {
 
 
     @GetMapping("/companies")
-    public ResponseEntity<List<CompanyResponse>> getAllCompanies() {
+    public ResponseEntity<CompanyResponse> getAllCompanies() {
         System.out.println("✅ /companies request arrived");
-        List<CompanyResponse> companies = companyService.getAllCompaniesByUser();
-        System.out.println("🔢 Companies found: " + companies.size());
+        CompanyResponse companies = companyService.getAllCompaniesByUser();
+        System.out.println("companies:");
+
 
         return ResponseEntity.ok(companies);
     }

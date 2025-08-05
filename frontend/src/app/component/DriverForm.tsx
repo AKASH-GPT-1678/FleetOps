@@ -60,6 +60,9 @@ export default function DriverRegistrationForm() {
                 },
             });
             console.log("Success:", response.data);
+            if(response.data.status == true){
+                window.location.reload();
+            }
         } catch (error) {
             console.error("Error:", error);
             setSubmitError(true);
