@@ -14,6 +14,7 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Table(name = "driver")
 public class Driver {
 
@@ -41,7 +42,7 @@ public class Driver {
 
     private String photo;
 
-   private DeliverStatus status;
+    private DeliverStatus status = DeliverStatus.AVAILABLE;
 
 
 

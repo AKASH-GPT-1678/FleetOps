@@ -1,6 +1,7 @@
 package com.gupta.fleetops.io;
 
 
+import com.gupta.fleetops.entity.DeliverStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class DriverResponse {
     private String type;
     private LocalDate dateOfJoining;
     private UUID companyId;
-    private boolean status;
+    private DeliverStatus status;
     private String aadharNumber;
     private String panNumber;
 }

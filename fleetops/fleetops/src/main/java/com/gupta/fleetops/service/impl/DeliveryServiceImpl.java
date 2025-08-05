@@ -78,6 +78,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         delivery.setVehicle(vehicle);
         delivery.setCompany(existingCompany);
 
+        driver.setStatus(DeliverStatus.OCCUPIED);
+        driverRepository.save(driver);
+
 
         Delivery savedDelivery = deliveryRepository.save(delivery);
 

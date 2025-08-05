@@ -4,6 +4,7 @@ package com.gupta.fleetops.service.impl;
 import com.gupta.fleetops.entity.Company;
 import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.exceptions.NotPremiumUserException;
+import com.gupta.fleetops.io.CompanyDTO;
 import com.gupta.fleetops.io.CompanyRequest;
 import com.gupta.fleetops.io.CompanyResponse;
 import com.gupta.fleetops.repository.CompanyRepository;
@@ -16,10 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -102,6 +100,42 @@ public class CompanyServiceImpl implements CompanyService {
         return companyResponse;
     }
 
+    @Override
+    public CompanyDTO getCompanyById() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
+
+                ;
+
+        Company company = user.getCompany();
+        if(company == null){
+            CompanyDTO emptyCompany = new CompanyDTO();
+            return emptyCompany;
+        }
+
+        CompanyDTO dto = CompanyDTO.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .address(company.getAddress())
+                .type(company.getType())
+                .adminEmail(company.getAdminEmail())
+                .vehiclesOwned(company.getVehiclesOwned())
+                .driversOwned(company.getDriversOwned())
+                .totalDeliveries(company.getTotalDeliveries())
+                .uniqueClients(company.getUniqueClients())
+                .pendingDeliveries(company.getPendingDeliveries())
+                .averageDeliveryTime(company.getAverageDeliveryTime())
+                .customerSatisfaction(company.getCustomerSatisfaction())
+                .createdAt(company.getCreatedAt())
+                .isPremium(company.isPremium())
+                .build();
+
+
+        return dto;
+    }
 
 
 }

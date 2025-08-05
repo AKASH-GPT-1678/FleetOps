@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 export const Header = () => {
     const router = useRouter();
     const activeCompany = useUserStore((state) => state.activeCompany);
+    const isAuthenticated = useUserStore((state) => state.isAuthenticated);
     return (
         <div className='flex flex-row justify-between bg-gray-800 align-middle'>
             {/* <div className='flex flex-row gap-4 p-6 '>
@@ -28,7 +29,7 @@ export const Header = () => {
                     <p className='text-white font-bold text-lg'>About</p>
                 </div>
                 <div>
-                    <p className='text-white font-bold text-lg cursor-pointer' onClick={()=> router.push("/companydashboard")}>Dashboard</p>
+                    <p className='text-white font-bold text-lg cursor-pointer' onClick={() => router.push("/companydashboard")}>Dashboard</p>
                 </div>
 
 
@@ -41,11 +42,16 @@ export const Header = () => {
 
 
                 <button className='cursor-pointer'>
-                    <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Login</p>
+                    {
+                        isAuthenticated ? <div className='flex flex-row gap-3'>
+                            <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Profile</p>
+                            <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Logout</p>
+
+                        </div> : <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Login</p>
+                    }
+
 
                 </button>
-          
-                   {activeCompany != '' ? <Button onClick={()=>router.push("/companydashboard")}>Dashboard</Button> : <Button onClick={() => router.push("/newcompany")}>New Company</Button>}
 
 
             </div>

@@ -2,6 +2,7 @@ package com.gupta.fleetops.controllers;
 
 
 import com.gupta.fleetops.entity.Company;
+import com.gupta.fleetops.io.CompanyDTO;
 import com.gupta.fleetops.io.CompanyRequest;
 import com.gupta.fleetops.io.CompanyResponse;
 import com.gupta.fleetops.service.CompanyService;
@@ -38,6 +39,15 @@ public class CompanyController {
 
 
         return ResponseEntity.ok(companies);
+    }
+
+    @GetMapping("/myCompany")
+    public ResponseEntity<CompanyDTO> getCompanyById(){
+
+        CompanyDTO company = companyService.getCompanyById();
+        return ResponseEntity.ok(company);
+
+
     }
 
 

@@ -51,6 +51,8 @@ public class VehicleServiceImpl implements VehicleService {
             throw new AdminPasswordNotMatch("Admin password does not match.");
         }
 
+
+
         newVehicle.setVehicleNumber(vehicleRequest.getVehicleNumber());
         newVehicle.setModel(vehicleRequest.getModel());
         newVehicle.setFeatures(vehicleRequest.getFeatures());
@@ -63,6 +65,8 @@ public class VehicleServiceImpl implements VehicleService {
         newVehicle.setDescription(vehicleRequest.getDescription());
         newVehicle.setCompany(company);
         Vehicle savedVehicle = vehicleRepository.save(newVehicle);
+        company.setVehiclesOwned(company.getVehiclesOwned() + 1);
+        companyRepository.save(company);
 
         VehicleResponseDTO responseDTO = new VehicleResponseDTO();
         responseDTO.setId(savedVehicle.getId());

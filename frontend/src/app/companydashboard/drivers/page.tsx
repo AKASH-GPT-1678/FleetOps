@@ -201,9 +201,7 @@ const Drivers = () => {
 
 
                 </div>
-                {
-                    JSON.stringify(driver)
-                }
+
                 <div className='flex flex-row w-full'>
                     <div className='w-full'>
 
@@ -235,14 +233,14 @@ const Drivers = () => {
                                             )}
                                         </div>
 
-                                        <div className='border-2 border-black '>
+                                        <div className='p-3 '>
                                             {drivers.map((item, index) => (
-                                                <div key={index} className='p-3 hover:bg-gray-100 cursor-pointer' onClick={() => setActiveDriver(item.id)}>
+                                                <div key={index} className='p-4 rounded-lg bg-green-100 hover:bg-gray-100 cursor-pointer ' onClick={() => setActiveDriver(item.id)}>
                                                     <div className='flex flex-row justify-between'>
                                                         <p>{item.name}</p>
                                                         <p>......</p>
                                                         <p>{item.phoneNumber}</p>
-                                                        <p>{item.licenseNumber}</p>
+                                                        <p>{item.name}</p>
 
                                                     </div>
 
@@ -261,19 +259,19 @@ const Drivers = () => {
                                 <p>No drivers found</p>
                             )
                         }
-                        <p>{activeDriver}</p>
+
 
                     </div>
-                  {
-                    drivers.length > 0 &&  (
-                          <div className='w-full'>
-                        <DriverProfile driver={drivers[0]} />
+                    {
+                        drivers.length > 0 && (
+                            <div className='w-full'>
+                                <DriverProfile driver={drivers[0]} />
 
-                    </div>
+                            </div>
 
-                    )
-                  }
-                  
+                        )
+                    }
+
                 </div>
 
                 <div className='absolute top-32 left-1/4 z-50 bg-white border-2 p-4 rounded shadow-xl' ref={registrationRef}>

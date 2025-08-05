@@ -2,6 +2,7 @@ package com.gupta.fleetops.service.impl;
 
 
 import com.gupta.fleetops.entity.Company;
+import com.gupta.fleetops.entity.DeliverStatus;
 import com.gupta.fleetops.entity.Driver;
 import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.exceptions.AdminPasswordNotMatch;
@@ -65,11 +66,14 @@ public class DriverServiceImpl implements DriverService {
         driver.setPhoneNumber(driverRequestDTO.getPhoneNumber());
         driver.setLicenseNumber(driverRequestDTO.getLicenseNumber());
         driver.setType(driverRequestDTO.getType());
+        driver.setStatus(DeliverStatus.AVAILABLE);
         driver.setDateOfJoining(driverRequestDTO.getDateOfJoining());
         driver.setCompany(company);
 
 
         Driver savedDriver = driverRepository.save(driver);
+        company.setDriversOwned(company.getDriversOwned() + 1);
+        companyRepository.save(company);
 
         return new DriverResponse(
                 savedDriver.getId(),
@@ -79,7 +83,7 @@ public class DriverServiceImpl implements DriverService {
                 savedDriver.getType(),
                 savedDriver.getDateOfJoining(),
                 savedDriver.getCompany().getId(),
-                true,
+                savedDriver.getStatus(),
                 savedDriver.getAadharNumber(),
                 savedDriver.getPanNumber()
 
@@ -115,7 +119,7 @@ public class DriverServiceImpl implements DriverService {
                         driver.getType(),
                         driver.getDateOfJoining(),
                         driver.getCompany() != null ? driver.getCompany().getId() : null,
-                        true,
+                        driver.getStatus(),
                         driver.getAadharNumber(),
                         driver.getPanNumber()
                 ))
