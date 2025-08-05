@@ -41,6 +41,9 @@ public class Driver {
 
     private String photo;
 
+   private DeliverStatus status;
+
+
 
 
 

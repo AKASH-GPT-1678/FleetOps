@@ -15,5 +15,7 @@ public interface VehicleService {
 
     List<VehicleDetailsResponse> getVehiclesByCompanyId(UUID companyId);
 
+    String uploadVehicleImage(UUID vehicleId , String image);
+
 
 }

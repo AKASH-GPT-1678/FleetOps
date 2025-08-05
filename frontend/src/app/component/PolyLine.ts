@@ -1,21 +1,28 @@
 import axios from "axios";
+
 interface MapProps {
   first: string;
   second: string;
+  deliveryId: string;
 }
 
-const lat = 24.507740314377397;
-const lng = 72.01867337513242;
-//24.507740314377397, 72.01867337513242
-async function initMap(): Promise<void> {
+
+async function initMap(first: string, second: string , deliveryId: string): Promise<void> {
+  console.log("i am init map", first, second);
 
 
-  const response = await axios.get('http://localhost:5000/api/location');
-  //https://phonepe-clone.onrender.com/api/location
-  console.log(response.data); // The actual data
+
+
+
+  const response = await axios.get(`/api/location?deliveryId=${encodeURIComponent(deliveryId)}`);
+  console.log(response.data);
+   const lat = response.data.location.lat;
+   const lan = response.data.location.lng;
+  // //https://phonepe-clone.onrender.com/api/location
+  // console.log(response.data); // The actual data
 
   //@ts-ignore
-  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
+  const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.marker.AdvancedMarkerElement;
 
   // Create the map
   //@ts-ignore
@@ -39,7 +46,7 @@ async function initMap(): Promise<void> {
 
   const beachFlagMarkerView = new AdvancedMarkerElement({
     map: map,
-    position: response.data,
+    position: { lat: parseFloat(lat), lng: parseFloat(lan) }, // { lat: 22.71957, lng: 75.85773 },
     content: beachFlagImg,
     title: 'A marker using a custom PNG Image',
   });
@@ -54,10 +61,10 @@ async function initMap(): Promise<void> {
 
   directionsRenderer.setMap(map);
 
-  directionsService.route(
+  await directionsService.route(
     {
-      origin: "Ahemdabad, Gujrat",
-      destination: "Himmatgarh Palace Jaisalmer",
+      origin: first,
+      destination: second,
       //@ts-ignore
       travelMode: google.maps.TravelMode.DRIVING,
     },

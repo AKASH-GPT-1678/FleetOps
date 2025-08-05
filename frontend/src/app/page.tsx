@@ -65,6 +65,7 @@ export default function Home() {
 
       } catch (error) {
         console.log(error);
+        return null;
 
       }
     };

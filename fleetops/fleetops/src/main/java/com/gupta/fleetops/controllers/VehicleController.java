@@ -23,6 +23,7 @@ public class VehicleController {
     private final VehicleService vehicleService;
     private final DeliveryLocationService deliveryLocationService;
 
+
     public VehicleController(VehicleService vehicleService, DeliveryLocationService deliveryLocationService){
         this.vehicleService = vehicleService;
         this.deliveryLocationService = deliveryLocationService;
@@ -51,6 +52,13 @@ public class VehicleController {
         );
         return ResponseEntity.ok(vehicles);
     }
+
+//    @PostMapping("/upload")
+//    public ResponseEntity<String> uploadVehicleImage(@RequestParam String vehicleId, @RequestParam String image){
+////        FIle
+////
+////        String
+//    }
 
 
 

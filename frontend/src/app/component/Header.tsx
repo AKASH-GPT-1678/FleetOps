@@ -44,10 +44,9 @@ export const Header = () => {
                     <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Login</p>
 
                 </button>
-                <button className='cursor-pointer'>
+          
                    {activeCompany != '' ? <Button onClick={()=>router.push("/companydashboard")}>Dashboard</Button> : <Button onClick={() => router.push("/newcompany")}>New Company</Button>}
 
-                </button>
 
             </div>
         </div>

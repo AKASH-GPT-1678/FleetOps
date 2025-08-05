@@ -1,6 +1,7 @@
 package com.gupta.fleetops.service.impl;
 
 import com.gupta.fleetops.entity.Company;
+import com.gupta.fleetops.entity.DeliverStatus;
 import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.entity.Vehicle;
 import com.gupta.fleetops.exceptions.AdminPasswordNotMatch;
@@ -57,11 +58,12 @@ public class VehicleServiceImpl implements VehicleService {
 
         newVehicle.setFuelType(vehicleRequest.getFuelType());
         newVehicle.setCapacityInKg(vehicleRequest.getCapacityInKg());
-        newVehicle.setStatus(vehicleRequest.getStatus());
+        newVehicle.setStatus(DeliverStatus.AVAILABLE);
         newVehicle.setRegistrationDate(vehicleRequest.getRegistrationDate());
         newVehicle.setDescription(vehicleRequest.getDescription());
         newVehicle.setCompany(company);
         Vehicle savedVehicle = vehicleRepository.save(newVehicle);
+
         VehicleResponseDTO responseDTO = new VehicleResponseDTO();
         responseDTO.setId(savedVehicle.getId());
         responseDTO.setCompanyName(company.getName());
@@ -117,5 +119,31 @@ public class VehicleServiceImpl implements VehicleService {
         }
 
 
+    }
+
+    @Override
+    public String uploadVehicleImage(UUID vehicleId, String image) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
+
+        Company company = user.getCompany();
+
+        if(company == null){
+            throw new NoSuchElementException("No such Company found");
+        }
+
+        Vehicle vehicle = vehicleRepository.findById(vehicleId)
+                .orElseThrow(() -> new NoSuchElementException("Vehicle not found: " +  vehicleId + " for user ID: " + user.getUsername()));
+
+        vehicle.setImage(image);
+        vehicleRepository.save(vehicle);
+
+
+
+        return "Uploaded";
     }
 }

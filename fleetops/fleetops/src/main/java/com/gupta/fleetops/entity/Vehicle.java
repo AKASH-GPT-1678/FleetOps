@@ -27,7 +27,7 @@ public class Vehicle {
     private String model;               // E.g. "Tata Ace", "Mahindra Bolero";        // E.g. "Tata Motors", "Ashok Leyland"
     private int capacityInKg;           // How much weight it can carry
     private String fuelType;            // E.g. Diesel, Petrol, Electric
-    private String status;
+    private DeliverStatus status;
     private String image;
     private String description;
     private String pricePerDay;

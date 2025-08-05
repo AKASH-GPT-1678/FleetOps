@@ -1,5 +1,6 @@
 package com.gupta.fleetops.io;
 
+import com.gupta.fleetops.entity.DeliverStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ public class VehicleDetailsResponse {
 
     private int capacityInKg;
     private String fuelType;
-    private String status;
+    private DeliverStatus status;
     private LocalDate registrationDate;
     private String pricePerDay;
     private String description;
