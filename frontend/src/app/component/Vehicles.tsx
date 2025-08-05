@@ -14,13 +14,13 @@ export const VehiclesSpecs = () => {
     const token = useUserStore((state) => state.token);
     const [getData, setGetData] = React.useState(false);
     const [activeIndex, setActiveIndex] = React.useState(0);
-    const [vehicleForm, setVehicleForm] = React.useState(false);
     const [vehicles, setVehicles] = React.useState<Vehicle[]>([]);
     const { setShowRegistrationForm, showRegistrationForm } = useRegistration();
 
     React.useEffect(() => {
 
         const getMyVehicles = async (token: string) => {
+            if(!token  || !comapanyId) return ;
             try {
                 console.log("Company ID:", comapanyId);
                 console.log("Token:", token);

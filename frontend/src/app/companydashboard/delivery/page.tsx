@@ -27,8 +27,8 @@ const DeliveryDashBoard = () => {
     const companyId = useUserStore((state) => state.activeCompany);
     const token = useUserStore((state) => state.token);
     const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
-     const [error, setError] = React.useState<string>("");
-     const router = useRouter();
+    const [error, setError] = React.useState<string>("");
+    const router = useRouter();
     const tabs = [
         {
             label: "Dashboard",
@@ -100,7 +100,7 @@ const DeliveryDashBoard = () => {
                 console.error("❌ Failed to fetch deliveries:", err);
                 setError("Failed to load deliveries.");
             } finally {
-                
+
             }
         };
 
@@ -118,7 +118,7 @@ const DeliveryDashBoard = () => {
                     <h1>Menu</h1>
 
                     <div className="flex flex-col gap-4">
-                        {tabs.map((tab,index) => (
+                        {tabs.map((tab, index) => (
                             <div
                                 key={index}
                                 onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
@@ -142,30 +142,30 @@ const DeliveryDashBoard = () => {
 
 
             </div>
-              <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">My Deliveries</h2>
+            <div className="p-6">
+                <h2 className="text-2xl font-bold mb-4">My Deliveries</h2>
 
-      {deliveries.length === 0 ? (
-        <p>No deliveries found.</p>
-      ) : (
-        <ul className="space-y-4 ">
-          {deliveries.map((delivery, index) => (
-            <div className='flex flex-row justify-between max-w-[800px] border'>
-            <li key={index} className=" p-4 rounded  w-full">
-              <p><strong>Driver:</strong> {delivery.driverName} ({delivery.driverId})</p>
-              <p><strong>Vehicle:</strong> {delivery.vehicleNumber} ({delivery.vehicleId})</p>
-              <p><strong>Origin:</strong> {delivery.origin}</p>
-              <p><strong>Destination:</strong> {delivery.destination}</p>
-            </li>
-            <li className='p-4'>
-               <Button className='cursor-pointer' onClick={()=>router.push(`/companydashboard/tracking?deliveryId=${delivery.deliveryId}`)}>Track</Button>
+                {deliveries.length === 0 ? (
+                    <p>No deliveries found.</p>
+                ) : (
+                    <ul className="space-y-4 ">
+                        {deliveries.map((delivery, index) => (
+                            <div className='flex flex-row justify-between max-w-[800px] border'>
+                                <li key={index} className=" p-4 rounded  w-full">
+                                    <p><strong>Driver:</strong> {delivery.driverName} ({delivery.driverId})</p>
+                                    <p><strong>Vehicle:</strong> {delivery.vehicleNumber} ({delivery.vehicleId})</p>
+                                    <p><strong>Origin:</strong> {delivery.origin}</p>
+                                    <p><strong>Destination:</strong> {delivery.destination}</p>
+                                </li>
+                                <li className='p-4'>
+                                    <Button className='cursor-pointer' onClick={() => router.push(`/companydashboard/tracking?deliveryId=${delivery.deliveryId}`)}>Track</Button>
 
-            </li>
+                                </li>
+                            </div>
+                        ))}
+                    </ul>
+                )}
             </div>
-          ))}
-        </ul>
-      )}
-    </div>
 
 
         </div>

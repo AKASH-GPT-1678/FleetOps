@@ -8,7 +8,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 export const Login = () => {
     const router = useRouter();
-        const [someError, setSomeError] = React.useState(false);
+    const [someError, setSomeError] = React.useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<LoginSchemaType>({
 
         resolver: zodResolver(LoginSchema),
@@ -22,7 +22,7 @@ export const Login = () => {
     const token = useUserStore((state) => state.token);
 
     const onSubmit: SubmitHandler<LoginSchemaType> = async (data) => {
- 
+
         if (!data.email || !data.password) return;
 
         const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
@@ -34,12 +34,12 @@ export const Login = () => {
             setToken(response.data.token);
             if (response.data.status == true) {
                 router.push("/");
-                
+
             }
-            else{
+            else {
                 setSomeError(true);
             }
-  
+
             return response.data;
         } catch (error) {
             console.error(error);
@@ -52,7 +52,7 @@ export const Login = () => {
         <div className='flex flex-col h-full w-full mt-6'>
 
             <h1 className='text-3xl font-extrabold mb-6'>Welcome Back</h1>
-            <p>Don't have an account? <a href="/register">Register</a></p>
+            <p>Don't have an account? <a href="/register" className='text-blue-600'>Register</a></p>
 
 
             <section className='mt-8'>
@@ -70,7 +70,7 @@ export const Login = () => {
                             {...register('password')}
                             className='border border-gray-600 p-2 py-3 w-full'
                         />
-                                     {someError && <p className='text-red-600 text-sm mt-4 mb-3'>
+                        {someError && <p className='text-red-600 text-sm mt-4 mb-3'>
                             Something Went Wrong in Registration
                         </p>}
 

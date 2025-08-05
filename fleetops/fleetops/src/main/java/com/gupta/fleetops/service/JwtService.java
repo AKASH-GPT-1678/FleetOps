@@ -27,7 +27,8 @@ public class JwtService {
 
     // Creates JWT with claims and email
     private String createToken(Map<String, Object> claims, String email) {
-        long expirationTimeMillis = 1000 * 1200 * 30; // 10 hours
+        long expirationTimeMillis = 1000 * 60 * 30; // 30 minutes
+
 
         String token = Jwts.builder()
                 .setClaims(claims)

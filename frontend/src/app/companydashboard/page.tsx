@@ -11,6 +11,9 @@ import { useUserStore } from '../component/zustand';
 import axios from 'axios';
 import { get } from 'http';
 import { Building2, MapPin, Mail, Calendar, Crown, Truck, Users, Package, Clock, Star, TrendingUp } from 'lucide-react';
+import { fa } from 'zod/v4/locales';
+import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export interface CompanyData {
     id: string;
@@ -31,8 +34,10 @@ export interface CompanyData {
 
 const CompanyDashBoard = () => {
     const [active, setActive] = React.useState("");
+    const [newCompany, setNewCompany] = React.useState(false);
     const token = useUserStore((state) => state.token);
     const [companyData, setCompanyData] = React.useState<CompanyData | null>(null);
+    const router = useRouter();
 
     const tabs = [
         {
@@ -104,6 +109,11 @@ const CompanyDashBoard = () => {
         getMyCompany(token).then((data) => {
             setCompanyData(data);
         });
+
+        if (companyData?.name == null) {
+            setNewCompany(true);
+
+        }
     }, [token]);
 
     // Enhanced UI Components
@@ -178,9 +188,23 @@ const CompanyDashBoard = () => {
 
             {/* Main Content */}
             <div className="flex-1 p-6">
-                <div className="mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2">Company Dashboard</h2>
-                    <p className="text-gray-600">Overview of your company's information and operational metrics</p>
+                <div className='flex flex-row justify-between'>
+                    <div className="mb-8">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-2">Company Dashboard</h2>
+                        <p className="text-gray-600">Overview of your company's information and operational metrics</p>
+                    </div>
+                    <div className='mt-4'>
+                        {
+                            newCompany ? (
+                                <Button className='p-4 py-6 cursor-pointer' onClick={() => router.push("/registercompany")}>New Company</Button>
+                            ) : (
+                                <></>
+
+                            )
+
+                        }
+
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

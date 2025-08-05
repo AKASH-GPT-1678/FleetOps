@@ -80,6 +80,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 
         driver.setStatus(DeliverStatus.OCCUPIED);
         driverRepository.save(driver);
+        existingCompany.setTotalDeliveries(existingCompany.getTotalDeliveries() + 1);
+        companyRepository.save(existingCompany);
 
 
         Delivery savedDelivery = deliveryRepository.save(delivery);
@@ -92,7 +94,9 @@ public class DeliveryServiceImpl implements DeliveryService {
                 savedDelivery.getExpectedTime(),
                 driver.getName(),
                 vehicle.getVehicleNumber(),
-                existingCompany.getName()
+                existingCompany.getName(),
+                true
+
         );
 
 

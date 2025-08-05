@@ -62,13 +62,13 @@ public class CompanyServiceImpl implements CompanyService {
 
         // Step 1: Link both sides of the relationship
         newCompany.setUser(user); // company owns user reference
-        user.setCompany(newCompany); // user owns company reference
+//        user.setCompany(newCompany); // user owns company reference
 
-        // Step 2: Save the company first (optional, you can swap the order)
+
         companyRepository.save(newCompany);
 
-
-        userRepository.save(user);
+//
+//        userRepository.save(user);
 
         CompanyResponse companyResponse = new CompanyResponse();
         companyResponse.setName(newCompany.getName());
@@ -122,7 +122,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .address(company.getAddress())
                 .type(company.getType())
                 .adminEmail(company.getAdminEmail())
-                .vehiclesOwned(company.getVehiclesOwned())
+                .vehiclesOwned(company.getVehicles().size())
                 .driversOwned(company.getDriversOwned())
                 .totalDeliveries(company.getTotalDeliveries())
                 .uniqueClients(company.getUniqueClients())

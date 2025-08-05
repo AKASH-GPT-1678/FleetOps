@@ -9,11 +9,25 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { MdLocalShipping } from 'react-icons/md';
 import Map from '@/app/component/Map';
 import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
+import { useUserStore } from '@/app/component/zustand';
+export interface DeliveryDetailDTO {
+    deliveryId: string;          // UUID as string
+    origin: string;
+    destination: string;
+    expectedTime: string;        // ISO timestamp (or Date if parsed)
+    driverName: string;
+    vehicleNumber: string;
+    companyName: string;
+}
 
 const TrackingDashBoard = () => {
     const [active, setActive] = React.useState("tracking");
+    const [origin, setOrigin] = React.useState('');
+    const [destination, setDestination] = React.useState('');
     const searchParam = useSearchParams();
     const deliverId = searchParam.get("deliveryId");
+    const token = useUserStore((state) => state.token);
 
 
     const tabs = [
@@ -60,13 +74,39 @@ const TrackingDashBoard = () => {
             icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
         },
     ];
+
+
+    async function getDeliveryById(deliveryId: string, token: string) {
+        try {
+            const response = await axios.get<DeliveryDetailDTO>(`http://localhost:8080/delivery/${deliveryId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                withCredentials: true
+            });
+            console.log('Delivery Details:', response.data);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching delivery by ID:', error);
+            throw error;
+        }
+    }
     const handleActivity = (key: string, route: string) => {
         setActive(key);
         if (route) {
             window.location.href = route;
         }
 
-    }
+    };
+
+    React.useEffect(() => {
+        if (deliverId) {
+            getDeliveryById(deliverId, token).then((data) => {
+                setOrigin(data.origin);
+                setDestination(data.destination);
+            });
+        }
+    }, [deliverId, token]);
 
 
     return (
@@ -99,9 +139,9 @@ const TrackingDashBoard = () => {
 
             </div>
             {
-                deliverId && (
+                deliverId && origin && destination && (
                     <div>
-                        <Map first='Himmatgarh Palace – Jaisalmer, Rajasthan' second='Jodhpur, Rajasthan' deliveryId={deliverId as string} />
+                        <Map first={origin.toString()} second={destination.toString()} deliveryId={deliverId as string} />
                     </div>
 
                 )

@@ -49,7 +49,7 @@ export default function DriverRegistrationForm() {
                 type: data.type,
                 dateOfJoining: data.dateOfJoining,
                 companyId: comapanyId,
-                adminPassword : data.adminPassword
+                adminPassword: data.adminPassword
 
             }
             const response = await axios.post(`${endpoint}/driver/register`, driver, {
@@ -60,7 +60,7 @@ export default function DriverRegistrationForm() {
                 },
             });
             console.log("Success:", response.data);
-            if(response.data.status == true){
+            if (response.data.status == "AVAILABLE") {
                 window.location.reload();
             }
         } catch (error) {

@@ -18,4 +18,5 @@ public class DeliveryResponse {
     private String driverName;
     private String vehicleNumber;
     private String companyName;
+    private boolean success;
 }

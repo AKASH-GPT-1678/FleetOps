@@ -37,6 +37,7 @@ export default function Home() {
         setIsAuthenticated(response.data.status);
       } catch (error) {
         console.error("Error while checking token:", error);
+        setIsAuthenticated(false);
 
       }
 
@@ -59,12 +60,14 @@ export default function Home() {
 
         });
         console.log(companies.data);
-        console.log(companies.data)
+        console.log(companies.data);
+
 
         setActiveCompany(companies.data.companyId)
 
       } catch (error) {
         console.log(error);
+        setActiveCompany("");
         return null;
 
       }

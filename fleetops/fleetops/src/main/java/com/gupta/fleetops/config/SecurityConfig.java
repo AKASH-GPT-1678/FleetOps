@@ -46,7 +46,7 @@ public class SecurityConfig {
 
              .authorizeHttpRequests(auth -> auth
                      .requestMatchers("/kafka/**", "/auth/**" , "/origin/**" ,"/kafka/**").permitAll()
-                     .requestMatchers("/vehicle/**" , "origin/add", "/kafka/**").authenticated()
+                     .requestMatchers("/vehicle/**" , "origin/add", "/kafka/**", "delivery/*").authenticated()
 
                      // Role-based endpoints
                      .requestMatchers("/auth/user/**").hasAuthority("ROLE_DRIVER")

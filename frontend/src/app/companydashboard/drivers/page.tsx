@@ -38,7 +38,7 @@ const Drivers = () => {
     const [showForm, setShowForm] = React.useState(false);
     const registrationRef = React.useRef<HTMLDivElement>(null);
     const [drivers, setDrivers] = React.useState<DriverResponse[]>([]);
-    const [activeDriver, setActiveDriver] = React.useState("");
+    const [activeDriver, setActiveDriver] = React.useState(0);
     const token = useUserStore((state) => state.token);
     const [viewMore, setviewMore] = React.useState(false);
 
@@ -145,9 +145,9 @@ const Drivers = () => {
     const getMyDrivers = async () => {
 
     };
-    const driver = drivers.filter((driver) => {
-        return driver.id == activeDriver;
-    });
+    // const driver = drivers.filter((driver) => {
+    //     return driver.id == activeDriver;
+    // });
 
 
     return (
@@ -235,7 +235,7 @@ const Drivers = () => {
 
                                         <div className='p-3 '>
                                             {drivers.map((item, index) => (
-                                                <div key={index} className='p-4 rounded-lg bg-green-100 hover:bg-gray-100 cursor-pointer ' onClick={() => setActiveDriver(item.id)}>
+                                                <div key={index} className='p-4 rounded-lg bg-green-100 hover:bg-gray-100 cursor-pointer ' onClick={() => setActiveDriver(index)}>
                                                     <div className='flex flex-row justify-between'>
                                                         <p>{item.name}</p>
                                                         <p>......</p>
@@ -265,7 +265,7 @@ const Drivers = () => {
                     {
                         drivers.length > 0 && (
                             <div className='w-full'>
-                                <DriverProfile driver={drivers[0]} />
+                                <DriverProfile driver={drivers[activeDriver]} />
 
                             </div>
 

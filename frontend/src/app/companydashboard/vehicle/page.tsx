@@ -17,50 +17,50 @@ const VehicleDashBoard = () => {
     const { setShowRegistrationForm, showRegistrationForm } = useRegistration();
     const [active, setActive] = React.useState("vehicle");
 
-                   const tabs = [
-                        {
-                            label: "Dashboard",
-                            key: "",
-                            icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
-                        },
-                        {
-                            label: "Drivers",
-                            key: "drivers",
-                            icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
-                        },
-                        {
-                            label: "Delivery",
-                            key: "delivery",
-                            icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
-                        },
-                
-                
-                        {
-                            label: "Report",
-                            key: "report",
-                            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-                        },
-                        {
-                            label: "Tracking",
-                            key: "tracking",
-                            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
-                        },
-                        {
-                            label: "Vehicle",
-                            key: "vehicle",
-                            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
-                        },
-                        {
-                            label: "Report",
-                            key: "report",
-                            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-                        },
-                        {
-                            label: "Settings",
-                            key: "settings",
-                            icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
-                        },
-                    ];
+    const tabs = [
+        {
+            label: "Dashboard",
+            key: "",
+            icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Drivers",
+            key: "drivers",
+            icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Delivery",
+            key: "delivery",
+            icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
+        },
+
+
+        {
+            label: "Report",
+            key: "report",
+            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Tracking",
+            key: "tracking",
+            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
+        },
+        {
+            label: "Vehicle",
+            key: "vehicle",
+            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
+        },
+        {
+            label: "Report",
+            key: "report",
+            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+        },
+        {
+            label: "Settings",
+            key: "settings",
+            icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
+        },
+    ];
     const handleActivity = (key: string, route: string) => {
         setActive(key);
         if (route) {
@@ -80,9 +80,9 @@ const VehicleDashBoard = () => {
                     <h1>Menu</h1>
 
                     <div className="flex flex-col gap-4">
-                        {tabs.map((tab) => (
+                        {tabs.map((tab, index) => (
                             <div
-                                key={tab.key}
+                                key={index}
                                 onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
                                 className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center 
                                 cursor-pointer
@@ -100,7 +100,7 @@ const VehicleDashBoard = () => {
 
             </div>
             <div>
-        
+
                 <VehiclesSpecs />
             </div>
             {

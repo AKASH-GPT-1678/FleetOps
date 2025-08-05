@@ -93,9 +93,9 @@ const page = () => {
             </div>
 
                
-               <div className='p-2 flex flex-col w-full h-screen'>
+               {/* <div className='p-2 flex flex-col w-full h-screen'>
                  <Map/>
-               </div>
+               </div> */}
         </div>
     )
 }

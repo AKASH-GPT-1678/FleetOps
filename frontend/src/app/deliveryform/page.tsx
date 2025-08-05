@@ -62,6 +62,9 @@ export default function TripRegistrationForm() {
       );
 
       console.log("✅ Trip created:", response.data);
+      if(response.data.success == true){
+        window.location.href = '/companydashboard/delivery';
+      }
       setSubmitError(false);
     } catch (err) {
       console.error("❌ Trip creation failed:", err);
