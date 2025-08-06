@@ -18,7 +18,7 @@ type FormData = z.infer<typeof schema>;
 export default function CompanyRegistrationForm() {
     const [submitError, setSubmitError] = useState(false);
     const [companyName, setCompanyName] = useState("");
-    const [premiumError, setPremiumError] = useState(false);
+    const [premiumError, setPremiumError] = useState("");
     const setToken = useUserStore((state) => state.setToken);
     const token = useUserStore((state) => state.token);
 
@@ -52,7 +52,7 @@ export default function CompanyRegistrationForm() {
             console.error(err);
             setSubmitError(true);
             if(err.response.data.isPremium == false){
-                setPremiumError(true);
+                setPremiumError(err.response.data.message);
                 
             }
         }
@@ -127,7 +127,7 @@ export default function CompanyRegistrationForm() {
 
                 {
                     premiumError && (
-                        <p className="text-red-600 text-center">You need to be a premium user to register a company.</p>
+                        <p className="text-red-600 text-center">{premiumError}</p>
                     )
                 }
             </form>

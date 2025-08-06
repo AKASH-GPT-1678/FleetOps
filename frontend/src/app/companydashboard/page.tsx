@@ -162,29 +162,28 @@ const CompanyDashBoard = () => {
 
     return (
         <div className='flex flex-row min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50'>
-            {/* Sidebar */}
-            <div className='p-4 w-full max-w-[400px] bg-white shadow-lg'>
-                <h1 className="text-3xl font-handwriting font-extrabold text-gray-800">FleetOps</h1>
+   <div className="p-4 w-full max-w-[300px] hidden md:inline-block lg:max-w-[400px] border-r border-gray-300 bg-white shadow-sm">
+    <h1 className="text-3xl font-handwriting font-extrabold text-blue-700 cursor-pointer" onClick={() => handleActivity("drivers", "/")}>FleetOps</h1>
 
-                <div className='mt-4 p-2'>
-                    <div className="flex flex-col gap-4">
-                        {tabs.map((tab, index) => (
-                            <div
-                                key={index}
-                                onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
-                                className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center 
-                                cursor-pointer transition-all duration-200
-                                ${active === tab.key ? 'bg-blue-100 shadow-md' : 'bg-white hover:bg-gray-50'}`}
-                            >
-                                {tab.icon}
-                                <p className={`font-bold ${active === tab.key ? 'text-blue-500' : 'text-gray-500'}`}>
-                                    {tab.label}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+    <div className="mt-6">
+
+
+      <div className="flex flex-col gap-3">
+        {tabs.map((tab, index) => (
+          <div
+            key={index}
+            onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
+            className={`flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer ${active === tab.key ? "bg-blue-100" : "hover:bg-gray-100"}`}
+          >
+            {tab.icon}
+            <p className={`font-semibold ${active === tab.key ? "text-blue-600" : "text-gray-600"}`}>
+              {tab.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 
             {/* Main Content */}
             <div className="flex-1 p-6">

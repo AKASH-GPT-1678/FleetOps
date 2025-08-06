@@ -107,22 +107,21 @@ const DeliveryDashBoard = () => {
         <div className='flex flex-col md:flex-row min-h-screen'>
 
 
-            <div className='p-6 w-full hidden md:block md:max-w-[300px] bg-white border-r border-gray-200 shadow-sm'>
-                <h1 className="text-3xl font-handwriting font-extrabold text-blue-700 mb-6">FleetOps</h1>
+            <div className="p-4 w-full max-w-[300px] hidden md:inline-block lg:max-w-[400px] border-r border-gray-300 bg-white shadow-sm">
+                <h1 className="text-3xl font-handwriting font-extrabold text-blue-700 cursor-pointer" onClick={() => handleActivity("drivers", "/")}>FleetOps</h1>
 
-                <div>
-                    <h2 className="text-lg font-semibold text-gray-700 mb-4">Menu</h2>
+                <div className="mt-6">
+              
 
                     <div className="flex flex-col gap-3">
                         {tabs.map((tab, index) => (
                             <div
                                 key={index}
                                 onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-colors duration-200 
-              ${active === tab.key ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100 text-gray-600'}`}
+                                className={`flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer ${active === tab.key ? "bg-blue-100" : "hover:bg-gray-100"}`}
                             >
                                 {tab.icon}
-                                <p className={`font-semibold ${active === tab.key ? 'text-blue-600' : 'text-gray-600'}`}>
+                                <p className={`font-semibold ${active === tab.key ? "text-blue-600" : "text-gray-600"}`}>
                                     {tab.label}
                                 </p>
                             </div>
@@ -130,7 +129,6 @@ const DeliveryDashBoard = () => {
                     </div>
                 </div>
             </div>
-
 
             <div className='p-6 w-full bg-gray-50'>
 

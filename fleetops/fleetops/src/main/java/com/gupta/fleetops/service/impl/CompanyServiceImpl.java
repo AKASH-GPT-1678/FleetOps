@@ -49,8 +49,8 @@ public class CompanyServiceImpl implements CompanyService {
                 .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
 
         // Check if user already has a company and is not premium
-        if (user.getCompany() != null && !user.isPremium()) {
-            throw new NotPremiumUserException("Buy Premium to Create More than One Company", false);
+        if (user.getCompany() != null ) {
+            throw new NotPremiumUserException("One User Can create just one Company", false);
         }
 
 

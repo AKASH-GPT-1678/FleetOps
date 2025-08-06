@@ -60,29 +60,27 @@ const page = () => {
   return (
     <div className='flex flex-row w-full'>
 
-      <div className="p-4 w-full max-w-[400px] border-2">
-         <h1 className="text-3xl font-handwriting font-extrabold text-blue-700">FleetOps</h1>
+      <div className="p-4 w-full max-w-[300px] hidden md:inline-block lg:max-w-[400px] border-r border-gray-300 bg-white shadow-sm">
+    <h1 className="text-3xl font-handwriting font-extrabold text-blue-700 cursor-pointer" onClick={() => handleActivity("drivers", "/")}>FleetOps</h1>
 
-        <div className="mt-4 p-2">
-          <h1>Menu</h1>
-
-          <div className="flex flex-col gap-4">
-            {tabs.map((tab, index) => (
-              <div
-                key={index}
-                onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
-                className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center cursor-pointer ${active === tab.key ? "bg-blue-100" : "bg-white"
-                  }`}
-              >
-                {tab.icon}
-                <p className={`font-bold ${active === tab.key ? "text-blue-500" : "text-gray-500"}`}>
-                  {tab.label}
-                </p>
-              </div>
-            ))}
+    <div className="mt-6">
+    
+      <div className="flex flex-col gap-3">
+        {tabs.map((tab, index) => (
+          <div
+            key={index}
+            onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
+            className={`flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer ${active === tab.key ? "bg-blue-100" : "hover:bg-gray-100"}`}
+          >
+            {tab.icon}
+            <p className={`font-semibold ${active === tab.key ? "text-blue-600" : "text-gray-600"}`}>
+              {tab.label}
+            </p>
           </div>
-        </div>
+        ))}
       </div>
+    </div>
+  </div>
     </div>
   )
 }

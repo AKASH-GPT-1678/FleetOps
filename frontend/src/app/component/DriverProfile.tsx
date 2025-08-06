@@ -53,17 +53,18 @@ export const DriverProfile: React.FC<DriverProps> = ({ driver }) => {
     };
 
     React.useEffect(() => {
-        imageRef.current?.click();
+
+        if (imageRef.current) imageRef.current.click();
         if (imageRef.current && imageRef.current.files && imageRef.current.files[0]) {
             imageRef.current.files![0];
             setProfileImage(imageRef.current.files![0]);
             setShowSubmit(true)
-  
-            
+
+
 
         }
 
-    }, [showInput]);
+    }, []);
 
 
     return (
@@ -88,7 +89,7 @@ export const DriverProfile: React.FC<DriverProps> = ({ driver }) => {
                     <Image src={Avatar} alt='profile' className='rounded-full w-[50%] h-[50%] border-2 ml-auto' onClick={() => setShowInput(!showInput)} />
                     <input type="file" className="hidden" ref={imageRef} />
                     {
-                        showSubmit  &&  (
+                        showSubmit && (
                             <Button>Submit</Button>
                         )
                     }
