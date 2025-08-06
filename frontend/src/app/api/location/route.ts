@@ -1,6 +1,8 @@
 // app/api/location/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import redis from '@/app/utils/redis';
+import { stat } from 'fs';
+import { success } from 'zod/v4-mini';
 
 export async function GET(request: NextRequest) {
   try {
@@ -16,7 +18,7 @@ export async function GET(request: NextRequest) {
 
 
     const key = `delivery_location:${deliveryId}`;
-    
+
     // Get all hash fields
     const data = await redis.hgetall(key);
 
@@ -24,7 +26,8 @@ export async function GET(request: NextRequest) {
     if (!data || Object.keys(data).length === 0) {
       return NextResponse.json(
         { error: 'Delivery location not found' },
-        { status: 404 }
+        { status: 404 },
+     
       );
     }
 
@@ -32,13 +35,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       deliveryId,
-      location: data
+      location: data,
+      status: 200
     });
 
   } catch (error) {
     console.error('Redis error:', error);
     return NextResponse.json(
-      { 
+      {
         error: 'Internal server error',
         message: error instanceof Error ? error.message : 'Unknown error'
       },

@@ -14,4 +14,6 @@ public interface DeliveryService {
     DeliveryResponse createDelivery(DeliveryRequest deliveryRequest);
     List<DeliverySummaryDTO> getMyDeliveries(UUID companyId);
     DeliveryDetailDTO getDeliveryById(UUID id);
+
+
 }

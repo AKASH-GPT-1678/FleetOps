@@ -16,6 +16,26 @@ import { MdLocalShipping } from 'react-icons/md';
 const VehicleDashBoard = () => {
     const { setShowRegistrationForm, showRegistrationForm } = useRegistration();
     const [active, setActive] = React.useState("vehicle");
+    const divRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                divRef.current &&
+                !divRef.current.contains(event.target as Node)
+            ) {
+                setShowRegistrationForm(false); // hide the form when clicking outside
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    });
+
+
 
     const tabs = [
         {
@@ -33,8 +53,6 @@ const VehicleDashBoard = () => {
             key: "delivery",
             icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
         },
-
-
         {
             label: "Report",
             key: "report",
@@ -43,17 +61,12 @@ const VehicleDashBoard = () => {
         {
             label: "Tracking",
             key: "tracking",
-            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
+            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />,
         },
         {
             label: "Vehicle",
             key: "vehicle",
-            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
-        },
-        {
-            label: "Report",
-            key: "report",
-            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />,
         },
         {
             label: "Settings",
@@ -73,7 +86,7 @@ const VehicleDashBoard = () => {
     return (
         <div className='flex flex-row gap-4 w-full'>
             <div className='p-4 w-full max-w-[400px]'>
-                <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+                <h1 className="text-3xl font-handwriting font-extrabold text-blue-700">FleetOps</h1>
 
 
                 <div className='mt-4 p-2'>
@@ -104,7 +117,7 @@ const VehicleDashBoard = () => {
                 <VehiclesSpecs />
             </div>
             {
-                showRegistrationForm && <div className='absolute top-0 right-0'>
+                showRegistrationForm && <div className='absolute top-6  left-1/2 transform -translate-x-1/2 w-full' ref={divRef}>
                     <VehicleRegistrationForm />
                 </div>
 

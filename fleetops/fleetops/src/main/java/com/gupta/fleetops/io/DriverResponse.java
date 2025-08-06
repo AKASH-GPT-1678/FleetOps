@@ -23,4 +23,5 @@ public class DriverResponse {
     private DeliverStatus status;
     private String aadharNumber;
     private String panNumber;
+    private String companyName;
 }

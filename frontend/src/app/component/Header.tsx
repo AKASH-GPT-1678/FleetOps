@@ -44,7 +44,7 @@ export const Header = () => {
                 <button className='cursor-pointer'>
                     {
                         isAuthenticated ? <div className='flex flex-row gap-3'>
-                            <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Profile</p>
+                            <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/profile"}>Profile</p>
                             <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Logout</p>
 
                         </div> : <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Login</p>

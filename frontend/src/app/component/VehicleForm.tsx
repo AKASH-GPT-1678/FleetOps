@@ -91,6 +91,9 @@ export default function VehicleRegistrationForm() {
 
       console.log("✅ Vehicle Registered:", response.data);
       setSubmitError(false);
+      if(response.data.status == true){
+        window.location.reload();
+      }
     } catch (error) {
       console.error("❌ Registration Error:", error);
       setSubmitError(true);

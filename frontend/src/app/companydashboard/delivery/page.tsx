@@ -29,6 +29,7 @@ const DeliveryDashBoard = () => {
     const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
     const [error, setError] = React.useState<string>("");
     const router = useRouter();
+
     const tabs = [
         {
             label: "Dashboard",
@@ -45,8 +46,6 @@ const DeliveryDashBoard = () => {
             key: "delivery",
             icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
         },
-
-
         {
             label: "Report",
             key: "report",
@@ -55,17 +54,12 @@ const DeliveryDashBoard = () => {
         {
             label: "Tracking",
             key: "tracking",
-            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
+            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />,
         },
         {
             label: "Vehicle",
             key: "vehicle",
-            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
-        },
-        {
-            label: "Report",
-            key: "report",
-            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />,
         },
         {
             label: "Settings",
@@ -109,66 +103,85 @@ const DeliveryDashBoard = () => {
 
 
     return (
-        <div>
-            <div className='p-4 w-full max-w-[400px]'>
-                <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+
+        <div className='flex flex-col md:flex-row min-h-screen'>
 
 
-                <div className='mt-4 p-2'>
-                    <h1>Menu</h1>
+            <div className='p-6 w-full hidden md:block md:max-w-[300px] bg-white border-r border-gray-200 shadow-sm'>
+                <h1 className="text-3xl font-handwriting font-extrabold text-blue-700 mb-6">FleetOps</h1>
 
-                    <div className="flex flex-col gap-4">
+                <div>
+                    <h2 className="text-lg font-semibold text-gray-700 mb-4">Menu</h2>
+
+                    <div className="flex flex-col gap-3">
                         {tabs.map((tab, index) => (
                             <div
                                 key={index}
                                 onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
-                                className={`flex flex-row gap-4 p-2 rounded-2xl max-w-[200px] items-center 
-                                cursor-pointer
-          ${active === tab.key ? 'bg-blue-100' : 'bg-white'}`}
+                                className={`flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer transition-colors duration-200 
+              ${active === tab.key ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100 text-gray-600'}`}
                             >
                                 {tab.icon}
-                                <p className={`font-bold ${active === tab.key ? 'text-blue-500' : 'text-gray-500'}`}>
+                                <p className={`font-semibold ${active === tab.key ? 'text-blue-600' : 'text-gray-600'}`}>
                                     {tab.label}
                                 </p>
                             </div>
                         ))}
                     </div>
+                </div>
+            </div>
 
+
+            <div className='p-6 w-full bg-gray-50'>
+
+
+                <div className="mb-6">
+                    <button
+                        className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+                        onClick={() => window.location.href = '/newdelivery'}
+                    >
+                        New Delivery
+                    </button>
                 </div>
 
-            </div>
-            <div>
-                <Button onClick={() => window.location.href = '/newdelivery'}>New Delivery</Button>
 
+                <div>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4">My Deliveries</h2>
 
-            </div>
-            <div className="p-6">
-                <h2 className="text-2xl font-bold mb-4">My Deliveries</h2>
+                    {deliveries.length === 0 ? (
+                        <p className="text-gray-500">No deliveries found.</p>
+                    ) : (
+                        <ul className="space-y-4">
+                            {deliveries.map((delivery, index) => (
+                                <li
+                                    key={index}
+                                    className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 max-w-[900px] border bg-white p-5 shadow-md rounded-xl"
+                                >
+                                    <div className="text-gray-800 space-y-1">
+                                        <p><strong>Driver:</strong> {delivery.driverName} ({delivery.driverId})</p>
+                                        <p><strong>Vehicle:</strong> {delivery.vehicleNumber} ({delivery.vehicleId})</p>
+                                        <p><strong>Origin:</strong> {delivery.origin}</p>
+                                        <p><strong>Destination:</strong> {delivery.destination}</p>
+                                        <p><strong>Delivery ID:</strong> {delivery.deliveryId}</p>
+                                    </div>
 
-                {deliveries.length === 0 ? (
-                    <p>No deliveries found.</p>
-                ) : (
-                    <ul className="space-y-4 ">
-                        {deliveries.map((delivery, index) => (
-                            <div className='flex flex-row justify-between max-w-[800px] border'>
-                                <li key={index} className=" p-4 rounded  w-full">
-                                    <p><strong>Driver:</strong> {delivery.driverName} ({delivery.driverId})</p>
-                                    <p><strong>Vehicle:</strong> {delivery.vehicleNumber} ({delivery.vehicleId})</p>
-                                    <p><strong>Origin:</strong> {delivery.origin}</p>
-                                    <p><strong>Destination:</strong> {delivery.destination}</p>
+                                    <div className="mt-2 lg:mt-0">
+                                        <button
+                                            className="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition"
+                                            onClick={() => router.push(`/companydashboard/tracking?deliveryId=${delivery.deliveryId}`)}
+                                        >
+                                            Track
+                                        </button>
+                                    </div>
                                 </li>
-                                <li className='p-4'>
-                                    <Button className='cursor-pointer' onClick={() => router.push(`/companydashboard/tracking?deliveryId=${delivery.deliveryId}`)}>Track</Button>
-
-                                </li>
-                            </div>
-                        ))}
-                    </ul>
-                )}
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
-
 
         </div>
+
     )
 }
 

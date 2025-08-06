@@ -25,10 +25,10 @@ public class Driver {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = false)
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = false)
     private String licenseNumber;
 
     @Column(nullable = false)

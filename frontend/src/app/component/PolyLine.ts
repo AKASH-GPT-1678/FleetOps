@@ -1,4 +1,5 @@
 import axios from "axios";
+import { li } from "framer-motion/client";
 
 interface MapProps {
   first: string;
@@ -7,7 +8,7 @@ interface MapProps {
 }
 
 
-async function initMap(first: string, second: string , deliveryId: string): Promise<void> {
+async function initMap(first: string, second: string, deliveryId: string): Promise<void> {
   console.log("i am init map", first, second);
 
 
@@ -16,8 +17,14 @@ async function initMap(first: string, second: string , deliveryId: string): Prom
 
   const response = await axios.get(`/api/location?deliveryId=${encodeURIComponent(deliveryId)}`);
   console.log(response.data);
-   const lat = response.data.location.lat;
-   const lan = response.data.location.lng;
+  const lat = response.data.location.lat;
+  const lan = response.data.location.lng;
+  let liveLocation = false;
+  if (response.data.status == 200) {
+    liveLocation = true;
+
+  }
+
   // //https://phonepe-clone.onrender.com/api/location
   // console.log(response.data); // The actual data
 
@@ -34,22 +41,29 @@ async function initMap(first: string, second: string , deliveryId: string): Prom
 
 
   //@ts-ignore
-  const markerMap = new google.maps.Marker({
-    position: { lat: 22.71957, lng: 75.85773 },
-    map: map,
-    title: "Jaisalmer",
+  // const markerMap = new google.maps.Marker({
+  //   position: { lat: 22.71957, lng: 75.85773 },
+  //   map: map,
+  //   title: "Jaisalmer",
 
-  });
+  // });
 
-  const beachFlagImg = document.createElement('img');
-  beachFlagImg.src = 'https://res.cloudinary.com/dffepahvl/image/upload/v1750972429/zy9za9w2aa1zqmpxm4cw.png';
 
-  const beachFlagMarkerView = new AdvancedMarkerElement({
-    map: map,
-    position: { lat: parseFloat(lat), lng: parseFloat(lan) }, // { lat: 22.71957, lng: 75.85773 },
-    content: beachFlagImg,
-    title: 'A marker using a custom PNG Image',
-  });
+
+  if (liveLocation) {
+    const beachFlagImg = document.createElement('img');
+    beachFlagImg.src = 'https://res.cloudinary.com/dffepahvl/image/upload/v1750972429/zy9za9w2aa1zqmpxm4cw.png';
+    const beachFlagMarkerView = new AdvancedMarkerElement({
+      map: map,
+      position: { lat: parseFloat(lat), lng: parseFloat(lan) }, // { lat: 22.71957, lng: 75.85773 },
+      content: beachFlagImg,
+      title: 'A marker using a custom PNG Image',
+    });
+
+
+
+  }
+
 
 
 

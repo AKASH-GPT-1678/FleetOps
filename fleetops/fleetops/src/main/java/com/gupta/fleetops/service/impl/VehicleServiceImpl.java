@@ -72,6 +72,7 @@ public class VehicleServiceImpl implements VehicleService {
         responseDTO.setId(savedVehicle.getId());
         responseDTO.setCompanyName(company.getName());
         responseDTO.setVehicleNumber(newVehicle.getVehicleNumber());
+        responseDTO.setStatus(true);
         responseDTO.setMessage("Vehicle created Successfully");
 
 

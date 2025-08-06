@@ -71,6 +71,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         delivery.setDestination(deliveryRequest.getDestination());
         delivery.setExpectedTime(deliveryRequest.getExpectedTime());
         delivery.setFuel(deliveryRequest.getFuel());
+        delivery.setStatus(DeliveryStatus.PENDING);
         delivery.setCostPerLitre(deliveryRequest.getCostPerLitre());
         delivery.setOriginCords(deliveryRequest.getOriginCords());
         delivery.setDestinationCords(deliveryRequest.getDestinationCords());
@@ -82,6 +83,8 @@ public class DeliveryServiceImpl implements DeliveryService {
         driverRepository.save(driver);
         existingCompany.setTotalDeliveries(existingCompany.getTotalDeliveries() + 1);
         companyRepository.save(existingCompany);
+        vehicle.setStatus(DeliverStatus.OCCUPIED);
+        vehicleRepository.save(vehicle);
 
 
         Delivery savedDelivery = deliveryRepository.save(delivery);
@@ -164,4 +167,10 @@ public class DeliveryServiceImpl implements DeliveryService {
 
         return dto;
     }
+
+
+
+
+
+
 }

@@ -2,12 +2,15 @@ package com.gupta.fleetops.service.impl;
 
 
 import com.gupta.fleetops.entity.Company;
+import com.gupta.fleetops.entity.Delivery;
+import com.gupta.fleetops.entity.DeliveryStatus;
 import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.exceptions.NotPremiumUserException;
 import com.gupta.fleetops.io.CompanyDTO;
 import com.gupta.fleetops.io.CompanyRequest;
 import com.gupta.fleetops.io.CompanyResponse;
 import com.gupta.fleetops.repository.CompanyRepository;
+import com.gupta.fleetops.repository.DeliveryRepository;
 import com.gupta.fleetops.repository.UserRepository;
 import com.gupta.fleetops.service.CompanyService;
 import jakarta.transaction.Transactional;
@@ -26,11 +29,13 @@ public class CompanyServiceImpl implements CompanyService {
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
     private final PasswordEncoder passwordEncoder;
+    private final DeliveryRepository deliveryRepository;
 
-    public CompanyServiceImpl(UserRepository userRepository, CompanyRepository companyRepository, PasswordEncoder passwordEncoder){
+    public CompanyServiceImpl(UserRepository userRepository, CompanyRepository companyRepository, PasswordEncoder passwordEncoder, DeliveryRepository deliveryRepository){
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
         this.passwordEncoder = passwordEncoder;
+        this.deliveryRepository = deliveryRepository;
     }
 
 
@@ -62,13 +67,13 @@ public class CompanyServiceImpl implements CompanyService {
 
         // Step 1: Link both sides of the relationship
         newCompany.setUser(user); // company owns user reference
-//        user.setCompany(newCompany); // user owns company reference
+        user.setCompany(newCompany); // user owns company reference
 
 
         companyRepository.save(newCompany);
 
 //
-//        userRepository.save(user);
+        userRepository.save(user);
 
         CompanyResponse companyResponse = new CompanyResponse();
         companyResponse.setName(newCompany.getName());
@@ -81,7 +86,12 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyResponse getAllCompaniesByUser() {
         // 1. Get logged-in user email
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+
+
+
 
         // 2. Fetch user from repository
         User user = userRepository.findByEmail(email)
@@ -90,6 +100,7 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = user.getCompany();
         CompanyResponse companyResponse = new CompanyResponse();
         if(company == null){
+            System.out.println("Company is null");
             throw new NoSuchElementException("No such Company found");
         }
 
@@ -116,6 +127,20 @@ public class CompanyServiceImpl implements CompanyService {
             return emptyCompany;
         }
 
+        List<Delivery> deliveries = deliveryRepository.findByCompany_Id(company.getId());
+
+       Integer pendingDeliveries = 0;
+
+       for(Delivery delivery : deliveries){
+           if(delivery.getStatus().equals(DeliveryStatus.PENDING)){
+               pendingDeliveries++;
+           }
+       }
+
+
+
+
+
         CompanyDTO dto = CompanyDTO.builder()
                 .id(company.getId())
                 .name(company.getName())
@@ -126,7 +151,7 @@ public class CompanyServiceImpl implements CompanyService {
                 .driversOwned(company.getDriversOwned())
                 .totalDeliveries(company.getTotalDeliveries())
                 .uniqueClients(company.getUniqueClients())
-                .pendingDeliveries(company.getPendingDeliveries())
+                .pendingDeliveries(pendingDeliveries)
                 .averageDeliveryTime(company.getAverageDeliveryTime())
                 .customerSatisfaction(company.getCustomerSatisfaction())
                 .createdAt(company.getCreatedAt())

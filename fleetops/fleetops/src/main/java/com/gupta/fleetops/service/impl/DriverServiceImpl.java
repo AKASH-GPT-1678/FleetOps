@@ -85,7 +85,8 @@ public class DriverServiceImpl implements DriverService {
                 savedDriver.getCompany().getId(),
                 savedDriver.getStatus(),
                 savedDriver.getAadharNumber(),
-                savedDriver.getPanNumber()
+                savedDriver.getPanNumber(),
+                company.getName()
 
 
         );
@@ -121,7 +122,8 @@ public class DriverServiceImpl implements DriverService {
                         driver.getCompany() != null ? driver.getCompany().getId() : null,
                         driver.getStatus(),
                         driver.getAadharNumber(),
-                        driver.getPanNumber()
+                        driver.getPanNumber(),
+                        company.getName()
                 ))
                 .collect(Collectors.toList());
 

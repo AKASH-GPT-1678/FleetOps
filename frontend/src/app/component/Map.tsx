@@ -58,7 +58,7 @@ export default function Map({ first, second , deliveryId }: MapProps) {
     <div
       id="map"
       ref={mapRef}
-      style={{ width: '500px', height: '1000px' }}
+      className='w-screen h-screen '
     />
   );
 }

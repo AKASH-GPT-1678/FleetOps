@@ -7,6 +7,8 @@ import { ImCross } from "react-icons/im";
 import { DriverResponse } from '../companydashboard/drivers/page';
 import axios from 'axios';
 import { useUserStore } from './zustand';
+import { Button } from '@/components/ui/button';
+import { file, set } from 'zod/v4-mini';
 interface DriverProps {
     driver: DriverResponse
 
@@ -17,8 +19,12 @@ export const DriverProfile: React.FC<DriverProps> = ({ driver }) => {
     const [aadhaar, setAadhar] = React.useState('');
     const [pan, setPanNumber] = React.useState('');
     const [message, setMessage] = React.useState("");
+    const [profileImage, setProfileImage] = React.useState<File | null>(null);
+    const [showInput, setShowInput] = React.useState(false);
+    const [showSubmit, setShowSubmit] = React.useState(false);
     const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
     const token = useUserStore((state) => state.token);
+    const imageRef = React.useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (e: React.FormEvent, driverId: string, token: string) => {
         e.preventDefault();
@@ -46,6 +52,19 @@ export const DriverProfile: React.FC<DriverProps> = ({ driver }) => {
         }
     };
 
+    React.useEffect(() => {
+        imageRef.current?.click();
+        if (imageRef.current && imageRef.current.files && imageRef.current.files[0]) {
+            imageRef.current.files![0];
+            setProfileImage(imageRef.current.files![0]);
+            setShowSubmit(true)
+  
+            
+
+        }
+
+    }, [showInput]);
+
 
     return (
 
@@ -66,7 +85,14 @@ export const DriverProfile: React.FC<DriverProps> = ({ driver }) => {
 
                 </div>
                 <div className=' h-full'>
-                    <Image src={Avatar} alt='profile' className='rounded-full w-[50%] h-[50%] border-2 ml-auto' />
+                    <Image src={Avatar} alt='profile' className='rounded-full w-[50%] h-[50%] border-2 ml-auto' onClick={() => setShowInput(!showInput)} />
+                    <input type="file" className="hidden" ref={imageRef} />
+                    {
+                        showSubmit  &&  (
+                            <Button>Submit</Button>
+                        )
+                    }
+
 
 
                 </div>

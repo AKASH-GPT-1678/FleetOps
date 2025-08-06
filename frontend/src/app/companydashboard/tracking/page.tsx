@@ -46,8 +46,6 @@ const TrackingDashBoard = () => {
             key: "delivery",
             icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
         },
-
-
         {
             label: "Report",
             key: "report",
@@ -56,17 +54,12 @@ const TrackingDashBoard = () => {
         {
             label: "Tracking",
             key: "tracking",
-            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
+            icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />,
         },
         {
             label: "Vehicle",
             key: "vehicle",
-            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
-        },
-        {
-            label: "Report",
-            key: "report",
-            icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+            icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />,
         },
         {
             label: "Settings",
@@ -110,9 +103,9 @@ const TrackingDashBoard = () => {
 
 
     return (
-        <div className='flex flex-row gap-4'>
-            <div className='p-4 w-full max-w-[400px]'>
-                <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+        <div className='flex flex-row gap-4 w-full'>
+            <div className='p-4 w-full '>
+                <h1 className="text-3xl font-handwriting font-extrabold text-blue-700">FleetOps</h1>
 
 
                 <div className='mt-4 p-2'>
@@ -138,14 +131,21 @@ const TrackingDashBoard = () => {
                 </div>
 
             </div>
-            {
-                deliverId && origin && destination && (
-                    <div>
-                        <Map first={origin.toString()} second={destination.toString()} deliveryId={deliverId as string} />
-                    </div>
 
-                )
-            }
+
+            <div className='w-[80%] ml-auto p-4 pb-12'>
+                <p className='text-2xl font-bold text-green-500 pb-2'>Live Vehicle tracking </p>
+
+
+                {
+                    deliverId && origin && destination && (
+                        <div>
+                            <Map first={origin.toString()} second={destination.toString()} deliveryId={deliverId as string} />
+                        </div>
+
+                    )
+                }
+            </div>
 
 
 

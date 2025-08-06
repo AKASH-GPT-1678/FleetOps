@@ -27,6 +27,9 @@ public class Delivery {
     private int fuel;
     private int costPerLitre;
 
+
+    private DeliveryStatus status = DeliveryStatus.PENDING;
+
     @ElementCollection
     private List<Long> originCords;
 

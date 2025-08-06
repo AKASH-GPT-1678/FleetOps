@@ -1,4 +1,30 @@
+'use client';
+import React from "react";
+import axios from "axios";
 export default function FleetLandingPage() {
+  const [Email, setEmail] = React.useState("");
+
+  
+function subscribeToNewsletter(Email : string) {
+  if (!Email) {
+    alert("Email is required");
+    return;
+  }
+
+  axios.post('http://localhost:8080/origin/newsLetter', { email: Email })
+    .then(response => {
+      console.log("Success:", response.data);
+      alert("Subscribed successfully!");
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      if (error.response) {
+        alert(`Subscription failed: ${error.response.data}`);
+      } else {
+        alert("Subscription failed. Please try again.");
+      }
+    });
+}
   return (
     <div>
       <div
@@ -108,10 +134,12 @@ export default function FleetLandingPage() {
                 type="email"
                 placeholder="Your email"
                 className="px-3 py-2 rounded bg-gray-800 text-white text-sm placeholder:text-gray-400"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <button
                 type="submit"
                 className="bg-white text-black font-semibold px-3 py-2 rounded hover:bg-gray-200 transition"
+                onClick={() =>subscribeToNewsletter(Email)}
               >
                 Subscribe
               </button>

@@ -11,49 +11,42 @@ import { MdLocalShipping } from 'react-icons/md';
 const SettingsDashBoard = () => {
     const [active, setActive] = React.useState("settings");
 
-          const tabs = [
-               {
-                   label: "Dashboard",
-                   key: "",
-                   icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
-               },
-               {
-                   label: "Drivers",
-                   key: "drivers",
-                   icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
-               },
-               {
-                   label: "Delivery",
-                   key: "delivery",
-                   icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
-               },
-       
-       
-               {
-                   label: "Report",
-                   key: "report",
-                   icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-               },
-               {
-                   label: "Tracking",
-                   key: "tracking",
-                   icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />, // Placeholder
-               },
-               {
-                   label: "Vehicle",
-                   key: "vehicle",
-                   icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />, // 🚚 Vehicle icon
-               },
-               {
-                   label: "Report",
-                   key: "report",
-                   icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-               },
-               {
-                   label: "Settings",
-                   key: "settings",
-                   icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
-               },
+           const tabs = [
+             {
+               label: "Dashboard",
+               key: "",
+               icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
+             },
+             {
+               label: "Drivers",
+               key: "drivers",
+               icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
+             },
+             {
+               label: "Delivery",
+               key: "delivery",
+               icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
+             },
+             {
+               label: "Report",
+               key: "report",
+               icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
+             },
+             {
+               label: "Tracking",
+               key: "tracking",
+               icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />,
+             },
+             {
+               label: "Vehicle",
+               key: "vehicle",
+               icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />,
+             },
+             {
+               label: "Settings",
+               key: "settings",
+               icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
+             },
            ];
         const handleActivity = (key: string, route: string) => {
         setActive(key);
@@ -67,7 +60,7 @@ const SettingsDashBoard = () => {
     return (
         <div>
             <div className='p-4 w-full max-w-[400px]'>
-                <h1 className="text-3xl font-handwriting font-extrabold ">Meat Truck</h1>
+                  <h1 className="text-3xl font-handwriting font-extrabold text-blue-700">FleetOps</h1>
 
 
                 <div className='mt-4 p-2'>

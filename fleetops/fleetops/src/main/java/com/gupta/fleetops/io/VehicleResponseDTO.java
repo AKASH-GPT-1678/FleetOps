@@ -15,6 +15,7 @@ public class VehicleResponseDTO {
         private String message;
         private String vehicleNumber;
         private String companyName;
+        private boolean status;
 
 
 }
