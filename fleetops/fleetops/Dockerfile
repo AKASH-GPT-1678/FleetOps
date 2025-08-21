@@ -5,6 +5,10 @@ WORKDIR /app
 
 COPY . .
 
+# Make mvnw executable
+RUN chmod +x mvnw
+
+# Run maven wrapper
 RUN ./mvnw clean package -DskipTests
 
 # Step 2: Runtime stage
