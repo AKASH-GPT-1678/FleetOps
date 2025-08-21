@@ -28,7 +28,7 @@ public class KafkaConsumerConfig {
         deserializer.addTrustedPackages("*"); // or restrict to your package
         deserializer.setUseTypeMapperForKey(true);
         Map<String , Object> configProps = new HashMap<>();
-        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092"); // Use your actual host IP
+        configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "34.122.122.139:9092"); // Use your actual host IP
         configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "233");
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG , StringDeserializer.class);
         configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);

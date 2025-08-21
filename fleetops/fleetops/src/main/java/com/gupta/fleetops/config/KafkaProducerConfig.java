@@ -25,7 +25,7 @@ public class KafkaProducerConfig {
     @Bean
     public ProducerFactory<String , KafkaMessage> producerFactory(){
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092"); // Use your actual host IP
+        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "34.122.122.139:9092"); // Use your actual host IP
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // ✅ sahi
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);

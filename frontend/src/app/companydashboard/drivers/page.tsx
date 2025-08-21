@@ -88,22 +88,6 @@ const Drivers = () => {
       window.location.href = route;
     }
   };
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        registrationRef.current &&
-        !registrationRef.current.contains(event.target as Node)
-      ) {
-        setShowForm(false); // hide the form when clicking outside
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
 
 
   React.useEffect(() => {
