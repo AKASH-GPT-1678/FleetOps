@@ -53,6 +53,7 @@ export default function Home() {
           headers: {
 
             "Authorization": `Bearer ${token}`,
+            // "Content-Type": "application/json"
 
           },
           withCredentials: true
