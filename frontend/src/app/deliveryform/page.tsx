@@ -21,7 +21,7 @@ const tripSchema = z.object({
 // Infer the TypeScript type from schema
 type TripData = z.infer<typeof tripSchema>;
 
-export default function TripRegistrationForm() {
+const TripRegistrationForm = () => {
   const companyId = useUserStore((state) => state.activeCompany);
   const token = useUserStore((state) => state.token);
   const searchParams = useSearchParams();
@@ -62,7 +62,7 @@ export default function TripRegistrationForm() {
       );
 
       console.log("✅ Trip created:", response.data);
-      if(response.data.success == true){
+      if (response.data.success == true) {
         window.location.href = '/companydashboard/delivery';
       }
       setSubmitError(false);
@@ -147,3 +147,5 @@ export default function TripRegistrationForm() {
     </div>
   );
 }
+
+export default TripRegistrationForm;
