@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Image from 'next/image';
 export const ChatPage = () => {
     const chats = [
   { me: "Hooo how are you?" },
@@ -33,7 +33,7 @@ export const ChatPage = () => {
                 return (
                     <div className='flex flex-row gap-2 items-center mb-2' key={index}>
                         <div className={`flex flex-row gap-2 items-center ${Object.keys(chat)[0] == "ramesh" ?'float-right' : "float-left"}`}>
-                            <img src="https://res.cloudinary.com/dffepahvl/image/upload/v1751009225/r0lxzjpiemrkrwrcakbq.png" alt="logo" className='w-[30px] h-[30px]' />    
+                            <Image src="https://res.cloudinary.com/dffepahvl/image/upload/v1751009225/r0lxzjpiemrkrwrcakbq.png" alt="logo" className='w-[30px] h-[30px]' />    
                             <p>{Object.keys(chat)[0]}</p>
                         </div>    
                         <p>{Object.values(chat)[0]}</p>

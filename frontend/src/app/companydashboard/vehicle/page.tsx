@@ -6,8 +6,6 @@ import { MdOutlineReportProblem } from "react-icons/md";
 import { MdOutlineForwardToInbox } from "react-icons/md";
 import { FaTruck } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
-
-import MyVehiclePage from '@/app/component/MyVehicle';
 import { VehiclesSpecs } from '@/app/component/Vehicles';
 import VehicleRegistrationForm from '@/app/component/VehicleForm';
 import { useRegistration } from '@/app/component/VehicleContext';

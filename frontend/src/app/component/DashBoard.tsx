@@ -1,15 +1,5 @@
 "use client";
 import { useEffect } from "react";
-import { FaRegBell } from "react-icons/fa";
-import { FaRegClock } from "react-icons/fa6";
-import Image from "next/image";
-import Avatar from "../assets/avatar.png";
-import Map from "./Map";
-import { ConsignMentInfo } from "./ConsignmentInfo";
-import { Sidebar } from "./Sidebar";
-
-
-import { ChatPage } from "./ChatPage";
 import { Dashboard2 } from "./Dashboard2";
 import { Company } from "./Company";
 export function Dashboard() {

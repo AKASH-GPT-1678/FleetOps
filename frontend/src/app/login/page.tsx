@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from 'next/image'
-import { Regsiter } from '../component/Regsiter'
 import { Login } from '../component/Login'
 
 const Loginn = () => {

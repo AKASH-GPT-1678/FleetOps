@@ -1,10 +1,8 @@
 "use client";
 import React from 'react'
-import { IoIosSearch } from "react-icons/io";
 import { IoFilterSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 import Avatar from "../../assets/avatar.png"
-import { DriversInfo } from '@/app/component/Drivers';
 import { DriverProfile } from '@/app/component/DriverProfile';
 import DriverRegistrationForm from '@/app/component/DriverForm';
 import { IoIosHome } from "react-icons/io";
@@ -19,7 +17,6 @@ import { IoIosArrowDropup } from "react-icons/io";
 import { MdLocalShipping } from 'react-icons/md';
 import Image from 'next/image';
 import axios from 'axios';
-import { set } from 'zod/v4-mini';
 export interface DriverResponse {
   id: string;
   name: string;
@@ -122,9 +119,7 @@ const Drivers = () => {
 
 
 
-  const getMyDrivers = async () => {
 
-  };
   // const driver = drivers.filter((driver) => {
   //     return driver.id == activeDriver;
   // });

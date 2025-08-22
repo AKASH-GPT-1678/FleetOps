@@ -19,7 +19,7 @@ export default function CompanyRegistrationForm() {
     const [submitError, setSubmitError] = useState(false);
     const [companyName, setCompanyName] = useState("");
     const [premiumError, setPremiumError] = useState("");
-    const setToken = useUserStore((state) => state.setToken);
+    // const setToken = useUserStore((state) => state.setToken);
     const token = useUserStore((state) => state.token);
 
 
@@ -50,6 +50,7 @@ export default function CompanyRegistrationForm() {
             }
         } catch (err : any) {
             console.error(err);
+            console.log(companyName)
             setSubmitError(true);
             if(err.response.data.isPremium == false){
                 setPremiumError(err.response.data.message);

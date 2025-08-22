@@ -1,8 +1,5 @@
 "use client";
 import React from 'react'
-import { FaRegHeart } from "react-icons/fa";
-import Image from "next/image";
-import Driver2 from "../assets/driver2.png";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
 import { DriverResponse } from '../companydashboard/drivers/page';

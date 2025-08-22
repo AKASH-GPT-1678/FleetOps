@@ -2,10 +2,9 @@
 import React from 'react'
 import CompanyRegistrationForm from '../component/CompanyForm'
 import CheckoutButton from '../component/CheckoutButton'
-import axios from 'axios'
 import { useUserStore } from '../component/zustand'
 const RegisterCompany = () => {
-    const token = useUserStore((state) => state.token);
+    // const token = useUserStore((state) => state.token);
     // const data = {
     //     "deliveryId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     //     "lat": "28.6155",

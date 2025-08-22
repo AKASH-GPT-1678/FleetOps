@@ -1,11 +1,10 @@
 import axios from "axios";
-import { li } from "framer-motion/client";
 
-interface MapProps {
-  first: string;
-  second: string;
-  deliveryId: string;
-}
+// interface MapProps {
+//   first: string;
+//   second: string;
+//   deliveryId: string;
+// }
 
 
 async function initMap(first: string, second: string, deliveryId: string): Promise<void> {

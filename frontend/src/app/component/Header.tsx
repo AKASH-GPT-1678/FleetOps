@@ -4,10 +4,9 @@ import Image from 'next/image'
 import Icon from "../assets/cube.png";
 import { useRouter } from 'next/navigation';
 import { useUserStore } from './zustand';
-import { Button } from '@/components/ui/button';
 export const Header = () => {
     const router = useRouter();
-    const activeCompany = useUserStore((state) => state.activeCompany);
+    // const activeCompany = useUserStore((state) => state.activeCompany);
     const isAuthenticated = useUserStore((state) => state.isAuthenticated);
     return (
         <div className='flex flex-row justify-between bg-gray-800 align-middle'>

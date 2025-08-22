@@ -6,7 +6,6 @@ import { DriverResponse } from '../companydashboard/drivers/page';
 import { Vehicle } from '../component/MyVehicle';
 import Card from '../component/Cards';
 import { Button } from '@/components/ui/button';
-import TripRegistrationForm from '../component/DeliveryForm';
 const YourComponent = () => {
     const [drivers, setDrivers] = React.useState<DriverResponse[]>([]);
     const [vehicles, setVehicles] = React.useState<Vehicle[]>([]);
@@ -62,10 +61,10 @@ const YourComponent = () => {
 
             </div>
             <div>
-                {drivers.map((driver) => (
-                    <div onClick={() => setDriverId(driver.id)}>
+                {drivers.map((driver, index) => (
+                    <div onClick={() => setDriverId(driver.id)} key={index}>
                         <Card
-                            key={driver.id}
+                            key={index}
                             title={driver.name}
                             subtitle={driver.phoneNumber}
                             details={[

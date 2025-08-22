@@ -5,13 +5,10 @@ import { FaUserTie } from "react-icons/fa";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { MdOutlineForwardToInbox } from "react-icons/md";
 import { FaTruck } from "react-icons/fa";
-import { useUserStore } from '@/app/component/zustand';
 import { IoSettingsSharp } from "react-icons/io5";
-import { IoIosArrowDropdown } from "react-icons/io";
-import { IoIosArrowDropup } from "react-icons/io";
 import { MdLocalShipping } from 'react-icons/md';
 
-const page = () => {
+const Report = () => {
   const [active, setActive] = React.useState("report");
 
   const tabs = [
@@ -85,4 +82,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Report;

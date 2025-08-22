@@ -9,9 +9,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { MdLocalShipping } from 'react-icons/md';
 import { useUserStore } from '../component/zustand';
 import axios from 'axios';
-import { get } from 'http';
 import { Building2, MapPin, Mail, Calendar, Crown, Truck, Users, Package, Clock, Star, TrendingUp } from 'lucide-react';
-import { fa } from 'zod/v4/locales';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 
@@ -190,7 +188,7 @@ const CompanyDashBoard = () => {
                 <div className='flex flex-row justify-between'>
                     <div className="mb-8">
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">Company Dashboard</h2>
-                        <p className="text-gray-600">Overview of your company's information and operational metrics</p>
+                        <p className="text-gray-600">Overview of your company&apos;s information and operational metrics</p>
                     </div>
                     <div className='mt-4'>
                         {
@@ -342,7 +340,7 @@ const CompanyDashBoard = () => {
                     <div className="flex items-center justify-between flex-wrap gap-4">
                         <div>
                             <h4 className="text-lg font-semibold mb-1">Dashboard Overview</h4>
-                            <p className="text-white/90 text-sm">Real-time insights into your company's performance and operations</p>
+                            <p className="text-white/90 text-sm">Real-time insights into your company&apos;s performance and operations</p>
                         </div>
                         <div className="flex items-center space-x-2 bg-white/20 px-4 py-2 rounded-lg">
                             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>

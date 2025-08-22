@@ -8,32 +8,32 @@ import { useUserStore } from "./zustand";
 // import { checkToken } from "@/utils/Checktoken";
 // import { useAppSelector } from "@/utils/reduxhook";
 export default function CheckoutButton({ amount }: { amount: number }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [price, setprice] = React.useState(amount);
   const token = useUserStore((state) => state.token);
 
-async function updateStatus(amount: string, order_id: string) {
-  try {
-    const updateStatus = await axios.post(
-      "http://localhost:8080/auth/addSubscription",
-      {
-        amount: amount,
-        order_id: order_id
-      },
-      {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
-      }
-    );
-    console.log(updateStatus.data);
-    return updateStatus;
+// async function updateStatus(amount: string, order_id: string) {
+//   try {
+//     const updateStatus = await axios.post(
+//       "http://localhost:8080/auth/addSubscription",
+//       {
+//         amount: amount,
+//         order_id: order_id
+//       },
+//       {
+//         headers: {
+//           "Authorization": `Bearer ${token}`,
+//           "Content-Type": "application/json"
+//         }
+//       }
+//     );
+//     console.log(updateStatus.data);
+//     return updateStatus;
 
-  } catch (error) {
-    console.error("Error verifying order:", error);
-  }
-}
+//   } catch (error) {
+//     console.error("Error verifying order:", error);
+//   }
+// }
 
   
 

@@ -1,20 +1,15 @@
 "use client";
-import Image from "next/image";
-import Map from "./component/Map";
 import React from "react";
 import { Header } from "./component/Header";
 
 import axios from "axios";
 import { useUserStore } from "./component/zustand";
-import { s } from "framer-motion/client";
 import FleetLandingPage from "./component/FleetlandingPage";
-import { set } from "zod/v4-mini";
 
 
 export default function Home() {
-  const setToken = useUserStore((state) => state.setToken);
+
   const token = useUserStore((state) => state.token);
-  const activeCompany = useUserStore((state) => state.activeCompany);
   const setActiveCompany = useUserStore((state) => state.setActiveCompany);
   const setIsAuthenticated = useUserStore((state) => state.setIsAuthenticated);
 

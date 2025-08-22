@@ -5,9 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useUserStore } from '../component/zustand';
-import Image from 'next/image';
 import CheckoutButton from '../component/CheckoutButton';
-import { email } from 'zod/v4-mini';
 interface ProfileResponseDTO {
   id: string;
   email: string;
@@ -23,14 +21,13 @@ const Settings = () => {
   const [isFileSelected, setIsFileSelected] = React.useState(false);
   const [chnageName, setChangeName] = React.useState(false);
   const [thingtoChange, setThingtoChange] = React.useState("");
-  const [contact, setContact] = React.useState("");
   const [chatStatus, setChatstatus] = React.useState(true);
   const [profile, setProfile] = React.useState<ProfileResponseDTO | null>(null);
   const router = useRouter();
   const inputDiv = React.useRef<HTMLInputElement>(null);
   const Key_Url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const token = useUserStore((state) => state.token);
-  const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+  // const isAuthenticated = useUserStore((state) => state.isAuthenticated);
 
   const handleProfileChange = () => {
     inputDiv.current?.click();

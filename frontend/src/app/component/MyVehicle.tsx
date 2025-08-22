@@ -1,8 +1,6 @@
 'use client';
 
 import React from "react";
-import Image from "next/image";
-import Truck1 from "../assets/truck1.png";
 import { useRouter } from "next/navigation";
 
 export type Vehicle = {

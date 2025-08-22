@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import { FcGoogle } from "react-icons/fc";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { RegisterSchema, RegisterSchemaType } from './registerzod';
 import { zodResolver } from '@hookform/resolvers/zod';
