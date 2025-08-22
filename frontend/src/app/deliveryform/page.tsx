@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useUserStore } from "../component/zustand";
 import { useSearchParams } from "next/navigation";
+import { URLSearchParams } from "url";
 // Schema Definition
 const tripSchema = z.object({
   origin: z.string().min(1, "Origin is required"),
@@ -24,10 +25,18 @@ type TripData = z.infer<typeof tripSchema>;
 const TripRegistrationForm = () => {
   const companyId = useUserStore((state) => state.activeCompany);
   const token = useUserStore((state) => state.token);
-  const searchParams = useSearchParams();
+  const [params, setParams] = useState<URLSearchParams | null>(null);
 
-  const driverId = searchParams.get("driverId");
-  const vehicleId = searchParams.get("vehicleId");
+
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      setParams(new URLSearchParams(window.location.search));
+    }
+  }, []);
+
+  const driverId = params?.get("driverId") || null;
+  const vehicleId = params?.get("vehicleId") || null;
 
 
   const [submitError, setSubmitError] = useState(false);
