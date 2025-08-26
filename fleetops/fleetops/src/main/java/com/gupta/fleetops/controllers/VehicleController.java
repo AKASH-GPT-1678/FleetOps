@@ -2,11 +2,9 @@ package com.gupta.fleetops.controllers;
 
 
 import com.gupta.fleetops.entity.DeliveryLocation;
-import com.gupta.fleetops.entity.Vehicle;
 import com.gupta.fleetops.io.VehicleDetailsResponse;
 import com.gupta.fleetops.io.VehicleRequest;
 import com.gupta.fleetops.io.VehicleResponseDTO;
-import com.gupta.fleetops.service.CompanyService;
 import com.gupta.fleetops.service.DeliveryLocationService;
 import com.gupta.fleetops.service.VehicleService;
 import org.springframework.http.ResponseEntity;

@@ -2,13 +2,10 @@ package com.gupta.fleetops.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;  // ← YEH SAHI HAI (Redis ke liye)
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 @RedisHash("delivery_location")
 public class DeliveryLocation implements Serializable {

@@ -1,7 +1,5 @@
 package com.gupta.fleetops.service;
 import com.gupta.fleetops.entity.DeliveryLocation;
-import com.gupta.fleetops.io.KafkaMessage;
-import com.gupta.fleetops.repository.DeliveryRepository;
 import com.gupta.fleetops.repository.DeliveryLocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

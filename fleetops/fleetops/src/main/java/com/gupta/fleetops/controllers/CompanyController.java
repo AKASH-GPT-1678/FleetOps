@@ -1,7 +1,7 @@
 package com.gupta.fleetops.controllers;
 
 
-import com.gupta.fleetops.entity.Company;
+
 import com.gupta.fleetops.io.CompanyDTO;
 import com.gupta.fleetops.io.CompanyRequest;
 import com.gupta.fleetops.io.CompanyResponse;
@@ -9,7 +9,6 @@ import com.gupta.fleetops.service.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 
 @RestController

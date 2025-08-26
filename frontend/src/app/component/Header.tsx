@@ -18,7 +18,7 @@ export const Header = () => {
                 </div>
 
                 <div>
-                    <p className='text-white font-bold '>Product</p>
+                    <p className='text-white font-bold '>Productss</p>
                 </div>
 
                 <div>
@@ -27,7 +27,10 @@ export const Header = () => {
                 <div>
                     <p className='text-white font-bold  cursor-pointer' onClick={() => router.push("/companydashboard")}>Dashboard</p>
                 </div>
-                <div className='md:hidden'>
+                <div className='
+                inline
+                
+                md:hidden'>
                     {
 
                         isAuthenticated ? <div className='flex flex-row gap-3'>

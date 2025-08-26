@@ -2,9 +2,6 @@ package com.gupta.fleetops.config;
 
 
 import com.gupta.fleetops.filter.JwtAuthFilter;
-import com.gupta.fleetops.service.JwtService;
-import com.gupta.fleetops.service.UserInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;

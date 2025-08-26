@@ -3,7 +3,6 @@ package com.gupta.fleetops.config;
 
 import com.gupta.fleetops.io.KafkaMessage;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.protocol.types.Field;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
