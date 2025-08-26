@@ -10,7 +10,7 @@ export const Header = () => {
 
     return (
         <div className="bg-gray-800">
-            <div className="max-w-screen-xl mx-auto flex flex-row justify-between items-center">
+            <div className="max-w-screen mx-auto flex flex-row justify-between items-center">
                 {/* Left Nav Links */}
                 <div className="flex flex-row gap-10 text-sm md:text-lg p-6">
                     <div>
@@ -30,33 +30,16 @@ export const Header = () => {
                             Dashboard
                         </p>
                     </div>
-
-                    {/* Mobile Login/Profile Section */}
-                    <div className="block md:hidden">
-                        {isAuthenticated ? (
-                            <div className="flex flex-row gap-3">
-                                <p
-                                    className="text-white font-bold cursor-pointer"
-                                    onClick={() => (window.location.href = "/profile")}
-                                >
-                                    Profile
-                                </p>
-                                <p
-                                    className="text-white font-bold cursor-pointer"
-                                    onClick={() => (window.location.href = "/login")}
-                                >
-                                    Logout
-                                </p>
-                            </div>
-                        ) : (
-                            <p
-                                className="text-white font-bold cursor-pointer"
-                                onClick={() => (window.location.href = "/login")}
-                            >
-                                Login
-                            </p>
-                        )}
+                                        <div>
+                        <p
+                            className="text-white font-bold cursor-pointer"
+                            onClick={() => router.push("/companydashboard")}
+                        >
+                          Login
+                        </p>
                     </div>
+
+
                 </div>
 
                 {/* Logo + Name */}
