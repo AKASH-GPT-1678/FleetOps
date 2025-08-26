@@ -10,34 +10,44 @@ export const Header = () => {
     const isAuthenticated = useUserStore((state) => state.isAuthenticated);
     return (
         <div className='flex flex-row justify-between bg-gray-800 align-middle'>
-            {/* <div className='flex flex-row gap-4 p-6 '>
-                <Image src={Icon} alt="logo" className='bg-gray-800 h-[50px] w-[50px] cursor-pointer' />
-                <strong className='text-white text-3xl mt-1'>fleetOps</strong>
-            </div> */}
-            <div className='flex flex-row gap-10 text-xl p-6 '>
+
+            <div className='flex flex-row gap-10 text-sm md:text-lg p-6 '>
 
                 <div>
-                    <p className='text-white font-bold text-lg'>Solutions</p>
+                    <p className='text-white font-bold  '>Solutions</p>
                 </div>
 
                 <div>
-                    <p className='text-white font-bold text-lg'>Product</p>
+                    <p className='text-white font-bold '>Product</p>
                 </div>
 
                 <div>
-                    <p className='text-white font-bold text-lg'>About</p>
+                    <p className='text-white font-bold'>About</p>
                 </div>
                 <div>
-                    <p className='text-white font-bold text-lg cursor-pointer' onClick={() => router.push("/companydashboard")}>Dashboard</p>
+                    <p className='text-white font-bold  cursor-pointer' onClick={() => router.push("/companydashboard")}>Dashboard</p>
+                </div>
+                <div className='md:hidden'>
+                    {
+
+                        isAuthenticated ? <div className='flex flex-row gap-3'>
+                            <p className="text-white font-bold  cursor-pointer " onClick={() => window.location.href = "/profile"}>Profile</p>
+                            <p className="text-white font-bold  cursor-pointer " onClick={() => window.location.href = "/login"}>Logout</p>
+
+                        </div> : <p className="text-white font-bold  cursor-pointer " onClick={() => window.location.href = "/login"}>Login</p>
+
+
+                    }
+
                 </div>
 
 
             </div>
             <div className='flex flex-row gap-4 p-6 '>
-                <Image src={Icon} alt="logo" className='bg-gray-800 h-[40px] w-[40px] cursor-pointer' />
-                <strong className='text-white text-lg mt-1'>FleetOps</strong>
+                <Image src={Icon} alt="logo" className='bg-gray-800 h-[40px] w-[40px] cursor-pointer hidden md:inline' />
+                <strong className='text-white text-lg mt-1 hidden md:inline'>FleetOps</strong>
             </div>
-            <div className='flex flex-row gap-4 p-6 '>
+            <div className=' flex-row gap-4 p-6 hidden md:flex '>
 
 
                 <button className='cursor-pointer'>

@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Header } from "./component/Header";
-
 import axios from "axios";
 import { useUserStore } from "./component/zustand";
 import FleetLandingPage from "./component/FleetlandingPage";
@@ -12,6 +11,7 @@ export default function Home() {
   const token = useUserStore((state) => state.token);
   const setActiveCompany = useUserStore((state) => state.setActiveCompany);
   const setIsAuthenticated = useUserStore((state) => state.setIsAuthenticated);
+  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
 
 
 
@@ -22,7 +22,7 @@ export default function Home() {
       if (!token) return;
 
       try {
-        const response = await axios.get("http://localhost:8080/auth/checkToken", {
+        const response = await axios.get(`${endpoint}/auth/checkToken`, {
           headers: {
             "Authorization": `Bearer ${token}`
           },
@@ -44,7 +44,7 @@ export default function Home() {
 
 
 
-        const companies = await axios.get("http://localhost:8080/company/companies", {
+        const companies = await axios.get(`${endpoint}/company/companies`, {
           headers: {
 
             "Authorization": `Bearer ${token}`,
