@@ -6,67 +6,96 @@ import { useRouter } from 'next/navigation';
 import { useUserStore } from './zustand';
 export const Header = () => {
     const router = useRouter();
-    // const activeCompany = useUserStore((state) => state.activeCompany);
     const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+
     return (
-        <div className='flex flex-row justify-between bg-gray-800 align-middle'>
-
-            <div className='flex flex-row gap-10 text-sm md:text-lg p-6 '>
-
+        <div className="flex flex-row justify-between bg-gray-800 items-center">
+            
+            <div className="flex flex-row gap-10 text-sm md:text-lg p-6">
                 <div>
-                    <p className='text-white font-bold  '>Solutions</p>
-                </div>
-
-                <div>
-                    <p className='text-white font-bold '>Productss</p>
-                </div>
-
-                <div>
-                    <p className='text-white font-bold'>About</p>
+                    <p className="text-white font-bold cursor-pointer">Solutions</p>
                 </div>
                 <div>
-                    <p className='text-white font-bold  cursor-pointer' onClick={() => router.push("/companydashboard")}>Dashboard</p>
+                    <p className="text-white font-bold cursor-pointer">Products</p>
                 </div>
-                <div className='
-                inline
-                
-                md:hidden'>
-                    {
-
-                        isAuthenticated ? <div className='flex flex-row gap-3'>
-                            <p className="text-white font-bold  cursor-pointer " onClick={() => window.location.href = "/profile"}>Profile</p>
-                            <p className="text-white font-bold  cursor-pointer " onClick={() => window.location.href = "/login"}>Logout</p>
-
-                        </div> : <p className="text-white font-bold  cursor-pointer " onClick={() => window.location.href = "/login"}>Login</p>
-
-
-                    }
-
+                <div>
+                    <p className="text-white font-bold cursor-pointer">About</p>
+                </div>
+                <div>
+                    <p
+                        className="text-white font-bold cursor-pointer"
+                        onClick={() => router.push("/companydashboard")}
+                    >
+                        Dashboard
+                    </p>
                 </div>
 
-
+                {/* Mobile Login/Profile Section */}
+                <div className="block md:hidden">
+                    {isAuthenticated ? (
+                        <div className="flex flex-row gap-3">
+                            <p
+                                className="text-white font-bold cursor-pointer"
+                                onClick={() => (window.location.href = "/profile")}
+                            >
+                                Profile
+                            </p>
+                            <p
+                                className="text-white font-bold cursor-pointer"
+                                onClick={() => (window.location.href = "/login")}
+                            >
+                                Logout
+                            </p>
+                        </div>
+                    ) : (
+                        <p
+                            className="text-white font-bold cursor-pointer"
+                            onClick={() => (window.location.href = "/login")}
+                        >
+                            Login
+                        </p>
+                    )}
+                </div>
             </div>
-            <div className='flex flex-row gap-4 p-6 '>
-                <Image src={Icon} alt="logo" className='bg-gray-800 h-[40px] w-[40px] cursor-pointer hidden md:inline' />
-                <strong className='text-white text-lg mt-1 hidden md:inline'>FleetOps</strong>
+
+            {/* Logo + Name */}
+            <div className="flex flex-row gap-4 p-6">
+                <Image
+                    src={Icon}
+                    alt="logo"
+                    className="bg-gray-800 h-[40px] w-[40px] cursor-pointer hidden md:inline"
+                />
+                <strong className="text-white text-lg mt-1 hidden md:inline">
+                    FleetOps
+                </strong>
             </div>
-            <div className=' flex-row gap-4 p-6 hidden md:flex '>
 
-
-                <button className='cursor-pointer'>
-                    {
-                        isAuthenticated ? <div className='flex flex-row gap-3'>
-                            <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/profile"}>Profile</p>
-                            <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Logout</p>
-
-                        </div> : <p className="text-white border-2 border-white px-6 py-2" onClick={() => window.location.href = "/login"}>Login</p>
-                    }
-
-
-                </button>
-
-
+            {/* Desktop Login/Profile Section */}
+            <div className="hidden md:flex flex-row gap-4 p-6">
+                {isAuthenticated ? (
+                    <div className="flex flex-row gap-3">
+                        <p
+                            className="text-white border-2 border-white px-6 py-2 cursor-pointer"
+                            onClick={() => (window.location.href = "/profile")}
+                        >
+                            Profile
+                        </p>
+                        <p
+                            className="text-white border-2 border-white px-6 py-2 cursor-pointer"
+                            onClick={() => (window.location.href = "/login")}
+                        >
+                            Logout
+                        </p>
+                    </div>
+                ) : (
+                    <p
+                        className="text-white border-2 border-white px-6 py-2 cursor-pointer"
+                        onClick={() => (window.location.href = "/login")}
+                    >
+                        Login
+                    </p>
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
