@@ -68,7 +68,7 @@ export default function FleetLandingPage() {
               </svg>
             </button>
 
-            {/* Center Logo */}
+      
             <div className="flex items-center space-x-3">
               <Image
                 src={Icon}

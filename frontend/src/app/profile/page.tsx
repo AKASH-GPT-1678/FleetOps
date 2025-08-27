@@ -8,12 +8,11 @@ import { useUserStore } from '../component/zustand';
 import CheckoutButton from '../component/CheckoutButton';
 interface ProfileResponseDTO {
   id: string;
+
   email: string;
   username: string;
-  profilePictureUrl: string;
-  userSeller: boolean;
+  roles: string;
   premium: boolean;
-  chat_Status: boolean;
 }
 
 const Settings = () => {
@@ -25,7 +24,7 @@ const Settings = () => {
   const [profile, setProfile] = React.useState<ProfileResponseDTO | null>(null);
   const router = useRouter();
   const inputDiv = React.useRef<HTMLInputElement>(null);
-  const Key_Url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;//NEXT_PUBLIC_ENDPOINT_BACKEND_URL
   const token = useUserStore((state) => state.token);
   // const isAuthenticated = useUserStore((state) => state.isAuthenticated);
 
@@ -34,30 +33,30 @@ const Settings = () => {
 
   };
 
-  const handleRemove = async () => {
-    const defaultUrl = "https://res.cloudinary.com/dffepahvl/image/upload/v1754295798/pwoveg1fjurga2kudwk4.png";
+  // const handleRemove = async () => {
+  //   const defaultUrl = "https://res.cloudinary.com/dffepahvl/image/upload/v1754295798/pwoveg1fjurga2kudwk4.png";
 
-    if (profile?.profilePictureUrl === defaultUrl) {
-      alert("You can't remove the default profile picture");
-      return;
-    }
+  //   if (profile?.profilePictureUrl === defaultUrl) {
+  //     alert("You can't remove the default profile picture");
+  //     return;
+  //   }
 
-    try {
-      const response = await axios.get(`${Key_Url}/activity/profile/remove`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  //   try {
+  //     const response = await axios.get(`${endpoint}/activity/profile/remove`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-      console.log(response.data);
+  //     console.log(response.data);
 
-      alert("Profile image has been reset to default.");
-      // Optional: refresh the profile data here if needed
-    } catch (error) {
-      console.error("Error removing profile image:", error);
-      alert("Something went wrong while removing the profile image.");
-    }
-  };
+  //     alert("Profile image has been reset to default.");
+  //     // Optional: refresh the profile data here if needed
+  //   } catch (error) {
+  //     console.error("Error removing profile image:", error);
+  //     alert("Something went wrong while removing the profile image.");
+  //   }
+  // };
   const handleUpload = async () => {
     if (!selectedFile) {
       alert("Please select an image file first.");
@@ -68,7 +67,7 @@ const Settings = () => {
     formData.append("file", selectedFile);
 
     try {
-      const response = await axios.put(`${Key_Url}/activity/addProfileImage`, formData, {
+      const response = await axios.put(`${endpoint}/activity/addProfileImage`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -102,7 +101,7 @@ const Settings = () => {
     try {
       const endpoint = chatStatus ? "/chat/disable" : "/chat/enable";
 
-      const res = await axios.get(`${Key_Url}/activity${endpoint}`, {
+      const res = await axios.get(`${endpoint}/activity${endpoint}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -114,6 +113,23 @@ const Settings = () => {
       alert("Something went wrong while toggling chat status");
     }
   };
+  async function getProfile() {
+    try {
+      const response = await axios.get(`${endpoint}/profile/getProfile`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      return null;
+    }
+  }
+
 
 
 
@@ -150,34 +166,14 @@ const Settings = () => {
       alert("Something went wrong while toggling chat status");
     }
   };
+  React.useEffect(() => {
+    const fetchProfile = async () => {
+      const profileData = await getProfile();
+      setProfile(profileData);
+    };
+    fetchProfile();
+  }, [token]);
 
-  // React.useEffect(() => {
-  //     const fetchProfile = async () => {
-  //         if (!isAuthenticated || !token) {
-  //             console.error('User is not logged in or token is missing.');
-  //             router.push("/");
-  //             return;
-  //         }
-
-  //         try {
-  //             const response = await axios.get<ProfileResponseDTO>(`${Key_Url}/auth/profile`, {
-  //                 headers: {
-  //                     "Content-Type": "application/json",
-  //                     "Authorization": `Bearer ${token}`
-  //                 }
-  //             });
-  //             console.info(response.data);
-  //             setChatstatus(response.data.chat_Status);
-  //             setProfile(response.data);
-  //         } catch (err) {
-  //             console.error('Error fetching profile:', err);
-  //         }
-  //     };
-
-  //     fetchProfile();
-  // }, [isAuthenticated, token, Key_Url, router]);
-
-  // if (!profile) return <div className="p-4">Loading...</div>;
 
 
   return (
@@ -189,16 +185,10 @@ const Settings = () => {
         </div>
 
         {/* Profile Picture and Actions */}
-        <div className="flex flex-row justify-between">
-          {/* <Image
-        src={"https://randomuser.me/api/portraits/men/75.jpg"}
-        alt="profile"
-        width={200}
-        height={200}
-        className="rounded-full h-[50px] w-[50px] lg:w-[80px] lg:h-[80px] cursor-pointer object-cover"
-      /> */}
-          <div className="space-x-2">
-            <Button className="cursor-pointer" onClick={handleRemove}>
+        <div className="flex flex-row justify-between ">
+
+          <div className="space-x-2 ml-auto">
+            <Button className="cursor-pointer" >
               Remove
             </Button>
             {isFileSelected ? (
@@ -218,7 +208,7 @@ const Settings = () => {
         <div className="flex flex-row justify-between p-4 mb-4">
           <div>
             <p className="font-bold">Name</p>
-            <p>{"Rahul Sharma"}</p>
+            <p>{profile?.username}</p>
             {chnageName && thingtoChange === "name" && (
               <div className="flex flex-row mt-3 gap-1">
                 <Input type="text" placeholder="Enter New Name" className="w-[250px] h-[40px]" />
@@ -238,7 +228,7 @@ const Settings = () => {
         <div className="flex flex-row justify-between p-4 mb-4">
           <div>
             <p className="font-bold">Email</p>
-            <p>{"rahul.sharma@example.com"}</p>
+            <p>{profile?.email}</p>
           </div>
         </div>
         <hr />
@@ -252,7 +242,7 @@ const Settings = () => {
         </div>
         <hr />
 
-        {/* Account Type Section */}
+    
         <div className="flex flex-row justify-between p-3 items-center">
           <div className="border p-4 rounded-xl bg-white w-full max-w-md">
             <p className="text-sm text-gray-500 font-medium mb-1">Type of Account</p>
@@ -273,11 +263,11 @@ const Settings = () => {
         <div className="flex flex-row justify-between p-3 items-center">
           <div className="border p-4 rounded-xl shadow-sm bg-white w-full max-w-md">
             <p className="text-sm text-gray-500 font-medium mb-1">Premium Status</p>
-            <p className={`text-lg font-semibold ${false ? "text-yellow-600" : "text-gray-600"}`}>
+            <p className={`text-lg font-semibold ${profile?.premium ? "text-yellow-600" : "text-gray-600"}`}>
               {"Free User"}
             </p>
           </div>
-          <div>{!false && <CheckoutButton amount={20} />}</div>
+          <div>{!profile?.premium && <CheckoutButton amount={20} />}</div>
         </div>
 
         <div className="flex flex-row justify-between p-4 mb-4">

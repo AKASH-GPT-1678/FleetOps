@@ -4,9 +4,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { RegisterSchema, RegisterSchemaType } from './registerzod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-
+import { FaEye } from "react-icons/fa";
 export const Regsiter = () => {
     const [someError, setSomeError] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm({
 
         resolver: zodResolver(RegisterSchema),
@@ -93,23 +94,25 @@ export const Regsiter = () => {
                             {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
                         </div>
 
-                        <div>
+                        <div className='relative'>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder='Enter your password'
                                 {...register("password", { required: "Password is required" })}
                                 className='border border-gray-600 p-2 w-full mt-2'
                             />
+                            <FaEye className='absolute right-3 top-5 cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)}/>
                             {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
                         </div>
 
-                        <div>
+                        <div className='relative'>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder='Confirm password'
                                 {...register("confirmPassword", { required: "Please confirm your password" })}
                                 className='border border-gray-600 p-2 w-full mt-2'
                             />
+                             <FaEye className='absolute right-3 top-5 cursor-pointer' size={20} onClick={() => setShowPassword(!showPassword)}/>
                             {errors.confirmPassword && <p className="text-red-600 text-sm mt-1">{errors.confirmPassword.message}</p>}
                         </div>
 

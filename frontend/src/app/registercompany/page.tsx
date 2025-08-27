@@ -39,11 +39,11 @@ const RegisterCompany = () => {
     return (
         <div className='w-full'>
             <CompanyRegistrationForm />
-            <CheckoutButton amount={10} />
+     
      
 
         </div>
     )
 }
 
-export default RegisterCompany
+export default RegisterCompany;

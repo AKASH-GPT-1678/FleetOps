@@ -49,7 +49,7 @@ export const Login = () => {
 
     };
     return (
-        <div className='flex flex-col h-full w-full mt-6'>
+        <div className='flex flex-col h-full w-full mt-6 mb-20'>
 
             <h1 className='text-3xl font-extrabold mb-6'>Welcome Back</h1>
             <p>Don't have an account? <a href="/register" className='text-blue-600'>Register</a></p>
