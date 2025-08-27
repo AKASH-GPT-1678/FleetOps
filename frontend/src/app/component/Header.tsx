@@ -1,6 +1,6 @@
 "use client";
-import React from 'react'
-import Image from 'next/image'
+import React from 'react';
+import Image from 'next/image';
 import Icon from "../assets/cube.png";
 import { useRouter } from 'next/navigation';
 import { useUserStore } from './zustand';
@@ -11,7 +11,7 @@ export const Header = () => {
     return (
         <div className="bg-gray-800">
             <div className="max-w-screen mx-auto flex flex-row justify-between items-center">
-                {/* Left Nav Links */}
+               
                 <div className="flex flex-row gap-10 text-sm md:text-lg p-6">
                     <div>
                         <p className="text-white font-bold cursor-pointer">Solutions</p>
@@ -42,7 +42,6 @@ export const Header = () => {
 
                 </div>
 
-                {/* Logo + Name */}
                 <div className="flex flex-row gap-4 p-6">
                     <Image
                         src={Icon}
@@ -54,7 +53,7 @@ export const Header = () => {
                     </strong>
                 </div>
 
-                {/* Desktop Login/Profile Section */}
+             
                 <div className="hidden md:flex flex-row gap-4 p-6">
                     {isAuthenticated ? (
                         <div className="flex flex-row gap-3">

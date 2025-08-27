@@ -262,7 +262,7 @@ const CompanyDashBoard = () => {
 
                     </div>
 
-                    {/* Operational Stats Card */}
+                
                     <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
                         <div className="bg-gradient-to-r from-green-600 to-blue-600 p-6">
                             <div className="flex items-center space-x-3">
@@ -335,7 +335,7 @@ const CompanyDashBoard = () => {
                     </div>
                 </div>
 
-                {/* Additional Info Banner */}
+        
                 <div className="mt-8 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-2xl p-6 text-white">
                     <div className="flex items-center justify-between flex-wrap gap-4">
                         <div>
