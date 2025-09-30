@@ -9,7 +9,6 @@ import { MdOutlineMyLocation } from "react-icons/md";
 import { GoLocation } from "react-icons/go";
 import { IoCallOutline } from "react-icons/io5";
 import { FiMessageSquare } from "react-icons/fi";
-import Map from '../component/Map';
 const page = () => {
     return (
         <div className='p-4 border-2 w-full h-full flex flex-row'>
@@ -92,10 +91,8 @@ const page = () => {
 
             </div>
 
-               
-               {/* <div className='p-2 flex flex-col w-full h-screen'>
-                 <Map/>
-               </div> */}
+
+
         </div>
     )
 }
