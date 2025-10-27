@@ -12,6 +12,50 @@ Scalable and secure, FleetOps adapts to the changing needs of both small deliver
 
 ---
 
+### 🧩 Tech Stack  
+Frontend: Next.js 14, TypeScript, Tailwind, Razorpay, OAuth  
+Backend: Spring Boot 3.x, Java 17  
+Database: PostgreSQL 15  
+Cloud & Storage: AWS S3  
+Email Notifications: Gmail SMTP  
+
+---
+
+## 🌐 Live Demo
+
+> (Optional) Add your live link here:  
+[Visit Website](https://fleet-ops-tau.vercel.app/)
+
+---
+
+
+### 📸 Screenshots
+
+
+
+## 🚀 Features & Tools
+
+- Realtime managing and tracking Vehcile platform
+- Secure payments via **Razorpay**
+- OAuth login with **Google**
+- Jwt Based Authentication
+- Admin and driver dashboards
+- Real-time notifications
+- CORS-enabled for frontend-backend communication
+- Live Chat with Socket.IO
+- React Context-API
+- OTP Verification
+- Redux with Persist
+- Framer Motion
+- Spring Security
+- Spring Structure Repository ,Controlller ...
+- Management and analytics
+- Real Time Vehicle Tracking 
+- Custom Exceptions
+
+---
+
+
 ### ⚙️ Frontend Environment Variables
 
 ```env
@@ -49,7 +93,51 @@ REDIS_PASS=YOUR_REDIS_PASSWORD
 KAFKA_SERVER=YOUR_KAFKA_SERVER
 ```
 
+## 📘 Contribution Guide
 
+To learn how to contribute, please check the [Contribution Guide](./CONTRIBUTION.md).
+
+---
+
+
+## 📘 Devops 
+
+To practice devops concept and pipline, please check the [Devops Guide](./Devops.md).
+
+---
+
+
+
+
+
+
+## 🛠️ Set Up Guide
+
+
+
+### ⚙️ Environment
+
+Node.js >= 18
+
+Java 17
+
+PostgreSQL 15
+
+IntelliJ IDEA / VS Code
+
+
+### 📄 License
+
+This project is licensed under the MIT License - see the LICENSE
+ file for details.
+
+### ❤️ Acknowledgements
+
+Thanks to Razorpay for payment integration
+
+Thanks to AWS for storage and hosting
+
+Inspired by real-world bulk meat trading platforms
 
 
 
