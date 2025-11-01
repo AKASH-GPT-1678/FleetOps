@@ -2,7 +2,7 @@
 import React from 'react'
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
-import { DriverResponse } from '../companydashboard/drivers/page';
+import { DriverResponse } from '../companyui/drivers';
 
 interface DriversInfoProps {
   driver: DriverResponse[];

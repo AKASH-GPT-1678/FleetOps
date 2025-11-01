@@ -2,7 +2,7 @@
 import React from 'react'
 import { IoFilterSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
-import Avatar from "../../assets/avatar.png"
+import Avatar from "@/app/assets/avatar.png"
 import { DriverProfile } from '@/app/component/DriverProfile';
 import DriverRegistrationForm from '@/app/component/DriverForm';
 import { IoIosHome } from "react-icons/io";

@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useUserStore } from '../component/zustand';
-import { DriverResponse } from '../companydashboard/drivers/page';
+import { DriverResponse } from '../companyui/drivers';
 import { Vehicle } from '../component/MyVehicle';
 import Card from '../component/Cards';
 import { Button } from '@/components/ui/button';

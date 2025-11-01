@@ -4,7 +4,7 @@ import Avatar from "../assets/avatar.png"
 import { IoMdAttach } from "react-icons/io";
 import { SiNike } from "react-icons/si";
 import { ImCross } from "react-icons/im";
-import { DriverResponse } from '../companydashboard/drivers/page';
+import { DriverResponse } from '../companyui/drivers';
 import axios from 'axios';
 import { useUserStore } from './zustand';
 import { Button } from '@/components/ui/button';
