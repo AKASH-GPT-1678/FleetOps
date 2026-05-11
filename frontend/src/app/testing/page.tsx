@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-
+import React from 'react';
 interface LocationData {
   lat: string;
   lng: string;
@@ -17,10 +17,10 @@ interface ApiResponse {
 }
 
 export default function LocationDisplay() {
-  const [location, setLocation] = useState<LocationData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [deliveryId, setDeliveryId] = useState('1e2f4dcb-79fc-4b93-a0c0-4a34d1b7a298');
+  const [location, setLocation] = React.useState<LocationData | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+  const [deliveryId, setDeliveryId] = React.useState('1e2f4dcb-79fc-4b93-a0c0-4a34d1b7a298');
 
   const fetchLocation = async (id: string) => {
     try {

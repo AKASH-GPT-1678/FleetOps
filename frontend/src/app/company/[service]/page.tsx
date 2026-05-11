@@ -7,7 +7,7 @@ import Report from '@/app/companyui/reports';
 import Drivers from '@/app/companyui/drivers';
 import { use } from 'react';
 import CompanyDashBoard from '@/app/component/dasboard';
-
+import { usePathname } from 'next/navigation';
 const CompanyPage = (
     {
         params,
@@ -16,6 +16,11 @@ const CompanyPage = (
     }
 ) => {
     const { service } = use(params);
+    const [clientPathname, setClientPathname] = React.useState('')
+    const pathname = usePathname();
+    React.useEffect(() => {
+        setClientPathname(pathname)
+    }, [pathname])
 
 
     if (service === 'drivers') {
@@ -28,13 +33,15 @@ const CompanyPage = (
         return <SettingsDashBoard />;
     } else if (service === 'tracking') {
         return <TrackingDashBoard />;
-    }
+    };
+
 
 
 
     return (
         <div>
-            <CompanyDashBoard />
+            {/* <CompanyDashBoard /> */}
+            <p>{pathname}</p>
 
         </div>
     )
