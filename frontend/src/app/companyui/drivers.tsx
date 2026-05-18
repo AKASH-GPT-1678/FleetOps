@@ -5,18 +5,13 @@ import { FaPlus } from "react-icons/fa";
 import Avatar from "@/app/assets/avatar.png"
 import { DriverProfile } from '@/app/component/DriverProfile';
 import DriverRegistrationForm from '@/app/component/DriverForm';
-import { IoIosHome } from "react-icons/io";
-import { FaUserTie } from "react-icons/fa";
-import { MdOutlineReportProblem } from "react-icons/md";
-import { MdOutlineForwardToInbox } from "react-icons/md";
-import { FaTruck } from "react-icons/fa";
 import { useUserStore } from '@/app/component/zustand';
-import { IoSettingsSharp } from "react-icons/io5";
 import { IoIosArrowDropdown } from "react-icons/io";
 import { IoIosArrowDropup } from "react-icons/io";
-import { MdLocalShipping } from 'react-icons/md';
+
 import Image from 'next/image';
 import axios from 'axios';
+import { CompanyTabs } from './tabs/CompanyTab';
 export interface DriverResponse {
   id: string;
   name: string;
@@ -32,7 +27,7 @@ export interface DriverResponse {
 }
 
 const Drivers = () => {
-  const [active, setActive] = React.useState("drivers");
+
   const [showForm, setShowForm] = React.useState(false);
   const registrationRef = React.useRef<HTMLDivElement>(null);
   const [drivers, setDrivers] = React.useState<DriverResponse[]>([]);
@@ -40,47 +35,14 @@ const Drivers = () => {
   const [companyName, setCompanyName] = React.useState('');
   const token = useUserStore((state) => state.token);
   const [viewMore, setviewMore] = React.useState(false);
+        const setActiveCompanyPage = useUserStore((state) => state.setActiveCompanyPage);
+        const active = useUserStore((state) => state.active_company_page);
+        const tabs = CompanyTabs(active);
 
-  const tabs = [
-    {
-      label: "Dashboard",
-      key: "",
-      icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Drivers",
-      key: "drivers",
-      icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Delivery",
-      key: "delivery",
-      icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Report",
-      key: "report",
-      icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Tracking",
-      key: "tracking",
-      icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Vehicle",
-      key: "vehicle",
-      icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Settings",
-      key: "settings",
-      icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
-    },
-  ];
+
 
   const handleActivity = (key: string, route: string) => {
-    setActive(key);
+    setActiveCompanyPage(key);
     if (route) {
       window.location.href = route;
     }
@@ -140,11 +102,11 @@ const Drivers = () => {
             {tabs.map((tab, index) => (
               <div
                 key={index}
-                onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
-                className={`flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer ${active === tab.key ? "bg-blue-100" : "hover:bg-gray-100"}`}
+              onClick={() => handleActivity(tab.key, `/company/${tab.key}`)}
+                className={`flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer ${tab.key == "drivers" ? "bg-blue-100" : "hover:bg-gray-100"}`}
               >
                 {tab.icon}
-                <p className={`font-semibold ${active === tab.key ? "text-blue-600" : "text-gray-600"}`}>
+                <p className={`font-semibold ${tab.key == "drivers" ? "text-blue-600" : "text-gray-600"}`}>
                   {tab.label}
                 </p>
               </div>

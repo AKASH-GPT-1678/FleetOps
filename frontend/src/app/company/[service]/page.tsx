@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import DeliveryDashBoard from '@/app/companyui/delivery';
 import SettingsDashBoard from '@/app/companyui/settings';
@@ -6,7 +7,7 @@ import VehicleDashBoard from '@/app/companyui/vehicle';
 import Report from '@/app/companyui/reports';
 import Drivers from '@/app/companyui/drivers';
 import { use } from 'react';
-import CompanyDashBoard from '@/app/component/dasboard';
+import CompanyDashBoard from '@/app/companyui/dasboard';
 import { usePathname } from 'next/navigation';
 const CompanyPage = (
     {
@@ -23,8 +24,8 @@ const CompanyPage = (
     }, [pathname])
 
 
-    if (service === 'drivers') {
-        return <Drivers />;
+    if (service === 'dashboard') {
+        return <CompanyDashBoard />;
     } else if (service === 'delivery') {
         return <DeliveryDashBoard />;
     } else if (service === 'report') {
@@ -33,14 +34,21 @@ const CompanyPage = (
         return <SettingsDashBoard />;
     } else if (service === 'tracking') {
         return <TrackingDashBoard />;
-    };
+    }
+    else if (service == 'vehicle'){
+        return <VehicleDashBoard />
+    }
+    else if(service == 'drivers') {
+        return <Drivers />;
+    }
+    
+    ;
 
 
 
 
     return (
         <div>
-            {/* <CompanyDashBoard /> */}
             <p>{pathname}</p>
 
         </div>

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useUserStore } from "./zustand";
+import { FaEye } from "react-icons/fa";
 // Zod schema for validation
 const schema = z.object({
     name: z.string().min(1, "Company name is required"),
@@ -19,6 +20,7 @@ export default function CompanyRegistrationForm() {
     const [submitError, setSubmitError] = useState(false);
     const [companyName, setCompanyName] = useState("");
     const [premiumError, setPremiumError] = useState("");
+    const [showPassword  , setShowPassword] = React.useState(false);
     // const setToken = useUserStore((state) => state.setToken);
     const token = useUserStore((state) => state.token);
 
@@ -101,14 +103,15 @@ export default function CompanyRegistrationForm() {
 
 
                 {/* Admin Password */}
-                <div>
+                <div className="relative">
                     <label className="block mb-1 font-medium">Admin Password</label>
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         {...register("adminPassword")}
-                        className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
                         placeholder="Enter admin password"
                     />
+                        <FaEye className='absolute right-4 top-12 transform -translate-y-1/2 text-gray-600' size={20} onClick={() => setShowPassword(!showPassword)} />
                     {errors.adminPassword && <p className="text-red-500 text-sm">{errors.adminPassword.message}</p>}
                 </div>
 

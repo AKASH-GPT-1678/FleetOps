@@ -44,18 +44,18 @@ export default function FleetLandingPage() {
             
             {/* Left Navigation Links */}
             <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
-              <button className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors">
+              <button className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors cursor-pointer">
                 Solutions
               </button>
-              <button className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors">
+              <button className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors cursor-pointer">
                 Products
               </button>
-              <button className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors">
+              <button className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors cursor-pointer">
                 About
               </button>
               <button
-                className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors"
-                onClick={() => router.push("/companydashboard")}
+                className="text-white font-semibold text-sm lg:text-base hover:text-gray-300 transition-colors cursor-pointer"
+                onClick={() => router.push("company/dashboard")}
               >
                 Dashboard
               </button>
@@ -87,13 +87,13 @@ export default function FleetLandingPage() {
               {isAuthenticated ? (
                 <div className="flex items-center space-x-3">
                   <button
-                    className="text-white border border-white px-4 py-2 text-sm hover:bg-white hover:text-gray-800 transition-colors rounded"
+                    className="text-white border border-white px-4 py-2 text-sm hover:bg-white hover:text-gray-800 transition-colors rounded cursor-pointer"
                     onClick={() => router.push("/profile")}
                   >
                     Profile
                   </button>
                   <button
-                    className="text-white border border-white px-4 py-2 text-sm hover:bg-white hover:text-gray-800 transition-colors rounded"
+                    className="text-white border border-white px-4 py-2 text-sm hover:bg-white hover:text-gray-800 transition-colors rounded cursor-pointer"
                     onClick={() => router.push("/login")}
                   >
                     Logout
@@ -135,7 +135,10 @@ export default function FleetLandingPage() {
             all in one powerful platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors cursor-pointer"
+            onClick={()=>router.push("/companydashboard")}
+            
+            >
               Get Started
             </button>
             <button className="border border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg text-lg font-semibold transition-colors">

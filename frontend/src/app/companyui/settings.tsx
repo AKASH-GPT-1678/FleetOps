@@ -1,58 +1,21 @@
 "use client";
 import React from 'react';
-import { IoIosHome } from "react-icons/io";
-import { FaUserTie } from "react-icons/fa";
-import { MdOutlineReportProblem } from "react-icons/md";
-import { MdOutlineForwardToInbox } from "react-icons/md";
-import { FaTruck } from "react-icons/fa";
-import { IoSettingsSharp } from "react-icons/io5";
-import { MdLocalShipping } from 'react-icons/md';
-
+import { useUserStore } from '../component/zustand';
+import { useRouter } from 'next/navigation';
+import { CompanyTabs } from './tabs/CompanyTab';
 const SettingsDashBoard = () => {
-  const [active, setActive] = React.useState("settings");
-
-  const tabs = [
-    {
-      label: "Dashboard",
-      key: "",
-      icon: <IoIosHome size={30} fill={active === "" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Drivers",
-      key: "drivers",
-      icon: <FaUserTie size={30} color={active === "drivers" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Delivery",
-      key: "delivery",
-      icon: <MdLocalShipping size={30} color={active === "delivery" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Report",
-      key: "report",
-      icon: <MdOutlineReportProblem size={30} color={active === "report" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Tracking",
-      key: "tracking",
-      icon: <MdOutlineForwardToInbox size={30} color={active === "tracking" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Vehicle",
-      key: "vehicle",
-      icon: <FaTruck size={30} color={active === "vehicle" ? "#27BBF5" : "grey"} />,
-    },
-    {
-      label: "Settings",
-      key: "settings",
-      icon: <IoSettingsSharp size={30} color={active === "settings" ? "#27BBF5" : "grey"} />,
-    },
-  ];
+ 
+    const router = useRouter();
+    const setActiveCompanyPage = useUserStore(
+      (state) => state.setActiveCompanyPage,
+    );
+    const active = useUserStore((state) => state.active_company_page);
+         const tabs = CompanyTabs(active);
   const handleActivity = (key: string, route: string) => {
-    setActive(key);
+    setActiveCompanyPage(key)
     if (route) {
-      window.location.href = route;
-    }
+      router.push(route)
+    };
 
   }
 
@@ -70,11 +33,11 @@ const SettingsDashBoard = () => {
             {tabs.map((tab, index) => (
               <div
                 key={index}
-                onClick={() => handleActivity(tab.key, `/companydashboard/${tab.key}`)}
-                className={`flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer ${active === tab.key ? "bg-blue-100" : "hover:bg-gray-100"}`}
+                onClick={() => handleActivity(tab.key, `/company/${tab.key}`)}
+                className={`flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 cursor-pointer ${ tab.key == "settings" ? "bg-blue-100" : "hover:bg-gray-100"}`}
               >
                 {tab.icon}
-                <p className={`font-semibold ${active === tab.key ? "text-blue-600" : "text-gray-600"}`}>
+                <p className={`font-semibold ${ tab.key == "settings"? "text-blue-600" : "text-gray-600"}`}>
                   {tab.label}
                 </p>
               </div>
