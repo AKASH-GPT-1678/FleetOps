@@ -70,9 +70,8 @@ export default function DriverRegistrationForm() {
     };
 
     return (
-        <div className="max-w-[500px] mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
+        <div className=" md:min-w-[360px] max-w-[500px] mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
             <h2 className="text-2xl font-bold mb-6 text-center">Register Driver</h2>
-            <p>{comapanyId}</p>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                 <div>

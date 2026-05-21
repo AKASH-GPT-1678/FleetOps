@@ -10,11 +10,13 @@ import { useUserStore } from './zustand';
 import { Button } from '@/components/ui/button';
 import { file, set } from 'zod/v4-mini';
 interface DriverProps {
-    driver: DriverResponse
+    driver: DriverResponse;
+    setShowPreview : React.Dispatch<React.SetStateAction<boolean>>
+
 
 }
 
-export const DriverProfile: React.FC<DriverProps> = ({ driver }) => {
+export const DriverProfile: React.FC<DriverProps> = ({ driver , setShowPreview }) => {
     const [showVerification, setShowVerification] = React.useState(false);
     const [aadhaar, setAadhar] = React.useState('');
     const [pan, setPanNumber] = React.useState('');
@@ -58,13 +60,14 @@ export const DriverProfile: React.FC<DriverProps> = ({ driver }) => {
         if (imageRef.current && imageRef.current.files && imageRef.current.files[0]) {
             imageRef.current.files![0];
             setProfileImage(imageRef.current.files![0]);
-            setShowSubmit(true)
+            setShowSubmit(true);
+            setShowPreview(true);
 
 
 
         }
 
-    }, []);
+    }, [showInput]);
 
 
     return (

@@ -12,6 +12,7 @@ import { IoIosArrowDropup } from "react-icons/io";
 import Image from 'next/image';
 import axios from 'axios';
 import { CompanyTabs } from './tabs/CompanyTab';
+import PreviewModal from '../component/modals/PreviewModal';
 export interface DriverResponse {
   id: string;
   name: string;
@@ -35,6 +36,7 @@ const Drivers = () => {
   const [companyName, setCompanyName] = React.useState('');
   const token = useUserStore((state) => state.token);
   const [viewMore, setviewMore] = React.useState(false);
+  const [showPreview , setShowPreview] = React.useState(false);
         const setActiveCompanyPage = useUserStore((state) => state.setActiveCompanyPage);
         const active = useUserStore((state) => state.active_company_page);
         const tabs = CompanyTabs(active);
@@ -90,7 +92,7 @@ const Drivers = () => {
   return (
 
 
-    <div className='flex flex-row w-full'>
+    <div className='flex flex-row w-full relative'>
 
       {/* Sidebar */}
       <div className="p-4 w-full max-w-[300px] hidden md:inline-block lg:max-w-[400px] border-r border-gray-300 bg-white shadow-sm">
@@ -196,7 +198,7 @@ const Drivers = () => {
           {/* Driver Profile */}
           {drivers.length > 0 && (
             <div className='w-full'>
-              <DriverProfile driver={drivers[activeDriver]} />
+              <DriverProfile driver={drivers[activeDriver]} setShowPreview={setShowPreview} />
             </div>
           )}
         </div>
@@ -209,6 +211,13 @@ const Drivers = () => {
         )}
 
       </div>
+     {
+  showPreview && (
+    <div className='fixed inset-0 flex items-center justify-center bg-black/30'>
+      <PreviewModal />
+    </div>
+  )
+}
     </div>
 
 
