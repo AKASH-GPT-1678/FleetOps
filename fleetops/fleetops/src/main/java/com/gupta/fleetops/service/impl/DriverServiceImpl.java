@@ -7,35 +7,40 @@ import com.gupta.fleetops.entity.Driver;
 import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.exceptions.AdminPasswordNotMatch;
 import com.gupta.fleetops.io.*;
+import com.gupta.fleetops.io.response.NewDriverProfileResponse;
 import com.gupta.fleetops.repository.CompanyRepository;
 import com.gupta.fleetops.repository.DriverRepository;
 import com.gupta.fleetops.repository.UserRepository;
 import com.gupta.fleetops.service.DriverService;
+import com.gupta.fleetops.service.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-
 public class DriverServiceImpl implements DriverService {
+    @Autowired
+    private CompanyRepository companyRepository;
 
-    private final CompanyRepository companyRepository;
-    private final DriverRepository driverRepository;
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private DriverRepository driverRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private FileUploadService fileService;
 
 
-    public DriverServiceImpl( CompanyRepository companyRepository, DriverRepository driverRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
-
-        this.companyRepository = companyRepository;
-        this.driverRepository = driverRepository;
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public DriverResponse createDriver(DriverRequestDTO driverRequestDTO) {
@@ -158,6 +163,34 @@ public class DriverServiceImpl implements DriverService {
 
 
         return "KYC VERIFIED SUCCESSFULLY";
+    }
+
+    @Override
+    public NewDriverProfileResponse uploadDriverImage(UUID driverId, MultipartFile file) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
+
+        Driver driver = driverRepository.findById(driverId)
+                .orElseThrow(() -> new NoSuchElementException("Driver not found: " +  driverId + " for user ID: " + user.getUsername()));
+
+        String imageUrl = fileService.uploadFile(file);
+        driver.setProfileImg(imageUrl);
+        driverRepository.save(driver);
+        NewDriverProfileResponse response = new NewDriverProfileResponse();
+
+        response.setMessage("Driver profile image uploaded successfully");
+
+        response.setImageUrl(imageUrl);
+
+        response.setFileName(file.getOriginalFilename());
+
+        response.setUploadedAt(System.currentTimeMillis());
+
+        response.setSuccess(true);
+        return response;
     }
 
 }

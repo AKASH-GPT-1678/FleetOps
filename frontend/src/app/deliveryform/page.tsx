@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useUserStore } from "../component/zustand";
-import { useSearchParams } from "next/navigation";
+
 import { URLSearchParams } from "url";
 // Schema Definition
 const tripSchema = z.object({

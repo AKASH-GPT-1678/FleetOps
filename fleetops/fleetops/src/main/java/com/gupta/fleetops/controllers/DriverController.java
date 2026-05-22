@@ -5,12 +5,16 @@ package com.gupta.fleetops.controllers;
 import com.gupta.fleetops.io.DriverKycRequestDTO;
 import com.gupta.fleetops.io.DriverRequestDTO;
 import com.gupta.fleetops.io.DriverResponse;
+import com.gupta.fleetops.io.response.NewDriverProfileResponse;
 import com.gupta.fleetops.service.DriverService;
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -51,6 +55,21 @@ public class DriverController {
         return ResponseEntity.ok(driverKycRequestDTO1);
 
 
+    }
+
+    @PostMapping(
+            value = "/{driverId}/upload-image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<NewDriverProfileResponse> uploadDriverImage(
+            @PathVariable UUID driverId,
+            @RequestParam("file") MultipartFile file
+    ) {
+
+        NewDriverProfileResponse response =
+                driverService.uploadDriverImage(driverId, file);
+
+        return ResponseEntity.ok(response);
     }
 
 }

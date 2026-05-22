@@ -40,7 +40,11 @@ public class Driver {
     private String aadharNumber;
     private String panNumber;
 
+    @Column(columnDefinition = "TEXT")
     private String photo;
+
+    @Column(columnDefinition = "TEXT")
+    private String profileImg;
 
     private DeliverStatus status = DeliverStatus.AVAILABLE;
 
