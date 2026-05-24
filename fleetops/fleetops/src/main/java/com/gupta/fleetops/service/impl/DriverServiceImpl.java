@@ -91,6 +91,7 @@ public class DriverServiceImpl implements DriverService {
                 savedDriver.getStatus(),
                 savedDriver.getAadharNumber(),
                 savedDriver.getPanNumber(),
+                savedDriver.getProfileImg(),
                 company.getName()
 
 
@@ -128,7 +129,8 @@ public class DriverServiceImpl implements DriverService {
                         driver.getStatus(),
                         driver.getAadharNumber(),
                         driver.getPanNumber(),
-                        company.getName()
+                        driver.getCompany().getName(),
+                        driver.getProfileImg()
                 ))
                 .collect(Collectors.toList());
 

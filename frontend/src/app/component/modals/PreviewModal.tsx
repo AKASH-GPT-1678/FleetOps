@@ -7,10 +7,11 @@ import apiClient from "@/lib/axios";
 import { useUserStore } from "../zustand";
 interface ModalProps { 
    setShowPreview: React.Dispatch<React.SetStateAction<boolean>>;
-   driverName : string | null
+   driverName : string | null;
+   driverId : string | null
 
 }
-const PreviewModal: React.FC<ModalProps> = ({ setShowPreview , driverName}) => {
+const PreviewModal: React.FC<ModalProps> = ({ setShowPreview , driverName , driverId}) => {
   const searchParam = useSearchParams();
   const values = searchParam.get("preview");
   const token = useUserStore((state)=> state.token);
@@ -30,7 +31,7 @@ const uploadDriverProfile = async (): Promise<void> => {
     formData.append("file", file);
 
     const response = await apiClient.post(
-      "/api/upload",
+      `driver${driverId}upload-image`,
       formData,
       {
         headers: {

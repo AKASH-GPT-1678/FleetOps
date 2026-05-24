@@ -24,4 +24,5 @@ public class DriverResponse {
     private String aadharNumber;
     private String panNumber;
     private String companyName;
+    private String profileImg;
 }

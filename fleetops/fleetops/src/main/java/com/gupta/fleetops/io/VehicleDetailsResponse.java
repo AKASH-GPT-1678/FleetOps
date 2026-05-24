@@ -25,4 +25,5 @@ public class VehicleDetailsResponse {
     private String pricePerDay;
     private String description;
     private List<String> features;
+    private String vehicleImg;
 }

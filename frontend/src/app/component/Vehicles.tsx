@@ -1,6 +1,5 @@
 "use client";
 import React from 'react'
-import { FaRegHeart } from "react-icons/fa";
 import Image from "next/image";
 import MyVehicle from './MyVehicle';
 import Truck1 from "../assets/truck1.png";
@@ -12,7 +11,6 @@ import { Vehicle } from './MyVehicle';
 export const VehiclesSpecs = () => {
     const comapanyId = useUserStore((state) => state.activeCompany);
     const token = useUserStore((state) => state.token);
-    const [getData, setGetData] = React.useState(false);
     const [activeIndex, setActiveIndex] = React.useState(0);
     const [vehicles, setVehicles] = React.useState<Vehicle[]>([]);
     const { setShowRegistrationForm, showRegistrationForm } = useRegistration();
@@ -71,7 +69,7 @@ export const VehiclesSpecs = () => {
                         vehicles.map((item, index) => (
                             <div key={index} onClick={() => setActiveIndex(index)}>
                                 <div className='min-w-[200px] md:min-w-[250px] p-2 shadow-2xl'>
-                                    <Image src={Truck1.src} width={100} height={100} alt={item.vehicleNumber} className='w-full h-[40%]' />
+                                    <Image src={item.profileImg ?? Truck1.src} width={100} height={100} alt={item.vehicleNumber} className='w-full h-[40%]' />
                                     <p>{item.model}</p>
                                     <p>{item.capacityInKg}</p>
                                     <p>{item.status}</p>

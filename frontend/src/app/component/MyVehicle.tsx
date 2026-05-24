@@ -16,7 +16,7 @@ export type Vehicle = {
   description: string;
   features: string[];
   owner?: string;
-  image?: string;
+  profileImg: string;
   location?: string;
 };
 

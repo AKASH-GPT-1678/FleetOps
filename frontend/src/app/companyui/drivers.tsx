@@ -24,6 +24,8 @@ export interface DriverResponse {
   aadharNumber: string;
   panNumber: string;
   status: string;
+  profileImg : string
+
 }
 
 const Drivers = () => {
@@ -226,6 +228,10 @@ const Drivers = () => {
           setShowPreview={setShowPreview}
           driverName={
             drivers.find((item, index) => index == activeDriver)?.name ?? ""
+          }
+          driverId={
+             drivers.find((item, index) => index == activeDriver)?.id ?? ""
+
           }
         />
       )}

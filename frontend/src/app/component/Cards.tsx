@@ -1,10 +1,9 @@
 import React from 'react';
-import Avatar from "../assets/avatar.png";
 import Image from 'next/image';
-const Card = ({ title, subtitle, details }: { title: string, subtitle: string, details: string[] }) => (
+const Card = ({ title, subtitle, details , imageUrl}: { title: string, subtitle: string, details: string[] , imageUrl : string}) => (
   <div className="border rounded-xl shadow-md p-4 w-full max-w-sm bg-white">
     <Image
-      src={Avatar.src}
+      src={imageUrl}
       alt="placeholder"
       className="w-full h-40 object-cover rounded-md mb-3"
       width={100} height={100}

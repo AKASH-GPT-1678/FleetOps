@@ -64,6 +64,7 @@ const YourComponent = () => {
                 {drivers.map((driver, index) => (
                     <div onClick={() => setDriverId(driver.id)} key={index}>
                         <Card
+                         imageUrl={driver.profileImg}
                             key={index}
                             title={driver.name}
                             subtitle={driver.phoneNumber}
@@ -78,11 +79,11 @@ const YourComponent = () => {
             </div>
             <div>
                 <div className='flex flex-row gap-4'>
-                    {vehicles.map((vehicle) => (
+                    {vehicles.map((vehicle , index) => (
 
-                        <div onClick={() => setVehicleId(vehicle.id)}>
+                        <div onClick={() => setVehicleId(vehicle.id)} key={index}>
                             <Card
-                                key={vehicle.id}
+                                 imageUrl={vehicle.image ?? ""}
                                 title={vehicle.vehicleNumber}
                                 subtitle={vehicle.model}
                                 details={[

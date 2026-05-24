@@ -111,7 +111,8 @@ public class VehicleServiceImpl implements VehicleService {
                             vehicle.getRegistrationDate(),
                             vehicle.getPricePerDay(),
                             vehicle.getDescription(),
-                            vehicle.getFeatures()
+                            vehicle.getFeatures(),
+                            vehicle.getImage()
 
                     ))
                     .collect(Collectors.toList());

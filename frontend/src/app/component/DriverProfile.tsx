@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 
 interface DriverProps {
   driver: DriverResponse;
-
   setShowPreview: React.Dispatch<React.SetStateAction<boolean>>;
 
 }
@@ -108,12 +107,14 @@ export const DriverProfile: React.FC<DriverProps> = ({
           </div>
         </div>
         <div className=" h-full">
-          <Image
-            src={Avatar}
-            alt="profile"
-            className="rounded-full w-[50%] h-[50%] border-2 ml-auto"
-            onClick={() => setShowInput(!showInput)}
-          />
+         <Image
+  src={(driver.profileImg ?? Avatar.src).trimEnd()}
+  alt="profile"
+  width={200}
+  height={200}
+  className="rounded-full w-[50%] h-[50%] border-2 ml-auto cursor-pointer"
+  onClick={() => setShowInput(!showInput)}
+/>
           <input
             type="file"
             className="hidden"
