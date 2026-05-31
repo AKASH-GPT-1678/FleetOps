@@ -47,14 +47,21 @@ public class DriverController {
 
     }
 
-    @PostMapping("/driverkyc")
-    public ResponseEntity<String> driverKYC(@RequestBody DriverKycRequestDTO driverKycRequestDTO){
-
-
-        String driverKycRequestDTO1 = driverService.driverKYC(driverKycRequestDTO);
-        return ResponseEntity.ok(driverKycRequestDTO1);
-
-
+    @PostMapping("/driver/{driverId}/aadhar-kyc")
+    public NewDriverProfileResponse driverAadharKYC(
+            @PathVariable UUID driverId,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("panNumber") String panNumber
+    ) {
+        return driverService.driverAadharKYC(driverId, file, panNumber);
+    }
+    @PostMapping("/driver/{driverId}/pan-kyc")
+    public NewDriverProfileResponse driverPanKYC(
+            @PathVariable UUID driverId,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("panNumber") String panNumber
+    ) {
+        return driverService.driverPanKYC(driverId, file, panNumber);
     }
 
     @PostMapping(

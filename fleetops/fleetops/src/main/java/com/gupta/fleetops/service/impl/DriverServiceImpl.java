@@ -139,7 +139,7 @@ public class DriverServiceImpl implements DriverService {
         return driverResponses;
     }
 
-    @Override
+
     public String driverKYC(DriverKycRequestDTO driverKycRequestDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
@@ -180,6 +180,64 @@ public class DriverServiceImpl implements DriverService {
 
         String imageUrl = fileService.uploadFile(file);
         driver.setProfileImg(imageUrl);
+        driverRepository.save(driver);
+        NewDriverProfileResponse response = new NewDriverProfileResponse();
+
+        response.setMessage("Driver profile image uploaded successfully");
+
+        response.setImageUrl(imageUrl);
+
+        response.setFileName(file.getOriginalFilename());
+
+        response.setUploadedAt(System.currentTimeMillis());
+
+        response.setSuccess(true);
+        return response;
+    }
+
+    @Override
+    public NewDriverProfileResponse driverAadharKYC(UUID driverId, MultipartFile file, String aadharNumber) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
+
+        Driver driver = driverRepository.findById(driverId)
+                .orElseThrow(() -> new NoSuchElementException("Driver not found: " +  driverId + " for user ID: " + user.getUsername()));
+
+        String imageUrl = fileService.uploadFile(file);
+        driver.setAadharImgUrl(imageUrl);
+        driver.setAadharNumber(aadharNumber);
+        driverRepository.save(driver);
+        NewDriverProfileResponse response = new NewDriverProfileResponse();
+
+        response.setMessage("Driver profile image uploaded successfully");
+
+        response.setImageUrl(imageUrl);
+
+        response.setFileName(file.getOriginalFilename());
+
+        response.setUploadedAt(System.currentTimeMillis());
+
+        response.setSuccess(true);
+        return response;
+    }
+
+    @Override
+    public NewDriverProfileResponse driverPanKYC(UUID driverId, MultipartFile file, String aadharNumber) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new NoSuchElementException("User not found: " + authentication.getName()));
+
+        Driver driver = driverRepository.findById(driverId)
+                .orElseThrow(() -> new NoSuchElementException("Driver not found: " +  driverId + " for user ID: " + user.getUsername()));
+
+        String imageUrl = fileService.uploadFile(file);
+        driver.setPanImgUrl(imageUrl);
+        driver.setPanNumber(aadharNumber);
         driverRepository.save(driver);
         NewDriverProfileResponse response = new NewDriverProfileResponse();
 

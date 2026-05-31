@@ -14,6 +14,9 @@ public interface DriverService {
 
     List<DriverResponse> getMyDrivers();
 
-    String driverKYC(DriverKycRequestDTO driver);
+
     NewDriverProfileResponse uploadDriverImage(UUID driverId, MultipartFile file);
+
+    NewDriverProfileResponse driverAadharKYC(UUID driverId, MultipartFile file , String aadharNumber);
+    NewDriverProfileResponse driverPanKYC(UUID driverId, MultipartFile file , String aadharNumber);
 }

@@ -1,73 +1,94 @@
 import React from "react";
 import Image from "next/image";
 import Avatar from "../assets/avatar.png";
-import { IoMdAttach } from "react-icons/io";
-import { SiNike } from "react-icons/si";
-import { ImCross } from "react-icons/im";
 import { DriverResponse } from "../companyui/drivers";
 import axios from "axios";
 import { useUserStore } from "./zustand";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import apiClient from "@/lib/axios";
+import { fi } from "zod/v4/locales";
 
 interface DriverProps {
   driver: DriverResponse;
   setShowPreview: React.Dispatch<React.SetStateAction<boolean>>;
-
 }
 
 export const DriverProfile: React.FC<DriverProps> = ({
   driver,
   setShowPreview,
-
- 
 }) => {
-  const [showVerification, setShowVerification] = React.useState(false);
-  const [aadhaar, setAadhar] = React.useState("");
-  const [pan, setPanNumber] = React.useState("");
-  const [message, setMessage] = React.useState("");
+  const [aadhaarFile, setAadharFile] = React.useState<File | null>(null);
+  const [panFile, setPanFile] = React.useState<File | null>(null);
   const [profileImage, setProfileImage] = React.useState<File | null>(null);
   const [showInput, setShowInput] = React.useState(false);
   const [showSubmit, setShowSubmit] = React.useState(false);
 
-  const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;
   const token = useUserStore((state) => state.token);
   const imageRef = React.useRef<HTMLInputElement>(null);
+  const [activeVerification, setActiveVerification] = React.useState<
+    "aadhar" | "pan"
+  >("aadhar");
+  const [aadharNumber, setAadharNumber] = React.useState(
+    driver.aadharNumber ?? "",
+  );
+  const [panNumber, setPanNumber] = React.useState(driver.panNumber ?? "");
+  const [loadingVerification, setLoadingVerification] = React.useState(false);
+
   const router = useRouter();
+  const isAadharVerified = Boolean(driver.aadharNumber);
+  const isPanVerified = Boolean(driver.panNumber);
 
-  const handleSubmit = async (
-    e: React.FormEvent,
-    driverId: string,
-    token: string,
-  ) => {
-    e.preventDefault();
-    if (aadhaar.length !== 12 || pan.length !== 10) return;
+const verifyPan = async () => {
+  setLoadingVerification(true);
 
-    try {
-      const response = await axios.post(
-        `${endpoint}/driver/driverkyc`,
-        {
-          driverId: driverId,
-          aadhaarNumber: aadhaar,
-          panNumber: pan,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+  try {
+    const formData = new FormData();
 
-      console.log("KYC updated successfully:", response.data);
-
-      setMessage("KYC updated successfully!");
-    } catch (error) {
-      console.error("KYC update failed:", error);
-      setMessage("KYC update failed. Please try again.");
+    if (panFile) {
+      formData.append("file", panFile);
     }
-  };
 
+    formData.append("panNumber", panNumber);
+
+    await apiClient.post(
+      `/api/drivers/${driver.id}/verify-pan`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } finally {
+    setLoadingVerification(false);
+  }
+};
+const verifyAadhar = async () => {
+  setLoadingVerification(true);
+
+  try {
+    const formData = new FormData();
+
+    if (aadhaarFile) {
+      formData.append("file", aadhaarFile);
+    }
+
+    formData.append("aadharNumber", aadharNumber);
+
+    await apiClient.post(
+      `/api/drivers/${driver.id}/verify-aadhar`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  } finally {
+    setLoadingVerification(false);
+  }
+};
   React.useEffect(() => {
     if (showInput && imageRef.current) {
       imageRef.current.click();
@@ -88,7 +109,6 @@ export const DriverProfile: React.FC<DriverProps> = ({
     }
   };
 
-
   return (
     <div className="p-4 w-full bprder-2 flex flex-col gap-4 ">
       <h1 className="font-bold text-2xl text-gray-400">
@@ -107,14 +127,14 @@ export const DriverProfile: React.FC<DriverProps> = ({
           </div>
         </div>
         <div className=" h-full">
-         <Image
-  src={(driver.profileImg ?? Avatar.src).trimEnd()}
-  alt="profile"
-  width={200}
-  height={200}
-  className="rounded-full w-[50%] h-[50%] border-2 ml-auto cursor-pointer"
-  onClick={() => setShowInput(!showInput)}
-/>
+          <Image
+            src={(driver.profileImg ?? Avatar.src).trimEnd()}
+            alt="profile"
+            width={200}
+            height={200}
+            className="rounded-full w-[50%] h-[50%] border-2 ml-auto cursor-pointer"
+            onClick={() => setShowInput(!showInput)}
+          />
           <input
             type="file"
             className="hidden"
@@ -127,130 +147,153 @@ export const DriverProfile: React.FC<DriverProps> = ({
 
       <div id="documents">
         <p className="text-gray-500 text-2xl font-semibold">Documents</p>
-        <div className="flex flex-col w-full max-h-32 shadow-2xl rounded-2xl">
-          {/* Aadhaar Section */}
-          <div className="h-1/2 p-3 flex flex-row justify-between">
-            <div className="flex flex-row gap-2">
-              <IoMdAttach
-                size={30}
-                className="cursor-pointer rotate-24"
-                fill="purple"
-              />
-              <a
-                href="https://res.cloudinary.com/dffepahvl/image/upload/v1750699257/iy0qsuyk4urwpnlxzket.jpg"
-                className="text-purple-500 font-semibold"
-              >
-                Aadhar Card
-              </a>
-            </div>
-            <div className="flex items-center">
-              <p className="flex flex-row gap-2 text-green-700">
-                {driver.aadharNumber ? "Verified" : "Unverified"}
-                {driver.aadharNumber ? (
-                  <SiNike size={24} fill="green" />
-                ) : (
-                  <ImCross size={20} fill="red" />
-                )}
-              </p>
-            </div>
-          </div>
-
-          {/* PAN Section */}
-          <div className="h-1/2 p-3 flex flex-row justify-between">
-            <div className="flex flex-row gap-2">
-              <IoMdAttach
-                size={30}
-                className="cursor-pointer rotate-24"
-                fill="purple"
-              />
-              <a
-                href="https://res.cloudinary.com/dffepahvl/image/upload/v1750699257/iy0qsuyk4urwpnlxzket.jpg"
-                className="text-purple-500 font-semibold"
-              >
-                Pan Card
-              </a>
-            </div>
-            <div className="flex items-center">
-              <p className="flex flex-row gap-2 text-green-700">
-                {driver.panNumber ? "Verified" : "Unverified"}
-                {driver.panNumber ? (
-                  <SiNike size={24} fill="green" />
-                ) : (
-                  <ImCross size={20} fill="red" />
-                )}
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
-      <button
-        type="submit"
-        className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded w-fit self-end cursor-pointer"
-        onClick={() => setShowVerification(!showVerification)}
-      >
-        Verify
-      </button>
-
-      {showVerification && (
-        <div className="flex flex-col gap-4 p-4 ">
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* PAN Input */}
-            <div className="flex flex-col w-full">
-              <label
-                htmlFor="pan"
-                className="mb-1 text-sm font-medium text-gray-600"
-              >
-                PAN Number
-              </label>
-              <input
-                type="text"
-                id="pan"
-                name="pan"
-                maxLength={10}
-                minLength={10}
-                placeholder="ABCDE1234F"
-                className="border border-gray-300 p-2 rounded"
-                onChange={(e) => setPanNumber(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="flex flex-col w-full">
-              <label
-                htmlFor="aadhaar"
-                className="mb-1 text-sm font-medium text-gray-600"
-              >
-                Aadhaar Number
-              </label>
-              <input
-                type="text"
-                id="aadhaar"
-                name="aadhaar"
-                maxLength={12}
-                minLength={12}
-                pattern="\d{12}"
-                onChange={(e) => setAadhar(e.target.value)}
-                placeholder="123412341234"
-                className="border border-gray-300 p-2 rounded"
-                required
-              />
-            </div>
-          </div>
+      <div className="mt-4 overflow-hidden rounded-lg border bg-white">
+        <div className="grid grid-cols-2 border-b">
+          <button
+            type="button"
+            onClick={() => setActiveVerification("aadhar")}
+            className={`px-4 py-2 text-sm font-medium transition ${
+              activeVerification === "aadhar"
+                ? "bg-blue-50 text-blue-700"
+                : "text-gray-500 hover:bg-gray-50"
+            }`}
+          >
+            Aadhar
+          </button>
 
           <button
-            type="submit"
-            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded w-fit"
-            onClick={(e) => handleSubmit(e, driver.id, token)}
+            type="button"
+            onClick={() => setActiveVerification("pan")}
+            className={`px-4 py-2 text-sm font-medium transition ${
+              activeVerification === "pan"
+                ? "bg-blue-50 text-blue-700"
+                : "text-gray-500 hover:bg-gray-50"
+            }`}
           >
-            Submit
+            PAN
           </button>
         </div>
-      )}
 
-      <div className="w-full mt-6">
-        <button className="p-2 w-full bg-green-300 cursor-pointer rounded-xl">
-          Namate
-        </button>
+        <div className="overflow-hidden">
+          <div
+            className="flex w-[200%] transition-transform duration-300 ease-in-out"
+            style={{
+              transform:
+                activeVerification === "aadhar"
+                  ? "translateX(0%)"
+                  : "translateX(-50%)",
+            }}
+          >
+            <div className="w-1/2 p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-medium text-gray-900">
+                  Aadhar verification
+                </p>
+                <span
+                  className={`rounded-full px-2 py-1 text-xs font-medium ${
+                    isAadharVerified
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {isAadharVerified ? "Verified" : "Not verified"}
+                </span>
+              </div>
+              <label className="flex cursor-pointer flex-col items-center justify-center rounded-md border border-dashed border-gray-300 bg-gray-50 px-4 py-5 text-center transition hover:border-blue-400 hover:bg-blue-50">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file != null) {
+                      setAadharFile(file);
+                    }
+                  }}
+                />
+
+                <span className="text-sm font-medium text-gray-800">
+                  Upload Aadhar image
+                </span>
+                <span className="mt-1 text-xs text-gray-500">
+                  PNG, JPG, or JPEG
+                </span>
+              </label>
+
+              <input
+                type="number"
+                value={aadharNumber}
+                onChange={(e) => setAadharNumber(e.target.value)}
+                placeholder="Enter Aadhar number"
+                className="w-full rounded-md border px-3 py-2 text-sm outline-none focus:border-blue-500"
+              />
+
+              <button
+                type="button"
+                onClick={verifyAadhar}
+                disabled={loadingVerification || !aadharNumber}
+                className="mt-3 w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+              >
+                Verify Aadhar
+              </button>
+            </div>
+
+            <div className="w-1/2 p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-medium text-gray-900">
+                  PAN verification
+                </p>
+                <span
+                  className={`rounded-full px-2 py-1 text-xs font-medium ${
+                    isPanVerified
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {isPanVerified ? "Verified" : "Not verified"}
+                </span>
+              </div>
+              <label className="flex cursor-pointer flex-col items-center justify-center rounded-md border border-dashed border-gray-300 bg-gray-50 px-4 py-5 text-center transition hover:border-blue-400 hover:bg-blue-50">
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                   if (file != null) {
+                      setPanFile(file);
+                    }
+                  }}
+                />
+
+                <span className="text-sm font-medium text-gray-800">
+                  Upload Aadhar image
+                </span>
+                <span className="mt-1 text-xs text-gray-500">
+                  PNG, JPG, or JPEG
+                </span>
+              </label>
+
+              <input
+                type="text"
+                value={panNumber}
+                onChange={(e) => setPanNumber(e.target.value.toUpperCase())}
+                placeholder="Enter PAN number"
+                className="w-full rounded-md border px-3 py-2 text-sm uppercase outline-none focus:border-blue-500"
+              />
+
+              <button
+                type="button"
+                onClick={verifyPan}
+                disabled={loadingVerification || !panNumber}
+                className="mt-3 w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white disabled:cursor-not-allowed disabled:bg-gray-300"
+              >
+                Verify PAN
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

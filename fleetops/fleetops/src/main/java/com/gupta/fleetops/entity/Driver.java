@@ -39,6 +39,8 @@ public class Driver {
 
     private String aadharNumber;
     private String panNumber;
+    public String panImgUrl;
+    public String aadharImgUrl;
 
     @Column(columnDefinition = "TEXT")
     private String photo;
