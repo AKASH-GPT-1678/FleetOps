@@ -33,6 +33,7 @@ const Drivers = () => {
   const registrationRef = React.useRef<HTMLDivElement>(null);
   const [drivers, setDrivers] = React.useState<DriverResponse[]>([]);
   const [activeDriver, setActiveDriver] = React.useState(0);
+  const [search , setSearch] = React.useState("");
   const [companyName, setCompanyName] = React.useState("");
   const token = useUserStore((state) => state.token);
   const [viewMore, setviewMore] = React.useState(false);
@@ -80,9 +81,13 @@ const Drivers = () => {
   // const driver = drivers.filter((driver) => {
   //     return driver.id == activeDriver;
   // });
+  const handleDriverSearch = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setDrivers(drivers.filter((item , _) => item.name.includes(e.target.value)))
+
+  }
 
   return (
-    <div className="flex flex-row w-full relative">
+    <div className="flex flex-row w-full relative ">
       {/* Sidebar */}
       <div className="p-4 w-full max-w-[300px] hidden md:inline-block lg:max-w-[400px] border-r border-gray-300 bg-white shadow-sm">
         <h1
@@ -118,7 +123,8 @@ const Drivers = () => {
           <input
             type="text"
             placeholder="Search..."
-            className="px-4 py-2 w-52 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 w-52 md:w-80 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={handleDriverSearch}
           />
 
           <div className="flex items-center gap-4">
@@ -182,7 +188,7 @@ const Drivers = () => {
                     {drivers.map((item, index) => (
                       <div
                         key={index}
-                        className="bg-green-100 hover:bg-green-200 p-3 mb-2 rounded-lg cursor-pointer transition"
+                        className="bg-green-100 hover:bg-green-200 p-3 rounded-2xl mb-2  cursor-pointer transition"
                         onClick={() => setActiveDriver(index)}
                       >
                         <div className="flex justify-between">

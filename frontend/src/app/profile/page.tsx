@@ -197,23 +197,39 @@ const handleUpload = async () => {
 </div>
 
         {/* Name Section */}
-        <div className="flex flex-row justify-between p-4 mb-4">
-          <div>
-            <p className="font-bold">Name</p>
-            <p>{profile?.username}</p>
-            {chnageName && thingtoChange === "name" && (
-              <div className="flex flex-row mt-3 gap-1">
-                <Input type="text" placeholder="Enter New Name" className="w-[250px] h-[40px]" />
-                <Button className="h-[40px] bg-black text-white cursor-pointer">Add</Button>
-              </div>
-            )}
-          </div>
-          <div className="flex items-center">
-            <Button className="border cursor-pointer font-bold mr-6" onClick={() => handleEditClick("name")}>
-              Edit
-            </Button>
-          </div>
-        </div>
+     <div className="flex flex-col md:flex-row md:items-center md:justify-between p-4 mb-4 border-b">
+  <div className="flex-1">
+    <p className="font-semibold text-gray-500 text-sm">Name</p>
+
+    <p className="font-medium text-lg mt-1">
+      {profile?.username}
+    </p>
+
+    {chnageName && thingtoChange === "name" && (
+      <div className="flex flex-col sm:flex-row gap-2 mt-4 max-w-md">
+        <Input
+          type="text"
+          placeholder="Enter new name"
+          className="flex-1"
+        />
+
+        <Button className="w-full sm:w-24 cursor-pointer">
+          Save
+        </Button>
+      </div>
+    )}
+  </div>
+
+  <div className="mt-4 md:mt-0">
+    <Button
+      variant="outline"
+      className="cursor-pointer w-full md:w-auto"
+      onClick={() => handleEditClick("name")}
+    >
+      Edit
+    </Button>
+  </div>
+</div>
         <hr />
 
         {/* Email Section */}

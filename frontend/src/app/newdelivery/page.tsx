@@ -83,7 +83,7 @@ const YourComponent = () => {
 
                         <div onClick={() => setVehicleId(vehicle.id)} key={index}>
                             <Card
-                                 imageUrl={vehicle.image ?? ""}
+                                 imageUrl={vehicle.profileImg ?? ""}
                                 title={vehicle.vehicleNumber}
                                 subtitle={vehicle.model}
                                 details={[
