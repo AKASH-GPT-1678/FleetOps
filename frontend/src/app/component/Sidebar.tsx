@@ -1,64 +1,30 @@
 "use client";
-import React from 'react'
-import Icon from "../assets/cube.png"
-import Image from 'next/image'
-import { LiaBackwardSolid } from "react-icons/lia";
-import { useRouter } from 'next/navigation';
+import Link from "next/link";
+import React from "react";
+
 export const Sidebar = () => {
-    const router = useRouter();
-    return (
-        <div className='w-[250px] mr-6 h-full border-2 hidden md:inline'>
-            <div className=' p-1  flex justify-end'>
-                <LiaBackwardSolid size={24} className="cursor-pointer" />
-            </div>
-            <div className='flex flex-row gap-4 p-3 items-center justify-between'>
-                <div className='flex flex-row gap-2 p-1 items-center'>
-                    <Image src={Icon} alt="logo" className=' w-[30px] h-[30px]  lg:h-[50px] lg:w-[50px] cursor-pointer' />
-                    <p className='font-bold text-lg md:text-2xl'>fleetOps</p>
-                </div>
+  const navItems = [
+    { id: 1, name: "Solutions", route: "testing" },
+    { id: 2, name: "Products", route: "testing" },
+    { id: 3, name: "About", route: "testing" },
+    { id: 4, name: "Dashboard", route: "company/dashboard" },
+  ];
 
-            </div>
+  return (
+    <div className="bg-gray-800 min-w-52 h-screen text-white p-6">
+      <h2 className="text-2xl font-bold mb-8">Menu</h2>
 
-            <hr />
-
-            {/* Flex-grow layout here */}
-            <div className='flex flex-col py-4 h-screen justify-between'>
-
-                {/* Top/Main section */}
-                <div>
-                    <p className='font-semibold text-gray-500 mb-2'>Main</p>
-
-                    <div></div>
-
-                    <div className='space-y-1 p-3'>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Dashboard</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl' onClick={() => router.push("/tracker")}>Tracker</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Inbox</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Reports</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Invoice</p>
-                    </div>
-
-                    <div className='mt-6 space-y-1 p-2'>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl' onClick={() => router.push("/drivers")}>Drivers</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl' onClick={() => router.push("/vehicles")}>Vehicles</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Support</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Terms of Service</p>
-                        <p className='p-2 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Privacy Policy</p>
-                    </div>
-
-                    <div className='space-y-1 mt-30 p-2'>
-                        <p className='p-2.5 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Settings</p>
-                        <p className='p-2.5 cursor-pointer hover:bg-gray-100 hover:border-l-4 hover:border-purple-500 font-bold text-xl'>Log Out</p>
-                    </div>
-
-                </div>
-
-
-
-
-
-            </div>
-        </div>
-
-    )
-}
+      <nav>
+        <ul className="space-y-3">
+          {navItems.map((item) => (
+            <Link href={item.route} key={item.id}>
+              <li className="cursor-pointer rounded-lg px-4 py-3 hover:bg-gray-700 transition-colors duration-200 font-bold">
+                {item.name}
+              </li>
+            </Link>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  );
+};

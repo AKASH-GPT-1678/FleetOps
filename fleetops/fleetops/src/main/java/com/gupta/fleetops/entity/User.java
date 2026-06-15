@@ -25,6 +25,8 @@ public class User {
 
     private boolean isPremium = false;
 
+    private String profileImg;
+
     @OneToOne
     @JoinColumn(name = "company_id")  // This will create a foreign key in the User table
     private Company company;

@@ -1,10 +1,11 @@
 import React from 'react'
-import PreviewModal from '../component/modals/PreviewModal'
+
+import { Sidebar } from '../component/Sidebar'
 
 const page = () => {
   return (
     <div>
-      <PreviewModal />
+ <p>Kalyan banerjee</p>
       
     </div>
   )

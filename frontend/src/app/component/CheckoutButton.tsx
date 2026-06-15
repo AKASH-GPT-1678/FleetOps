@@ -95,7 +95,7 @@ export default function CheckoutButton({ amount }: { amount: number }) {
    return (
     <>
       <button
-        className="bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl hover:bg-emerald-600 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
+        className="bg-emerald-700 text-white font-semibold px-8 py-4 w-full rounded-xl hover:bg-emerald-600 transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
         onClick={handlePayment}
         disabled={loading}
       >

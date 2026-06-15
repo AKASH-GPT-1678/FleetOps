@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useUserStore } from '../component/zustand';
 import CheckoutButton from '../component/CheckoutButton';
+import Image from 'next/image';
+
 interface ProfileResponseDTO {
   id: string;
 
@@ -13,6 +15,7 @@ interface ProfileResponseDTO {
   username: string;
   roles: string;
   premium: boolean;
+  profileImg : string
 }
 
 const Settings = () => {
@@ -20,13 +23,13 @@ const Settings = () => {
   const [isFileSelected, setIsFileSelected] = React.useState(false);
   const [chnageName, setChangeName] = React.useState(false);
   const [thingtoChange, setThingtoChange] = React.useState("");
-  const [chatStatus, setChatstatus] = React.useState(true);
   const [profile, setProfile] = React.useState<ProfileResponseDTO | null>(null);
   const router = useRouter();
   const inputDiv = React.useRef<HTMLInputElement>(null);
   const endpoint = process.env.NEXT_PUBLIC_ENDPOINT_BACKEND_URL;//NEXT_PUBLIC_ENDPOINT_BACKEND_URL
   const token = useUserStore((state) => state.token);
   // const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+  const defaultUrl = 'https://res.cloudinary.com/dffepahvl/image/upload/v1754295798/pwoveg1fjurga2kudwk4.png';
 
   const handleProfileChange = () => {
     inputDiv.current?.click();
@@ -57,31 +60,41 @@ const Settings = () => {
   //     alert("Something went wrong while removing the profile image.");
   //   }
   // };
-  const handleUpload = async () => {
-    if (!selectedFile) {
-      alert("Please select an image file first.");
-      return;
-    }
+const handleUpload = async () => {
+  if (!selectedFile) {
+    alert("Please select an image first.");
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append("file", selectedFile);
+  const formData = new FormData();
+  formData.append("file", selectedFile);
 
-    try {
-      const response = await axios.put(`${endpoint}/activity/addProfileImage`, formData, {
+  try {
+    const response = await axios.post(
+      `${endpoint}/profile/profile-picture`,
+      formData,
+      {
         headers: {
-          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
-      });
-      console.log(response.data);
+      }
+    );
 
-      alert("Profile image uploaded successfully.");
-      // Optionally refresh the profile info here
-    } catch (error) {
-      console.error("Upload failed:", error);
-      alert("Failed to upload image.");
-    }
-  };
+    console.log("Upload Success:", response.data);
+
+
+
+    setIsFileSelected(false);
+
+  } catch (error) {
+    console.error("Upload failed:", error);
+
+    alert(
+      error.response?.data?.message ||
+      "Failed to upload profile picture."
+    );
+  }
+};
   const handleEditClick = (field: string) => {
     setThingtoChange(field);
     setChangeName(true);
@@ -95,24 +108,7 @@ const Settings = () => {
     }
   }
 
-  const handleChatToggle = async (chatStatus: boolean) => {
 
-
-    try {
-      const endpoint = chatStatus ? "/chat/disable" : "/chat/enable";
-
-      const res = await axios.get(`${endpoint}/activity${endpoint}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      alert(res.data);
-    } catch (err) {
-      console.error("Error toggling chat status", err);
-      alert("Something went wrong while toggling chat status");
-    }
-  };
   async function getProfile() {
     try {
       const response = await axios.get(`${endpoint}/profile/getProfile`, {
@@ -131,41 +127,6 @@ const Settings = () => {
   }
 
 
-
-
-  const toggleChatStatus = async (chatStatus: boolean) => {
-    const isConfirmed = confirm("Are you sure you want to toggle chat status?");
-    if (!isConfirmed) return;
-
-    const payload = {
-      email: profile?.email,
-      username: profile?.username,
-      password: profile?.id,
-      app: "meat-web"
-
-    };
-    console.log(payload);
-    const endpoint = chatStatus ? "api/delete" : "api/register";
-
-
-    try {
-
-      const response = await axios.post(`http://localhost:3001/${endpoint}`, payload, {
-
-      });
-      console.log(response.data);
-      if (response.data.success == true) {
-        await handleChatToggle(chatStatus);
-        window.location.reload();
-
-      }
-
-
-    } catch (err) {
-      console.error("Error toggling chat status", err);
-      alert("Something went wrong while toggling chat status");
-    }
-  };
   React.useEffect(() => {
     const fetchProfile = async () => {
       const profileData = await getProfile();
@@ -177,32 +138,63 @@ const Settings = () => {
 
 
   return (
-    <div className="w-full flex flex-row relative">
-      <div className="w-[20%]"></div>
-      <div className="mt-2 shadow-2xl flex flex-col w-[1200px] h-screen m-4 p-4">
+    <div className="w-full flex flex-row justify-center relative">
+      {/* <div className="w-[20%]"></div> */}
+      
+      <div className="mt-2 border flex flex-col w-[1200px] h-screen m-4 p-4">
         <div>
           <h1 className="text-3xl font-bold font-sans mb-6">Your Profile</h1>
         </div>
 
         {/* Profile Picture and Actions */}
-        <div className="flex flex-row justify-between ">
+<div className="flex items-center justify-between border-b pb-6">
+  {/* Left Side */}
+  <div className="flex items-center gap-4">
+    <Image
+      src={profile?.profileImg?? defaultUrl}
+      alt="Profile"
+      width={100}
+      height={100}
+      className="rounded-full object-cover border"
+    />
 
-          <div className="space-x-2 ml-auto">
-            <Button className="cursor-pointer" >
-              Remove
-            </Button>
-            {isFileSelected ? (
-              <Button className="cursor-pointer" onClick={handleUpload}>
-                Upload
-              </Button>
-            ) : (
-              <Button className="cursor-pointer" onClick={handleProfileChange}>
-                Change
-              </Button>
-            )}
-            <input type="file" className="hidden" ref={inputDiv} onChange={handleFile} />
-          </div>
-        </div>
+  
+  </div>
+
+  {/* Right Side */}
+<div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto ml-10">
+  <Button
+    variant="outline"
+    className="w-full sm:w-32 cursor-pointer"
+  >
+    Remove
+  </Button>
+
+  {isFileSelected ? (
+    <Button
+      className="w-full sm:w-32 cursor-pointer"
+      onClick={handleUpload}
+    >
+      Upload
+    </Button>
+  ) : (
+    <Button
+      className="w-full sm:w-32 cursor-pointer"
+      onClick={handleProfileChange}
+    >
+      Change Photo
+    </Button>
+  )}
+
+  <input
+    type="file"
+    className="hidden"
+    ref={inputDiv}
+    onChange={handleFile}
+    accept="image/*"
+  />
+</div>
+</div>
 
         {/* Name Section */}
         <div className="flex flex-row justify-between p-4 mb-4">
@@ -260,30 +252,17 @@ const Settings = () => {
         </div>
 
         {/* Premium Section */}
-        <div className="flex flex-row justify-between p-3 items-center">
+        <div className="flex flex-col space-y-6 md:flex-row justify-between p-3 items-center">
           <div className="border p-4 rounded-xl shadow-sm bg-white w-full max-w-md">
             <p className="text-sm text-gray-500 font-medium mb-1">Premium Status</p>
             <p className={`text-lg font-semibold ${profile?.premium ? "text-yellow-600" : "text-gray-600"}`}>
               {"Free User"}
             </p>
           </div>
-          <div>{!profile?.premium && <CheckoutButton amount={20} />}</div>
+          <div className='w-full md:w-fit'>{!profile?.premium && <CheckoutButton amount={20} />}</div>
         </div>
 
-        <div className="flex flex-row justify-between p-4 mb-4">
-          <div>
-            <p className="text-sm">Once you disable chat your previous chats will be lost</p>
-            <p className="font-bold">Chat Status</p>
-            <div
-              onClick={() => toggleChatStatus(chatStatus)}
-              className={`${chatStatus ? "bg-emerald-400" : "bg-gray-200"} h-[40px] w-[80px] rounded-2xl cursor-pointer mt-2`}
-            >
-              <div
-                className={`rounded-full h-[40px] bg-emerald-400 w-[40px] border-4 ${chatStatus ? "ml-auto border-amber-50" : "border-gray-400"}`}
-              ></div>
-            </div>
-          </div>
-        </div>
+
         <hr />
       </div>
     </div>

@@ -5,9 +5,11 @@ import Image from "next/image";
 import Icon from "../assets/cube.png";
 import { useRouter } from 'next/navigation';
 import { useUserStore } from './zustand';
+import { Sidebar } from "./Sidebar";
 
 export default function FleetLandingPage() {
   const [email, setEmail] = React.useState("");
+  const [showSidebar , setShowSidebar] = React.useState(false);
   const router = useRouter();
   const isAuthenticated = useUserStore((state) => state.isAuthenticated);
 
@@ -36,7 +38,7 @@ export default function FleetLandingPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden">
+    <div className="flex flex-col min-h-screen overflow-x-hidden relative">
       {/* Header Navigation */}
       <header className="bg-gray-800 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +64,7 @@ export default function FleetLandingPage() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-white">
+            <button className="md:hidden text-white" onClick={()=>setShowSidebar(!showSidebar)}>
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -77,7 +79,7 @@ export default function FleetLandingPage() {
                 width={40}
                 height={40}
               />
-              <span className="text-white text-xl lg:text-2xl font-bold">
+              <span className="text-white hidden sm:block text-xl lg:text-2xl font-bold">
                 FleetOps
               </span>
             </div>
@@ -111,10 +113,13 @@ export default function FleetLandingPage() {
           </div>
         </div>
       </header>
+      {showSidebar && <div className="absolute left-0  top-16 z-40">
+        <Sidebar />
+      </div>}
 
       {/* Hero Section */}
       <section
-        className="relative w-full h-screen flex items-center justify-center"
+        className="relative w-full h-screen flex items-center justify-center z-30"
         style={{
           backgroundImage:
             "url('https://res.cloudinary.com/dffepahvl/image/upload/v1754121310/cvwrznzx1hnkrfqot8z1.webp')",
@@ -125,7 +130,7 @@ export default function FleetLandingPage() {
       >
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
             Control Your Fleet
             <br />
             <span className="text-blue-400">Like Never Before</span>
@@ -135,13 +140,13 @@ export default function FleetLandingPage() {
             all in one powerful platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-colors cursor-pointer"
+            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 md:px-8  py-4 rounded-lg text-lg font-semibold transition-colors cursor-pointer"
             onClick={()=>router.push("/companydashboard")}
             
             >
               Get Started
             </button>
-            <button className="border border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
+            <button className="border border-white text-white hover:bg-white hover:text-black px-6 md:px-8 py-4 rounded-lg text-lg font-semibold transition-colors">
               Learn More
             </button>
           </div>

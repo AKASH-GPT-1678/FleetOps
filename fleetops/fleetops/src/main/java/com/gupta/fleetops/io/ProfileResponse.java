@@ -12,4 +12,5 @@ public class ProfileResponse {
     private String email;
     private String roles;
     private boolean isPremium;
+    private String profileImg;
 }

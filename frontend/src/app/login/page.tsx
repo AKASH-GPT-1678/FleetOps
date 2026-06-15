@@ -4,23 +4,43 @@ import { Login } from '../component/Login'
 
 const Loginn = () => {
   return (
-     <div className='h-screen flex items-center justify-center'>
-        <div className='xl:h-[800px] xl:w-[800px] lg:w-[650px] lg:h-[650px] w-[400px] h-fit mb-20  flex flex-row p-2 rounded-2xl shadow-2xl shadow-teal-900 ----'>
-          <div className='w-1/2 flex-col p-4  bg-cover hidden lg:block'>
-          <Image src={"https://res.cloudinary.com/dffepahvl/image/upload/v1751009225/r0lxzjpiemrkrwrcakbq.png"} width={400} height={400} alt="logo" className='object-cover h-full w-full' />
-          
-          </div>
-          <div className='lg:w-1/2 w-full  flex-col p-4 mt-20  '>
-          {/* <Regsiter/> */}
-          <Login/>
-          
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div
+        className="
+          w-full
+          max-w-6xl
+          min-h-[600px]
+          bg-white
+          rounded-2xl
+          shadow-2xl
+          overflow-hidden
+          flex
+          flex-col
+          lg:flex-row
+        "
+      >
+        {/* Left Side Image */}
+        <div className="hidden lg:flex lg:w-1/2">
+          <Image
+            src="https://res.cloudinary.com/dffepahvl/image/upload/v1751009225/r0lxzjpiemrkrwrcakbq.png"
+            width={500}
+            height={500}
+            alt="logo"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Right Side Form */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-10">
+          <div className="w-full max-w-md">
+            <Login />
           </div>
         </div>
-   
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Loginn
+export default Loginn;
 
 

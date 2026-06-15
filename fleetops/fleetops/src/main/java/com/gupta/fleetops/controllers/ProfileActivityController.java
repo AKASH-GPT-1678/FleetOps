@@ -3,22 +3,22 @@ package com.gupta.fleetops.controllers;
 
 import com.gupta.fleetops.entity.User;
 import com.gupta.fleetops.io.ProfileResponse;
+import com.gupta.fleetops.io.response.ProfilePicResponse;
 import com.gupta.fleetops.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/profile")
 public class ProfileActivityController {
 
-    private final ProfileService profileService;
+    @Autowired
+    private ProfileService profileService;
 
-    public ProfileActivityController(ProfileService profileService){
-        this.profileService = profileService;
-    }
+
 
 
 
@@ -26,6 +26,14 @@ public class ProfileActivityController {
     public ResponseEntity<ProfileResponse> getProfile(){
         ProfileResponse user = profileService.loadUserProfile();
         return ResponseEntity.ok().body(user);
+    }
+    @PostMapping("/profile-picture")
+    public ResponseEntity<ProfilePicResponse> uploadProfilePicture(
+            @RequestParam("file") MultipartFile file) {
+
+        ProfilePicResponse response = profileService.uploadProfilePic(file);
+
+        return ResponseEntity.ok(response);
     }
 
 
